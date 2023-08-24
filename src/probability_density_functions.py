@@ -100,6 +100,8 @@ def cartesian_to_spherical(cartesian_samples: np.ndarray) -> np.ndarray:
         projected_length = np.linalg.norm(cartesian_samples[:, dim + 1 :], axis=1)
         phi = np.arctan2(projected_length, cartesian_samples[:, dim])
         sphere_coords.append(phi)
+
+    # The final coordinate has a larger domain, so we use the half-angle formula
     sphere_coords.append(
         2
         * np.arctan2(
@@ -108,6 +110,7 @@ def cartesian_to_spherical(cartesian_samples: np.ndarray) -> np.ndarray:
             + np.linalg.norm(cartesian_samples[:, -2:], axis=1),
         )
     )
+
     spherical_samples = np.array(sphere_coords).T
     return spherical_samples
 
