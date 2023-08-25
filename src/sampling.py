@@ -56,7 +56,7 @@ def plot_cartesian_histograms(samples: np.ndarray) -> None:
     fig.suptitle(f"Cartesian Histograms | {num_samples} Samples")
 
 
-def plot_polar_histograms(samples: np.ndarray) -> None:
+def plot_spherical_histograms(samples: np.ndarray) -> None:
     """Plot a histogram of each spherical coordinate for an array of samples.
 
     Args:
