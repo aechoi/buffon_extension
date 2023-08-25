@@ -50,7 +50,7 @@ def plot_cartesian_histograms(samples: np.ndarray) -> None:
     fig, axs = plt.subplots(dimensions)
 
     for dim, ax in enumerate(axs):
-        ax.hist(samples[:, dim])
+        ax.hist(samples[:, dim], 20)
         ax.set_ylabel(f"X{dim}")
     ax.set_xlabel("Location")
     fig.suptitle(f"Cartesian Histograms | {num_samples} Samples")
@@ -70,11 +70,19 @@ def plot_polar_histograms(samples: np.ndarray) -> None:
     num_samples, dimensions = samples.shape
 
     fig, axs = plt.subplots(dimensions)
+    bins = 10
 
     for dim, ax in enumerate(axs):
-        ax.hist(samples[:, dim])
-        ax.set_ylabel(f"X{dim}")
-    ax.set_xlabel("Location")
+        ax.hist(samples[:, dim], bins)
+        if dim < dimensions - 1 and dim > 0:
+            domain = np.linspace(0, np.pi, 1000)
+            ax.plot(domain, np.sin(domain) * num_samples / bins * 2)
+
+        if dim == 0:
+            ax.set_ylabel("r")
+        else:
+            ax.set_ylabel(r"$\phi_{0}$".format(dim))
+    ax.set_xlabel("Angle")
     fig.suptitle(f"Spherical Histograms | {num_samples} Samples")
 
 
