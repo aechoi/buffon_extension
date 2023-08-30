@@ -17,6 +17,9 @@
 \usepackage{natbib}
 \usepackage{doi}
 \usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
 
 
 
@@ -61,30 +64,47 @@ pdfkeywords={Buffon's needle problem, Geometric probability},
 \keywords{Buffon's needle problem \and Geometric Probability}
 
 \section{Introduction}
-Given $D\in\Bbb{N}_{>0}$ and $N\in[1,2,\dots,D]$, consider a grid on $\Bbb{R}^D$ formed by $N$ orthogonal sets of regularly spaced hyperplanes. Each set of hyperplanes
-has a potentially unique spacing of $S_i$. A line segment of length $l\in\Bbb{R}^+$ is randomly located in the space such that one of its end points, $P_0$, is uniformly distributed
-across the entire domain. The line segments orientation is distributed such that when considering $P_0$ as the center of a $(D-1)$-sphere of radius $l$, the other point, $P_1$,
-is uniformly distributed on the surface of that hypersphere. This line segment may intersect with $C\in\Bbb{N}$ unique hyperplanes. This paper studies the probability of
-the line segment intersecting more than $c$ hyperplanes, $P(C>c|l, D, N, S)$. From there, solutions for crossing less than $c$ hyperplanes and exactly $c$ hyperplanes can
+Given $D\in\mathbb{N}_{>0}$ and $N\in[1,2,\dots,D]$, consider a grid on $\mathbb{R}^D$ formed by $N$ orthogonal sets of regularly spaced hyperplanes. Each set of hyperplanes
+has a potentially unique spacing of $S_i$. A line segment of length $r\in\mathbb{R}^+$ is randomly located in the space such that one of its end points, $P_0$, is uniformly distributed
+across the entire domain. The line segment's orientation is independently distributed such that when considering $P_0$ as the center of a $(D-1)$-sphere of radius $r$, the other point, $P_1$,
+is uniformly distributed on the surface of that hypersphere. This line segment may intersect with $C\in\mathbb{N}$ unique hyperplanes. This paper studies the probability of
+the line segment intersecting more than $c$ hyperplanes, $P(C>c|r, D, N, S)$. From there, solutions for crossing less than $c$ hyperplanes and exactly $c$ hyperplanes can
 be derived.
+% should include diagram showing laplace's extension and what each of the parameters above relates to geometrically
+As an example, the classical Buffon's needle problem would be $P(C>0|r, 2, 1, S)$. Laplace's extension would be represented as $P(C>0|r, 2, 2, S)$.
 
-As an example, the classical Buffon's needle problem would be $P(C>0|l, 2, 1, S)$. Laplace's extension would be represented as $P(C>0|l, 2, 2, S)$.
-
-The orientation of the line segment can be represented using spherical coordinates of a $(D-1)$-sphere. 
+We will define the coordinates of line segment using $\vec{x}\in\mathbb{R}^D$ for the location of $P_0$ and spherical coordinates for the location of $P_1$ with respect to $P_0$.
 
 \begin{align}
-    x_1 &= r\cos{\phi_1}\\
-    x_2 &= r\sin{\phi_1}\cos{\phi_2}\\
+    y_1 &= r\cos{\phi_1}\\
+    y_2 &= r\sin{\phi_1}\cos{\phi_2}\\
     \vdots\\
-    x_{n-1} &= r\sin{\phi_1}\hdots\sin{\phi_{D-2}}\cos{\phi_{D-1}}\\
-    x_{n} &= r\sin{\phi_1}\hdots\sin{\phi_{D-2}}\sin{\phi_{D-1}}\\
-    \vec{y} &= \vec{x} + P_0
+    y_{D-1} &= r\sin{\phi_1}\hdots\sin{\phi_{D-2}}\cos{\phi_{D-1}}\\
+    y_{D} &= r\sin{\phi_1}\hdots\sin{\phi_{D-2}}\sin{\phi_{D-1}}\\
+    P_1 &= \vec{x} + \vec{y}\\
+	\phi_j &\in \begin{cases}[0, \pi] & j<D-1 \\ [0, 2\pi] & j=D-1\end{cases}
 \end{align}
 
-There are several symmetries which simplify the problem. Translational symmetry of the grid of hyperplanes allows us to consider the domain of $P_0$ to be $P_0\in[0,S_i]^D$
-as the origin can be moved to any point on the grid.
+Translational symmetry of the grid of hyperplanes allows us to consider the domain of $P_0$ to be $x_i\in[0,S_i]$ as the origin can be moved to any point on the grid.
+Reflectional symmetry of the grid also allows us to consider the domain of $\vec{y}$ to be a single orthant of the hypersphere. For convenience, we will pick the orthant where
+$\phi_i \in [0, \pi/2]$.
 
-\section{}
+The rest of the paper is organized as follows. A derivation of the joint probability density function for $P_0$ and $P_1$ will be provided in \S 2. The derivation and validation
+of the crossing probabilities will be given in \S 3. Analysis of the limits of the probabilities is explored in \S 4.
+
+\section{Joint Probability Density of the Line Segment}
+Each coordinate for $P_0$ can be defined as a uniformly distributed random variable $X_i\sim{\rm Uniform}(0,S_i)$. Due to independence, the joint PDF for $P_0$ is the product
+$\prod_{i=1}^D \frac{1}{S_i}$. By the definition of the problem, the coordinates $\vec{x}$ do not influence the orientation of the line segment defined by $\vec{\phi}$. 
+Typically, the probability density function for the uniform distribution of points on a hypersphere could be determined by calculating the determinant of the Jacobian of
+the coordinate transformation. However, we will require a more closed-form solution. 
+
+\begin{proposition}
+aoeu
+\end{proposition}
+\begin{proof}
+	aoeu
+\end{proof}
+
 
 
 \section{Headings: first level}

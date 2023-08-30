@@ -1,3 +1,5 @@
 need to figure out how to do bibtex references, so until then
 
  Blumenson, L. E. (1960). "A Derivation of n-Dimensional Spherical Coordinates"
+    # Derivation of spherical coordinates, used to define PDF
+
