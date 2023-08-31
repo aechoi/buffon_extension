@@ -95,14 +95,20 @@ of the crossing probabilities will be given in \S 3. Analysis of the limits of t
 \section{Joint Probability Density of the Line Segment}
 Each coordinate for $P_0$ can be defined as a uniformly distributed random variable $X_i\sim{\rm Uniform}(0,S_i)$. Due to independence, the joint PDF for $P_0$ is the product
 $\prod_{i=1}^D \frac{1}{S_i}$. By the definition of the problem, the coordinates $\vec{x}$ do not influence the orientation of the line segment defined by $\vec{\phi}$. 
-Typically, the probability density function for the uniform distribution of points on a hypersphere could be determined by calculating the determinant of the Jacobian of
-the coordinate transformation. However, we will require a more closed-form solution. 
+The probability density function for the uniform distribution of points on an orthant of the hypersphere can be determined by calculating the area element in terms of spherical coordinates.
 
 \begin{proposition}
-aoeu
+In spherical coordinates, the probability density function for a uniform distribution on an orthant of a hypersphere is $\frac{2^D}{A_{D-1}}\prod_{i=1}^{D-1}r\sin^{D-1-i}\phi_i$ where
+$A_{D-1}$ is the surface area of a $(D-1)$-sphere.
 \end{proposition}
 \begin{proof}
-	aoeu
+	The area element of an $(D-1)$-sphere of radius $r$ can be expressed as 
+	$$d\Omega = \left(\prod_{i=1}^{D-1}r\sin^{D-1-i}\phi_i\right)d\phi_1 \hdots d\phi_{D-1}$$
+	The probability that a point lies in this differential element can be expressed as follows.
+	$$f_{\Omega}(\Omega)d\Omega = f_{\vec{\phi}}(\phi_1, \hdots, \phi_{D-1})d\phi_1 \hdots d\phi_{D-1}$$
+	The points are uniformly distributed over the surface of an orthant of the hypersphere implying that $f_{\Omega}(\Omega) = \frac{2^D}{A_{D-1}}$. Combining this with the above equations
+	results in the following.
+	$$\frac{2^D}{A_{D-1}}\prod_{i=1}^{D-1}r\sin^{D-1-i}\phi_i = f_{\vec{\phi}}(\phi_1, \hdots, \phi_{D-1})$$
 \end{proof}
 
 
