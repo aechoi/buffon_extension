@@ -75,7 +75,7 @@ As an example, the classical Buffon's needle problem would be $P(C>0|r, 2, 1, S)
 
 We will define the coordinates of line segment using $\vec{x}\in\mathbb{R}^D$ for the location of $P_0$ and spherical coordinates for the location of $P_1$ with respect to $P_0$.
 
-\begin{align}
+\begin{align*}
     y_1 &= r\cos{\phi_1}\\
     y_2 &= r\sin{\phi_1}\cos{\phi_2}\\
     \vdots\\
@@ -83,14 +83,14 @@ We will define the coordinates of line segment using $\vec{x}\in\mathbb{R}^D$ fo
     y_{D} &= r\sin{\phi_1}\hdots\sin{\phi_{D-2}}\sin{\phi_{D-1}}\\
     P_1 &= \vec{x} + \vec{y}\\
 	\phi_j &\in \begin{cases}[0, \pi] & j<D-1 \\ [0, 2\pi] & j=D-1\end{cases}
-\end{align}
+\end{align*}
 
 Translational symmetry of the grid of hyperplanes allows us to consider the domain of $P_0$ to be $x_i\in[0,S_i]$ as the origin can be moved to any point on the grid.
 Reflectional symmetry of the grid also allows us to consider the domain of $\vec{y}$ to be a single orthant of the hypersphere. For convenience, we will pick the orthant where
 $\phi_i \in [0, \pi/2]$.
 
 The rest of the paper is organized as follows. A derivation of the joint probability density function for $P_0$ and $P_1$ will be provided in \S 2. The derivation and validation
-of the crossing probabilities will be given in \S 3. Analysis of the limits of the probabilities is explored in \S 4.
+of the crossing probabilities will be given in \S 3. Analysis of the limits and extrema of the probabilities is explored in \S 4.
 
 \section{Joint Probability Density of the Line Segment}
 Each coordinate for $P_0$ can be defined as a uniformly distributed random variable $X_i\sim{\rm Uniform}(0,S_i)$. Due to independence, the joint PDF for $P_0$ is the product
@@ -98,21 +98,69 @@ $\prod_{i=1}^D \frac{1}{S_i}$. By the definition of the problem, the coordinates
 The probability density function for the uniform distribution of points on an orthant of the hypersphere can be determined by calculating the area element in terms of spherical coordinates.
 
 \begin{proposition}
-In spherical coordinates, the probability density function for a uniform distribution on an orthant of a hypersphere is $\frac{2^D}{A_{D-1}}\prod_{i=1}^{D-1}r\sin^{D-1-i}\phi_i$ where
+In spherical coordinates, the probability density function for a uniform distribution on an orthant of a hypersphere is $\frac{2^D}{A_{D-1}}\prod_{j=1}^{D-1}r\sin^{D-1-j}\phi_j$ where
 $A_{D-1}$ is the surface area of a $(D-1)$-sphere.
 \end{proposition}
 \begin{proof}
 	The area element of an $(D-1)$-sphere of radius $r$ can be expressed as 
-	$$d\Omega = \left(\prod_{i=1}^{D-1}r\sin^{D-1-i}\phi_i\right)d\phi_1 \hdots d\phi_{D-1}$$
+	\begin{equation} \label{eq:1}
+	d\Omega = \left(\prod_{j=1}^{D-1}r\sin^{D-1-j}\phi_j\right)d\phi_1 \hdots d\phi_{D-1}
+	\end{equation}
 	The probability that a point lies in this differential element can be expressed as follows.
-	$$f_{\Omega}(\Omega)d\Omega = f_{\vec{\phi}}(\phi_1, \hdots, \phi_{D-1})d\phi_1 \hdots d\phi_{D-1}$$
-	The points are uniformly distributed over the surface of an orthant of the hypersphere implying that $f_{\Omega}(\Omega) = \frac{2^D}{A_{D-1}}$. Combining this with the above equations
-	results in the following.
-	$$\frac{2^D}{A_{D-1}}\prod_{i=1}^{D-1}r\sin^{D-1-i}\phi_i = f_{\vec{\phi}}(\phi_1, \hdots, \phi_{D-1})$$
+	\begin{equation} \label{eq:2}
+	f_{\Omega}(\Omega)d\Omega = f_{\vec{\phi}}(\phi_1, \hdots, \phi_{D-1})d\phi_1 \hdots d\phi_{D-1}
+	\end{equation}
+	The points are uniformly distributed over the surface of an orthant of the hypersphere implying that $f_{\Omega}(\Omega) = \frac{2^D}{A_{D-1}}$. Substituting this and
+	\ref{eq:1} into \ref{eq:2} yields
+	\begin{equation}
+	\frac{2^D}{A_{D-1}}\prod_{j=1}^{D-1}r\sin^{D-1-j}\phi_j = f_{\vec{\phi}}(\phi_1, \hdots, \phi_{D-1})
+	\end{equation}
 \end{proof}
 
+Then by independence, the joint probability density function for the entire line segment can be expressed as 
+\begin{equation} \label{eq:general pdf}
+	f_{\vec{X},\vec{\phi}}(x_1, \hdots, x_D, \phi_1, \hdots, \phi_{D-1}) = \frac{2^D}{A_{D-1}}\left(\prod_{i=1}^D\frac{1}{S_i}\right)\left(\prod_{j=1}^{D-1}r\sin^{D-1-j}\phi_j\right)
+\end{equation} 
+
+\section{Probability of crossing}
+In general, the probability of any number of crossings given any set of parameters can be described as follows.
+
+\begin{equation} \label{eq:volume integral}
+	P(C>c|r, D, N, S)=\idotsint_V f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1})dx_1 \hdots dx_D d\phi_1 \hdots d\phi_{D-1}
+\end{equation}
+
+Where $V$ is the hypervolume in which some sort of crossing condition is met. The definition of these crossing conditions and the solution to the above equation will be
+explored in the following subsections for a variety of parameters.
+
+\subsection{C>0, N=1}
+We start with a simplified set of parameters where there is only a single set of parallel hyperplanes and we are interested in the condition where at least 1 crossing happens. 
+Due to rotational symmetry of the line segment, it should not matter in which direction the hyperplanes extend. Without loss of generality we assume the planes are in the
+direction of $x_1$.
+
+Because $P_0$ is constrained to be within the gridcell at the origin and because the orthant we are investigating is in the direction of $x_1$, we know that a crossing occurs
+whenever the following condition is met
+\begin{align}
+	x_1 &+ r\cos{\phi_1} > S_1\\
+	x_1 &> S_1 - r\cos{\phi_1}
+\end{align}
+
+The domain of $x_1$ can then be used to define the space in which a valid crossing has occured 
+\begin{equation} \label{eq:crossing condition 0}
+	\max(0, S_1-r\cos{\phi_1}) < x_1 < S_1
+\end{equation}
+
+We can now express our volume integral in terms of these conditions.
+\begin{equation} \label{eq:volume integral}
+	P(C>0|r, D, N=1, S)= \int_0^{\pi/2} \hdots \int_0^{\pi/2} \int_0^{S_D} \hdots \int_0^{S_2} \int_{m(\phi_1)}^{S_1} f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1})dx_1 dx_2 \hdots dx_D d\phi_1 \hdots d\phi_{D-1}
+\end{equation}
+
+Where $m(\phi_1)$ is the maximum function from \ref{eq:crossing condition 0}. There are now two options for how to represent the bounds of integration for $x_1$. If
+$r<S_1$, then $m(\phi_1)=0 \forall \phi_1$. Otherwise we will need to partition the interval of integration into two regions, one where $S_1-r\cos{\phi_1}$ is greater than 0
+and one where it is less than zero. This occurs at the value $\phi_1 = \arccos{\frac{S_1}{r}}$. 
 
 
+
+%Below here is template stuff
 \section{Headings: first level}
 \label{sec:headings}
 
@@ -120,9 +168,11 @@ $A_{D-1}$ is the surface area of a $(D-1)$-sphere.
 
 \subsection{Headings: second level}
 \lipsum[5]
-\begin{equation}
+\begin{equation} 
 	\xi _{ij}(t)=P(x_{t}=i,x_{t+1}=j|y,v,w;\theta)= {\frac {\alpha _{i}(t)a^{w_t}_{ij}\beta _{j}(t+1)b^{v_{t+1}}_{j}(y_{t+1})}{\sum _{i=1}^{N} \sum _{j=1}^{N} \alpha _{i}(t)a^{w_t}_{ij}\beta _{j}(t+1)b^{v_{t+1}}_{j}(y_{t+1})}}
 \end{equation}
+
+
 
 \subsubsection{Headings: third level}
 \lipsum[6]
