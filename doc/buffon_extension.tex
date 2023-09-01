@@ -161,13 +161,13 @@ two regions, one where $S_1-r\cos{\phi_1}$ is greater than 0 and one where it is
 \subsubsection{$r<S_1$}
 When $r<S_1$ we have the following expression
 \begin{align}
-	P(C>0|r, D, N=1, S) &= \left(\prod_{i=2}^DS_i\right)\frac{r^D 2^D}{A_{D-1}}\int_0^{\pi/2} \hdots \int_0^{\pi/2} \cos\phi_1 \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_i d\phi_1\hdots d\phi_{D-1}\\
-	&= \left(\prod_{i=2}^DS_i\right)\frac{r^D 2^D}{A_{D-1}}\int_0^{\pi/2} \hdots \int_0^{\pi/2} \cos\phi_1\sin^{D-2}\phi_1 \prod_{j=2}^{D-1}\sin^{D-1-j}\phi_i d\phi_1\hdots d\phi_{D-1}
+	P(C>0|r, D, N=1, S) &= \left(\prod_{i=2}^DS_i\right)\frac{r^D 2^D}{A_{D-1}}\int_0^{\pi/2} \hdots \int_0^{\pi/2}\frac{1}{\prod_{i=1}^D S_i} \cos\phi_1 \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_i d\phi_1\hdots d\phi_{D-1}\\
+	&= \frac{r^D 2^D}{S_1 A_{D-1}}\int_0^{\pi/2} \hdots \int_0^{\pi/2} \cos\phi_1\sin^{D-2}\phi_1 \prod_{j=2}^{D-1}\sin^{D-1-j}\phi_i d\phi_1\hdots d\phi_{D-1}
 \end{align}
 
 Applying u-substitution where $u=\sin\phi_1$ we get the following
 \begin{equation} \label{eq:final phi integral}
-	= \left(\prod_{i=2}^DS_i\right)\frac{r^D 2^D}{A_{D-1}}\int_0^{\pi/2} \hdots \int_0^{\pi/2} \frac{1}{D-1} \prod_{j=2}^{D-1}\sin^{D-1-j}\phi_i d\phi_2\hdots d\phi_{D-1}
+	= \frac{r^D 2^D}{S_1 A_{D-1}}\int_0^{\pi/2} \hdots \int_0^{\pi/2} \frac{1}{D-1} \prod_{j=2}^{D-1}\sin^{D-1-j}\phi_i d\phi_2\hdots d\phi_{D-1}
 \end{equation}
 
 To solve the remaining $D-2$ integrals, we start by noting the method of integration by reduction.
@@ -192,6 +192,20 @@ to a product of the form
 \begin{equation}
 	\int_0^{\pi/2} \hdots \int_0^{\pi/2} \prod_{j=2}^{D-1}\sin^{D-1-j}\phi_i d\phi_2\hdots d\phi_{D-1} = \int_0^{\pi/2}\prod_{m=1}^{D-3}I(m) d\phi_{D-1}
 \end{equation}
+Because of the two possible values for $I(m)$, we get the following expression
+\begin{equation} \label{eq:reduction result}
+	\int_0^{\pi/2}\prod_{m=1}^{D-3}I(m) d\phi_{D-1} = \int_0^{\pi/2} \frac{1}{(D-3)!!}\left(\frac{\pi}{2}\right)^{\frac{D-k}{2}} d\phi_{D-1}, k= \begin{cases}
+		4 & D\bmod 2 = 0\\
+		3 & D\bmod 2 = 1
+	\end{cases}
+\end{equation}
+
+The final integration simply adds a factor of $\pi/2$. Substituting \ref{eq:reduction result} into \ref{eq:final phi integral} we get
+\begin{align}
+	P(C>0|r, D, N=1, S) &= \frac{r^D2^D}{S_1 A_{D-1}(D-1)}\frac{1}{(D-3)!!}\left(\frac{\pi}{2}\right)^{\frac{D-k}{2}}\frac{\pi}{2}\\
+	&= \left(\frac{2}{\pi}\right)^{D\bmod 2}\frac{(D-2)!!}{(D-1)!!}\frac{r}{S_1}
+\end{align}
+	
 
 %Below here is template stuff
 \section{Headings: first level}
