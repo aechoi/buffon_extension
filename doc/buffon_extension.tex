@@ -146,19 +146,52 @@ whenever the following condition is met
 
 The domain of $x_1$ can then be used to define the space in which a valid crossing has occured 
 \begin{equation} \label{eq:crossing condition 0}
-	\max(0, S_1-r\cos{\phi_1}) < x_1 < S_1
+	m(\phi_1) = \max(0, S_1-r\cos{\phi_1}) < x_1 < S_1
 \end{equation}
 
-We can now express our volume integral in terms of these conditions.
-\begin{equation} \label{eq:volume integral}
-	P(C>0|r, D, N=1, S)= \int_0^{\pi/2} \hdots \int_0^{\pi/2} \int_0^{S_D} \hdots \int_0^{S_2} \int_{m(\phi_1)}^{S_1} f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1})dx_1 dx_2 \hdots dx_D d\phi_1 \hdots d\phi_{D-1}
+We can now express our volume integral in terms of these conditions and solve for the location dimensions.
+\begin{align} \label{eq:volume integral}
+	P(C>0|r, D, N=1, S) &= \int_0^{\pi/2} \hdots \int_0^{\pi/2} \int_0^{S_D} \hdots \int_0^{S_2} \int_{m(\phi_1)}^{S_1} f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1})dx_1 dx_2 \hdots dx_D d\phi_1 \hdots d\phi_{D-1}\\
+	&= \int_0^{\pi/2} \hdots \int_0^{\pi/2}\left(\prod_{i=2}^DS_i\right)\left(S_1-m(\phi_1)\right)  f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1}) d\phi_1\hdots d\phi_{D-1}
+\end{align}
+
+The value of $m(\phi_1)$ depends on the value of $r$. If $r<S_1$, then $m(\phi_1)=S_1-r\cos \phi_1 \forall \phi_1$. If $r>S_1$ we will need to partition the interval of integration into
+two regions, one where $S_1-r\cos{\phi_1}$ is greater than 0 and one where it is less than zero. The transition occurs at the value $\phi_1 = \arccos{\frac{S_1}{r}}$.
+
+\subsubsection{$r<S_1$}
+When $r<S_1$ we have the following expression
+\begin{align}
+	P(C>0|r, D, N=1, S) &= \left(\prod_{i=2}^DS_i\right)\frac{r^D 2^D}{A_{D-1}}\int_0^{\pi/2} \hdots \int_0^{\pi/2} \cos\phi_1 \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_i d\phi_1\hdots d\phi_{D-1}\\
+	&= \left(\prod_{i=2}^DS_i\right)\frac{r^D 2^D}{A_{D-1}}\int_0^{\pi/2} \hdots \int_0^{\pi/2} \cos\phi_1\sin^{D-2}\phi_1 \prod_{j=2}^{D-1}\sin^{D-1-j}\phi_i d\phi_1\hdots d\phi_{D-1}
+\end{align}
+
+Applying u-substitution where $u=\sin\phi_1$ we get the following
+\begin{equation} \label{eq:final phi integral}
+	= \left(\prod_{i=2}^DS_i\right)\frac{r^D 2^D}{A_{D-1}}\int_0^{\pi/2} \hdots \int_0^{\pi/2} \frac{1}{D-1} \prod_{j=2}^{D-1}\sin^{D-1-j}\phi_i d\phi_2\hdots d\phi_{D-1}
 \end{equation}
 
-Where $m(\phi_1)$ is the maximum function from \ref{eq:crossing condition 0}. There are now two options for how to represent the bounds of integration for $x_1$. If
-$r<S_1$, then $m(\phi_1)=0 \forall \phi_1$. Otherwise we will need to partition the interval of integration into two regions, one where $S_1-r\cos{\phi_1}$ is greater than 0
-and one where it is less than zero. This occurs at the value $\phi_1 = \arccos{\frac{S_1}{r}}$. 
+To solve the remaining $D-2$ integrals, we start by noting the method of integration by reduction.
+\begin{align}
+	I(m) = \int_0^{\pi/2} \sin^m \phi d\phi &= -\frac{1}{m}\sin^{m-1}\phi \cos\phi \Big{|}_0^{\pi/2} + \frac{m-1}{m}\int_0^{\pi/2}\sin^{m-2}\phi d\phi\\
+	&= 0 + \frac{m-1}{m}\left(-\frac{1}{m-2}\sin^{m-3}\phi \cos\phi \Big{|}_0^{\pi/2} + \frac{m-3}{m-2}\int_0^{\pi/2}\sin^{m-4}\phi d\phi\right)
+\end{align}
+Note that this is valid only when $m>0$. This reduction continues until one of two things happens. If $m$ is even, then the final integrand becomes $sin^0\phi = 1$. 
+In this case we get the following
+\begin{equation} \label{eq:m even}
+	I(m) = \frac{(m-1)!!}{m!!}\int_0^{\pi/2} d\phi = \frac{\pi (m-1)!!}{2m!!}
+\end{equation}
 
+In the case where $m$ is odd, we get the following
+\begin{equation} \label{eq:m odd}
+	I(m) = \frac{(m-1)!!}{m!!}\int_0^{\pi/2}\sin\phi d\phi = \frac{(m-1)!!}{m!!}
+\end{equation}
 
+For every integral in \ref{eq:final phi integral} we can use either \ref{eq:m even} or \ref{eq:m odd} as a solution where $m$ is equal to the exponent. Each integral contributes
+to a product of the form
+
+\begin{equation}
+	\int_0^{\pi/2} \hdots \int_0^{\pi/2} \prod_{j=2}^{D-1}\sin^{D-1-j}\phi_i d\phi_2\hdots d\phi_{D-1} = \int_0^{\pi/2}\prod_{m=1}^{D-3}I(m) d\phi_{D-1}
+\end{equation}
 
 %Below here is template stuff
 \section{Headings: first level}
