@@ -8,7 +8,7 @@ def prob_of_crossing(
     lengths: np.array, dim: int, C: int = 0, c_type: str = "g", N: int = 1, S=None
 ):
     """Calculate the probability of crossing some number of hyperplanes with
-    a hyperdimensional needle
+    a hyperdimensional needle. Lots to do to clean this function up
 
     Args:
         lengths: an array of lengths of the needle
