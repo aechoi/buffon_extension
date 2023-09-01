@@ -99,27 +99,19 @@ def cartesian_to_spherical(cartesian_samples: np.ndarray) -> np.ndarray:
         dimensions are ordered as [r, phi_1, phi_2, ..., phi_n-1] where r is
         the radius, and phi_d is the angle from the dth cartesian axis to the
         projection of the sample onto the plane spanned by x_d and x_d+1"""
-    _, dimensions = cartesian_samples.shape
 
     r = np.linalg.norm(cartesian_samples, axis=1)
-    sphere_coords = [r]
-
-    for dim in range(dimensions - 2):
-        projected_length = np.linalg.norm(cartesian_samples[:, dim + 1 :], axis=1)
-        phi = np.arctan2(projected_length, cartesian_samples[:, dim])
-        sphere_coords.append(phi)
+    projected_length = np.sqrt(
+        np.cumsum(cartesian_samples[:, :0:-1] ** 2, axis=1)[:, :0:-1]
+    )
+    phi = np.arctan2(projected_length, cartesian_samples[:, :-2])
 
     # The final coordinate has a larger domain, so we use the half-angle formula
-    sphere_coords.append(
-        2
-        * np.arctan2(
-            cartesian_samples[:, -1],
-            cartesian_samples[:, -2]
-            + np.linalg.norm(cartesian_samples[:, -2:], axis=1),
-        )
+    last_phi = 2 * np.arctan2(
+        cartesian_samples[:, -1],
+        cartesian_samples[:, -2] + np.linalg.norm(cartesian_samples[:, -2:], axis=1),
     )
-
-    spherical_samples = np.array(sphere_coords).T
+    spherical_samples = np.column_stack((r, phi, last_phi))
     return spherical_samples
 
 
