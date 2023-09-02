@@ -1,18 +1,18 @@
 # Fdb version 4
-["bibtex buffon_extension"] 0 "buffon_extension.aux" "buffon_extension.bbl" "buffon_extension" 1693584431 -1
+["bibtex buffon_extension"] 1693676561 "buffon_extension.aux" "buffon_extension.bbl" "buffon_extension" 1693677498 0
   "./references.bib" 1693283874 954 f28d9c92be8a79c7f9924c5ce8b7b771 ""
-  "buffon_extension.aux" 1693584430 3880 62cfdccca165986d09abffc4d4a6021e "pdflatex"
+  "buffon_extension.aux" 1693677497 4006 f51c0f85efc35874acefa6b657a2657f "pdflatex"
   "c:/texlive/2023/texmf-dist/bibtex/bst/natbib/unsrtnat.bst" 1693249707 24550 a41a6405f4de768c43e871d9fbce2bc8 ""
   (generated)
   "buffon_extension.bbl"
   "buffon_extension.blg"
   (rewritten before read)
-["pdflatex"] 1693584429 "c:/Users/Alex/Documents/_projTech/20 Buffon Extension/buffon_extension/doc/buffon_extension.tex" "buffon_extension.pdf" "buffon_extension" 1693584431 0
+["pdflatex"] 1693677496 "c:/Users/Alex/Documents/_projTech/20 Buffon Extension/buffon_extension/doc/buffon_extension.tex" "buffon_extension.pdf" "buffon_extension" 1693677498 0
   "arxiv.sty" 1693459923 7641 73d629a9ecdf79da8148f7f0df8c6662 ""
-  "buffon_extension.aux" 1693584430 3880 62cfdccca165986d09abffc4d4a6021e "pdflatex"
-  "buffon_extension.bbl" 1693547219 1289 811f2f10a4c9526928889f337bf96170 "bibtex buffon_extension"
-  "buffon_extension.out" 1693584430 1920 47942440cb4436c3dc44837c69e6cc00 "pdflatex"
-  "c:/Users/Alex/Documents/_projTech/20 Buffon Extension/buffon_extension/doc/buffon_extension.tex" 1693584428 15134 b91066c420f10e00251198c7fab4e93d ""
+  "buffon_extension.aux" 1693677497 4006 f51c0f85efc35874acefa6b657a2657f "pdflatex"
+  "buffon_extension.bbl" 1693676562 1289 811f2f10a4c9526928889f337bf96170 "bibtex buffon_extension"
+  "buffon_extension.out" 1693677497 2008 fa6e2e3f976c87c3877ff125be8db911 "pdflatex"
+  "c:/Users/Alex/Documents/_projTech/20 Buffon Extension/buffon_extension/doc/buffon_extension.tex" 1693677495 17070 227cab5bc887a358ba3659f643bc64ad ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc" 1693244953 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1693243799 2971 def0b6c1f0b107b3b936def894055589 ""
   "c:/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1693246040 3524 cb3e574dea2d1052e39280babc910dc8 ""
