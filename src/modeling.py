@@ -21,7 +21,7 @@ def prob_of_crossing_vs_length(
     Returns:
         A numpy array the same length as `lengths` with the probability of
         meeting the crossing criteria."""
-    if dim < 2:
+    if dim <= 1:
         raise ValueError("dim must be greater than 1")
     if N == 1:
         i_s = lengths < S[0] * (C - 1)

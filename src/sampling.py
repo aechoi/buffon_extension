@@ -159,7 +159,9 @@ def get_sim_prob_ge(
     spacing=np.ones(1),
 ) -> np.array:
     """Get the simulated probability that the number of crossings is greater
-    than some value"""
+    than some value
+
+    TODO debug issue with multi-spacing"""
     xs = np.random.random((n_samples, dim))
     hypersphere = get_samples_gaussian(n_samples, dim)
     ys = xs[None, :] + lengths[:, None, None] * hypersphere[None, :]
