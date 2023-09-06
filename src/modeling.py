@@ -46,7 +46,7 @@ def prob_of_crossing_vs_length(
 
 def prob_of_small_r(lengths, dim, C, N, S):
     if N == 1:
-        r = lengths[lengths > S[0] * (C - 1)]
+        r = lengths
         gamma = S[0] * (C - 1) / r
         loop_sum = np.sum(
             [
