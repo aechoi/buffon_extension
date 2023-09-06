@@ -162,13 +162,14 @@ def get_sim_prob_ge(
     than some value
 
     TODO debug issue with multi-spacing"""
-    xs = np.random.random((n_samples, dim))
+    xs = np.random.random((n_samples, dim)) * spacing[None, :]
     hypersphere = get_samples_gaussian(n_samples, dim)
     ys = xs[None, :] + lengths[:, None, None] * hypersphere[None, :]
 
     intersections = (
         np.sum(
-            np.abs(np.floor(ys[:, :, :n_hyperplanes] / spacing[None, None, :])), axis=2
+            np.abs((ys[:, :, :] // spacing[None, None, :])[:, :, :n_hyperplanes]),
+            axis=2,
         )
         >= crossings
     ) * 1
@@ -186,7 +187,7 @@ def get_sim_prob_e(
 ) -> np.array:
     """Get the simulated probability that the number of crossings is greater
     than some value"""
-    xs = np.random.random((n_samples, dim))
+    xs = np.random.random((n_samples, dim)) * spacing[None, :]
     hypersphere = get_samples_gaussian(n_samples, dim)
     ys = xs[None, :] + lengths[:, None, None] * hypersphere[None, :]
 
