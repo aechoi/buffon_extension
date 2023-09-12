@@ -18,6 +18,7 @@
 \usepackage{doi}
 \usepackage{amsmath}
 \usepackage{amsthm}
+\usepackage{tikz}
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}
 
@@ -64,14 +65,32 @@ pdfkeywords={Buffon's needle problem, Geometric probability},
 \keywords{Buffon's needle problem \and Geometric Probability}
 
 \section{Introduction}
-Given $D\in\mathbb{N}_{>0}$ and $N\in[1,2,\dots,D]$, consider a grid on $\mathbb{R}^D$ formed by $N$ orthogonal sets of regularly spaced hyperplanes. Each set of hyperplanes
-has a potentially unique spacing of $S_i$. A line segment of length $r\in\mathbb{R}^+$ is randomly located in the space such that one of its end points, $P_0$, is uniformly distributed
+Buffon's needle problem was originally posed in the 18th century with the following premise. Given a line segment, or "needle", of length $r$ randomly dropped on a two-dimensional plane
+ruled with a set of parallel lines regularly spaced $s$ units apart, what is the probability that the needle crosses at least 1 of the lines? The solution, it turns out, is
+$\frac{2r}{s\pi}$ when $r<s$. Variations and extensions of this problem have been investigated as well, including
+\begin{itemize}
+	\item Laplace's Extension - Investigating when the plane is gridded with 2 orthogonal sets of parallel lines with spacings $s_1$ and $s_2$.
+	\item Buffon's Noodle - Instead of being rigidly straight, the needle is permitted to bend (a "noodle").
+	\item Pivot Needle - The needle is constructed of two line segments that hinge together. Each crossing is considered.
+\end{itemize}
+
+In this paper, we investigate a particular extension that allows the needle to be dropped into a space with dimension greater than 2. In these higher dimensions, we will rule the space
+with parallel hyperplanes rather than lines. Additionally, we will look at gridding the space with orthogonal sets of hyperplanes, thereby extending Laplace's extension into higher dimensions.
+
+Given $D\in\mathbb{N}_{>0}$ and $N\in[1,2,\dots,D]$, consider a grid on $\mathbb{R}^D$ formed by $N$ orthogonal sets of regularly spaced hyperplanes where each set of hyperplanes
+has a potentially unique spacing of $S_i$. For example, if $D=2, N=1, S_1=2$, the grid would match the original Buffon Needle problem and would have only a single set of parallel lines 2 units apart.
+If $D=2, N=2, S=[1, 2]$, the grid would have 2 sets of parallel lines that are orthogonal to each other, matching the problem in Laplace's extension. One set of lines would have a spacing of 1 unit and 
+the other would have a spacing of 2 units.
+% Insert diagram of two examples here
+\begin{tikzpicture}
+	
+\end{tikzpicture}
+
+A line segment of length $r\in\mathbb{R}^+$ is randomly located in the space such that one of its end points, $P_0$, is uniformly distributed
 across the entire domain. The line segment's orientation is independently distributed such that when considering $P_0$ as the center of a $(D-1)$-sphere of radius $r$, the other point, $P_1$,
-is uniformly distributed on the surface of that hypersphere. This line segment may intersect with $C\in\mathbb{N}$ unique hyperplanes. This paper studies the probability of
-the line segment intersecting more than $c$ hyperplanes, $P(C>c|r, D, N, S)$. From there, solutions for crossing less than $c$ hyperplanes and exactly $c$ hyperplanes can
+is uniformly distributed on the surface of that hypersphere. This line segment may intersect with $C\in\mathbb{N}$ unique hyperplanes. This paper studies the probability that the line segment
+intersects with at least $c$ hyperplanes, $P(C\ge c|r, D, N, S)$. From there, solutions for crossing less than $c$ hyperplanes and exactly $c$ hyperplanes can
 be derived.
-% should include diagram showing laplace's extension and what each of the parameters above relates to geometrically
-As an example, the classical Buffon's needle problem would be $P(C>0|r, 2, 1, S)$. Laplace's extension would be represented as $P(C>0|r, 2, 2, S)$.
 
 We will define the coordinates of line segment using $\vec{x}\in\mathbb{R}^D$ for the location of $P_0$ and spherical coordinates for the location of $P_1$ with respect to $P_0$.
 
@@ -90,7 +109,8 @@ Reflectional symmetry of the grid also allows us to consider the domain of $\vec
 $\phi_i \in [0, \pi/2]$.
 
 The rest of the paper is organized as follows. A derivation of the joint probability density function for $P_0$ and $P_1$ will be provided in \S 2. The derivation and validation
-of the crossing probabilities will be given in \S 3. Analysis of the limits and extrema of the probabilities is explored in \S 4.
+of the crossing probabilities for $N=1$ will be given in \S 3. The derivation and validation of the crossing probabiities for any $N$ and $r<\min(S)$ will be given in \S 4. Analysis of the limits
+and extrema of the probabilities is explored in \S 4.
 
 \section{Joint Probability Density of the Line Segment}
 Each coordinate for $P_0$ can be defined as a uniformly distributed random variable $X_i\sim{\rm Uniform}(0,S_i)$. Due to independence, the joint PDF for $P_0$ is the product
@@ -122,111 +142,221 @@ Then by independence, the joint probability density function for the entire line
 	f_{\vec{X},\vec{\phi}}(x_1, \hdots, x_D, \phi_1, \hdots, \phi_{D-1}) = \frac{2^D}{A_{D-1}}\left(\prod_{i=1}^D\frac{1}{S_i}\right)\left(\prod_{j=1}^{D-1}r\sin^{D-1-j}\phi_j\right)
 \end{equation} 
 
-\section{Probability of crossing}
-In general, the probability of any number of crossings given any set of parameters can be described as follows.
+\section{Probability of crossing $N=1$}
+In general, the probability of meeting some number of crossings given any set of parameters can be described as follows.
 
 \begin{align} 
-	P(C>c|r, D, N, S)&=\idotsint_V f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1})dx_1 \hdots dx_D d\phi_1 \hdots d\phi_{D-1}\\
+	P(C\ge c|r, D, N, S)&=\idotsint_V f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1})dx_1 \hdots dx_D d\phi_1 \hdots d\phi_{D-1}\\
 	&= \frac{2^Dr^{D-1}}{A_{D-1}\prod_{i=1}^D S_i} \idotsint_V \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dx_1\hdots dx_D d\phi_1 \hdots d\phi_{D-1} \label{eq:volume integral}
 \end{align}
 
 Where $V$ is the hypervolume in which some sort of crossing condition is met. The definition of these crossing conditions and the solution to the above equation will be
-explored in the following subsections for a variety of parameters.
+explored for a variety of parameters.
 
-\subsection{C>0, N=1}
-We start with a simplified set of parameters where there is only a single set of parallel hyperplanes and we are interested in the condition where at least 1 crossing happens. 
+We start with a simplified set of parameters where there is only a single set of parallel hyperplanes. We are interested in the condition where at least $c$ crossings happen. 
+That is, in this section we are interested in the probability $P(C\ge c | r, D, N=1, S)$. For brevity, we will refer to this as $P_1(c)$.
+
 Due to rotational symmetry of the line segment, it should not matter in which direction the hyperplanes extend. Without loss of generality we assume the planes are in the
 direction of $x_1$.
 
 Because $P_0$ is constrained to be within the gridcell at the origin and because the orthant we are investigating is in the direction of $x_1$, we know that a crossing occurs
 whenever the following condition is met
 \begin{align}
-	x_1 &+ r\cos{\phi_1} > S_1\\
-	x_1 &> S_1 - r\cos{\phi_1}
+	x_1 &+ r\cos{\phi_1} > S_1c\\
+	r &> \frac{S_1c - x_1}{\cos{\phi_1}} \\
+	x_1 &> S_1c - r\cos{\phi_1} \\
+	\phi_1 &< \arccos{\frac{S_1c-x_1}{r}}
 \end{align}
 
-The domain of $x_1$ can then be used to define the space in which a valid crossing has occured 
-\begin{equation} \label{eq:crossing condition 0}
-	m(\phi_1) = \max(0, S_1-r\cos{\phi_1}) < x_1 < S_1
+The minimum of $\frac{S_1c - x_1}{\cos{\phi_1}}$ occurs at $x_1=S_1, \phi_1=0$ with a value of $S_1(c-1)$. Therefore if $r<S_1(c-1)$ we can guarantee that the crossing condition
+cannot be satisfied. This results in
+\begin{equation}
+	P(C\ge c|r<S_1(c-1), N=1) = 0
 \end{equation}
 
-We can now express our volume integral in terms of these conditions and solve for the location dimensions.
-\begin{align} \label{eq:volume integral}
-	P(C>0|r, D, N=1, S) &= \int_0^{\pi/2} \hdots \int_0^{\pi/2} \int_0^{S_D} \hdots \int_0^{S_2} \int_{m(\phi_1)}^{S_1} f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1})dx_1 dx_2 \hdots dx_D d\phi_1 \hdots d\phi_{D-1}\\
-	&= \int_0^{\pi/2} \hdots \int_0^{\pi/2}\left(\prod_{i=2}^DS_i\right)\left(S_1-m(\phi_1)\right)  f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1}) d\phi_1\hdots d\phi_{D-1} \\
-	&= \frac{ 2^Dr^{D-1} \prod_{i=2}^DS_i}{A_{D-1}\prod_{i=1}^DS_i}\int_0^{\pi/2} \hdots \int_0^{\pi/2} (S_1-m(\phi_1)) \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1\hdots d\phi_{D-1}\\
-	&= \frac{ 2^Dr^{D-1}}{A_{D-1}S_1}\int_0^{\pi/2} \hdots \int_0^{\pi/2} (S_1-m(\phi_1)) \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1\hdots d\phi_{D-1}
+The domains of $x_1$ can then be used to define the space in which a valid crossing has occured 
+\begin{align} 
+	m(\phi_1) &< x_1 < S_1 \\ \label{eq:crossing condition 0}
+	m(\phi_1) &= \max(0, S_1c-r\cos{\phi_1}) 
 \end{align}
 
-The value of $m(\phi_1)$ depends on the value of $r$. If $r<S_1$, then $m(\phi_1)=S_1-r\cos \phi_1 \forall \phi_1$. If $r>S_1$ we will need to partition the interval of integration into
-two regions, one where $S_1-r\cos{\phi_1}$ is greater than 0 and one where it is less than zero. The transition occurs at the value $\phi_1 = \arccos{\frac{S_1}{r}}$.
+The domain of $x_1$ also provides a maximum bound for the maximum acceptable value of $\phi_1$ when $x_1 = S_1$.
+\begin{equation}
+	\phi_1 < \arccos{\frac{S_1(c-1)}{r}}
+\end{equation}
+
+
+We can now express our volume integral in terms of these conditions and solve for the locatcion dimensions.
+\begin{align} \label{eq:volume integral}
+	P_1(c) &= \int_0^{\pi/2} \hdots \int_0^{\pi/2} \int_0^{\arccos{\frac{S_1(c-1)}{r}}}\int_0^{S_D} \hdots \int_0^{S_2} \int_{m(\phi_1)}^{S_1} f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1})dx_1 dx_2 \hdots dx_D d\phi_1 d\phi_2 \hdots d\phi_{D-1}\\
+	&= \int_0^{\pi/2} \hdots \int_0^{\pi/2}\int_0^{\arccos{\frac{S_1(c-1)}{r}}}\left(\prod_{i=2}^DS_i\right)\left(S_1c-m(\phi_1)\right)  f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1}) d\phi_1 d\phi_2 \hdots d\phi_{D-1} \\
+	&= \frac{ 2^Dr^{D-1} \prod_{i=2}^DS_i}{A_{D-1}\prod_{i=1}^DS_i}\int_0^{\pi/2} \hdots \int_0^{\pi/2}\int_0^{\arccos{\frac{S_1(c-1)}{r}}} (S_1c-m(\phi_1)) \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 d\phi_2\hdots d\phi_{D-1}\\
+	&= \frac{ 2^Dr^{D-1}}{A_{D-1}S_1}\int_0^{\pi/2} \hdots \int_0^{\pi/2}\int_0^{\arccos{\frac{S_1(c-1)}{r}}} (S_1c-m(\phi_1)) \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 d\phi_2 \hdots d\phi_{D-1}
+\end{align}
+
+The value of $m(\phi_1)$ depends on the value of $r$. If $r<S_1c$, then $m(\phi_1)=S_1c-r\cos \phi_1 \forall \phi_1$. If $r>S_1c$ we will need to partition the interval of integration into
+two regions, one where $S_1c-r\cos{\phi_1}$ is greater than 0 and one where it is less than zero. The transition occurs at the value $\phi_1 = \arccos{\frac{S_1c}{r}}$.
 \begin{equation}
 	m(\phi_1) = \begin{cases}
-		0 & \frac{S_1}{\cos\phi_1}>r>S_1\\
-		S_1 - r\cos{\phi_1} & \text{otherwise}
+		0 & \frac{S_1c}{\cos\phi_1}>r>S_1c\\
+		S_1c - r\cos{\phi_1} & \text{otherwise}
 	\end{cases}
 \end{equation}
 
-\subsubsection{$r<S_1$}
-When $r<S_1$ we have the following expression by substituting $S_1 - r\cos{\phi_1}$ for $m(\phi_1)$.
+\subsection{$S_1(c-1)<r<S_1c$}
+When $r<S_1c$ we have the following expression by substituting $S_1c - r\cos{\phi_1}$ for $m(\phi_1)$.
 \begin{align}
-	P(C>0|r, D, N=1, S) &= \frac{ 2^Dr^{D-1} }{A_{D-1}S_1}\int_0^{\pi/2} \hdots \int_0^{\pi/2} r\cos\phi_1 \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_i d\phi_1\hdots d\phi_{D-1}\\
-	&= \frac{2^D r^D}{A_{D-1} S_1}\int_0^{\pi/2} \hdots \int_0^{\pi/2} \cos\phi_1\sin^{D-2}\phi_1 \prod_{j=2}^{D-1}\sin^{D-1-j}\phi_i d\phi_1\hdots d\phi_{D-1}
+	P_1(c) &= \frac{ 2^Dr^{D-1} }{A_{D-1}S_1}\int_0^{\pi/2} \hdots \int_0^{\pi/2}\int_0^{\arccos{\frac{S_1(c-1)}{r}}} (S_1(1-c)+r\cos\phi_1) \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 d\phi_2\hdots d\phi_{D-1}\\
+	&= \frac{2^D r^{D-1}}{A_{D-1} S_1}\int_0^{\pi/2} \hdots \int_0^{\pi/2}\int_0^{\arccos{\frac{S_1(c-1)}{r}}} (S_1(1-c)+ r\cos\phi_1)\sin^{D-2}\phi_1 \prod_{j=2}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 d\phi_2 \hdots d\phi_{D-1} \\
+	\begin{split} \label{eq:first two part}
+		&= \frac{2^D r^{D}}{A_{D-1} S_1}\int_0^{\pi/2} \hdots \int_0^{\pi/2}\prod_{j=2}^{D-1}\sin^{D-1-j}\phi_j\bigg(\frac{S_1(1-c)}{r}\int_0^{\arccos{\frac{S_1(c-1)}{r}}} \sin^{D-2}\phi_1  d\phi_1 \\
+		&\qquad + \int_0^{\arccos{\frac{S_1(c-1)}{r}}} \cos\phi_1\sin^{D-2}\phi_1  d\phi_1 \bigg)d\phi_2 \hdots d\phi_{D-1}
+	\end{split}
 \end{align}
+
+The two interior integrals can be solved via integration by reduction and u-substitution respectively. It is convenient if we first define the following proposition.
+\begin{proposition} \label{prop:double fac beta}
+	When given the ratio $(k-1)!!/k!!$ where the double exclam represents the double factorial function, it is equivalent the following.
+	\begin{equation}
+		= \begin{cases}
+			\frac{1}{\pi}B(\frac{k+1}{2}, \frac{1}{2}) & k\bmod 2=0\\
+			\frac{1}{2}B(\frac{k+1}{2}, \frac{1}{2}) & k\bmod 2=1
+		\end{cases}
+	\end{equation}
+\end{proposition}
+\begin{proof}
+	We start by deriving a value for $n!!$ in terms of factorials. If $n\bmod 2 = 0$
+	\begin{align}
+		n!! &= n(n-2)\hdots(4)(2) \\
+		&= 2^{n/2}\frac{n}{2}\frac{n-2}{2}\hdots\frac{4}{2}\frac{2}{2} \\
+		&= 2^{n/2}\frac{n}{2}! \label{eq:double factorial even}
+	\end{align}
+	If $n\bmod 2= 1$
+	\begin{align}
+		n!! &= n(n-2)\hdots(3)(1) \\
+		&= \frac{n!}{(n-1)!!} \\
+		&= \frac{n!}{2^{(n-1)/2}(\frac{n-1}{2})!} \label{eq:double factorial odd}
+	\end{align}
+
+	Using \ref{eq:double factorial even} and \ref{eq:double factorial odd} we can simplify $(k-1)!!/k!!$. First, assuming that $k$ is even
+	\begin{align}
+		\frac{(k-1)!!}{k!!} &= \frac{(k-1)!}{2^{(k-2)/2}(\frac{k-2}{2})!}\frac{1}{2^{k/2}(\frac{k}{2})!} \\
+		&= \frac{\Gamma(\frac{1}{2})}{\Gamma(\frac{1}{2})}\frac{\frac{1}{2}\frac{2}{2}\hdots\frac{k-2}{2}\frac{k-1}{2}}{\frac{2}{2}\frac{4}{2}\hdots\frac{k-4}{2}\frac{k-2}{2}(\frac{k}{2}!)} \\
+		&= \frac{\Gamma(\frac{1}{2})}{\Gamma(\frac{1}{2})}\frac{\frac{1}{2}\frac{3}{2}\hdots\frac{k-3}{2}\frac{k-1}{2}}{\frac{k}{2}!}
+	\end{align}
+	Now using the property $n\Gamma(n)=\Gamma(n+1)$ and $n! = \Gamma(n+1)$, we get the following.
+	\begin{equation}
+		\frac{(k-1)!!}{k!!} = \frac{\Gamma(\frac{k+1}{2})}{\Gamma(\frac{1}{2})\Gamma(\frac{k+2}{2})}
+	\end{equation}
+	Finally, using $B(x,y)=\Gamma(x)\Gamma(y)/\Gamma(x+y)$ and $\Gamma(1/2) = \sqrt{\pi}$ we get
+	\begin{equation}
+		\frac{(k-1)!!}{k!!} = \frac{1}{\pi}B\left(\frac{k+1}{2}, \frac{1}{2}\right)
+	\end{equation}
+
+	We now repeat the process for the case where $k$ is odd.
+	\begin{align}
+		\frac{(k-1)!!}{k!!} &= \left(\frac{k-1}{2}\right)!2^{(k-1)/2}\frac{(\frac{k-1}{2})!2^{(k-1)/2}}{k!} \\
+		&= \frac{2\Gamma(\frac{1}{2})}{2\Gamma(\frac{1}{2})}\frac{2^{k-1}(\frac{k-1}{2})!^2}{k!} \\
+		&= \frac{\Gamma(\frac{1}{2})}{2\Gamma(\frac{1}{2})}\frac{\frac{2}{2}\frac{4}{2}\hdots\frac{k-3}{2}\frac{k-1}{2}(\frac{k-1}{2}!)}{\frac{1}{2}\frac{2}{2}\hdots\frac{k-1}{2}\frac{k}{2}} \\
+		&= \frac{\Gamma(\frac{1}{2})}{2\Gamma(\frac{1}{2})}\frac{\frac{k-1}{2}!}{\frac{1}{2}\frac{3}{2}\hdots\frac{k-2}{2}\frac{k}{2}} \\
+		&= \frac{\Gamma(\frac{1}{2})\Gamma(\frac{k+1}{2})}{2\Gamma(\frac{k+2}{2})} \\
+		&= \frac{1}{2}B\left(\frac{k+1}{2}, \frac{1}{2}\right)
+	\end{align}
+\end{proof}
+
+We now define the following proposition for the initial integral in \ref{eq:first two part}.
+\begin{proposition} \label{prop:sin integral}
+	Any integral of the form $\int_0^{\arccos(\gamma)} \sin^m \phi d\phi$ has two possible solutions depending on the parity of $m$.
+	\begin{align}
+		& = \frac{B(\frac{m+1}{2}, \frac{1}{2})}{2}\left(g(\gamma, m) - \gamma(1-\gamma^2)^{(m+1)/2} \sum_{i=1}^{\lfloor m/2 \rfloor}\frac{B(\frac{m+2-2i}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^i}\right) \\
+		& g(\gamma, m)=\begin{cases}
+			\frac{2}{\pi}\arccos \gamma & m \bmod 2=0 \\
+			1 - \gamma & m \bmod 2=1
+		\end{cases}
+	\end{align}
+\end{proposition}
+\begin{proof}
+	We start with the following integration by reduction identity
+	\begin{align}
+		\int_0^{\arccos \gamma}\sin^m\phi d\phi &= - \frac{1}{m}\sin^{m-1}\phi \cos \phi \Big{|}_0^{\arccos\gamma} + \frac{m-1}{m}\int_0^{\arccos \gamma}\sin^{m-2}\phi d\phi \\
+		\begin{split}
+			&= -\frac{1}{m}(1-\gamma^2)^{(m-1)/2}\gamma \\
+			&\qquad + \frac{m-1}{m}\left(-\frac{1}{m-2}\sin^{m-3}\phi\cos\phi\Big{|}_0^{\arccos\gamma} + \frac{m-3}{m-2}\int_0^{\arccos\gamma}\sin^{m-4}\phi d\phi \right)
+		\end{split}
+	\end{align}
+	This pattern continues until the $\sin$ in the final integrand is raised to either the first or zeroth power. This depends on whether $m$ is even or odd. If $m$ is even
+	\begin{align}
+		\begin{split}
+			&= -\frac{1}{m}(1-\gamma^2)^{(m-1)/2}\gamma - \frac{m-1}{m(m-2)}(1-\gamma^2)^{(m-3)/2}\gamma - \hdots \\
+			&\qquad \qquad - \frac{(m-1)(m-3)\hdots(3)}{(m)(m-2)\hdots(2)}(1-\gamma^2)^{1/2}\gamma+ \frac{(m-1)!!}{m!!}\int_0^{\arccos\gamma} d\phi
+		\end{split} \\
+		&= \frac{(m-1)!!}{m!!}\left(-\frac{(m-2)!!}{(m-1)!!}(1-\gamma^2)^{(m-1)/2}\gamma - \frac{(m-4)!!}{(m-3)!!}(1-\gamma^2)^{(m-3)/2}\gamma - \hdots - \frac{0!!}{1!!}(1-\gamma^2)^{1/2}+ \arccos\gamma\right)\\
+		&= \frac{(m-1)!!}{m!!}\left(\arccos\gamma-\gamma\sum_{i=1}^{m/2}\frac{(m-2i)!!}{(m+1-2i)!!}(1-\gamma^2)^{(m+1-2i)/2} \right)\\
+		&= \frac{(m-1)!!}{m!!}\left(\arccos\gamma-\gamma(1-\gamma^2)^{(m+1)/2}\sum_{i=1}^{m/2}\frac{(m-2i)!!}{(m+1-2i)!!}(1-\gamma^2)^{-i} \right)
+	\end{align}
+	Using \ref{prop:double fac beta} we can reduce to the following.
+	\begin{align}
+		&= \frac{B(\frac{m+1}{2}, \frac{1}{2})}{\pi}\left(\arccos\gamma-\gamma(1-\gamma^2)^{(m+1)/2}\sum_{i=1}^{m/2}\frac{B(\frac{m+2-2i}{2}, \frac{1}{2})}{2}(1-\gamma^2)^{-i} \right) \\
+		&= \frac{B(\frac{m+1}{2}, \frac{1}{2})}{2}\left(\frac{2}{\pi}\arccos\gamma-\gamma(1-\gamma^2)^{(m+1)/2}\sum_{i=1}^{m/2}\frac{B(\frac{m+2-2i}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^{i}} \right)
+	\end{align}
+
+	Repeating for the case where $m$ is odd
+	\begin{align}
+		\begin{split}
+			&= -\frac{1}{m}(1-\gamma^2)^{(m-1)/2}\gamma - \frac{m-1}{m(m-2)}(1-\gamma^2)^{(m-3)/2}\gamma - \hdots \\
+			&\qquad \qquad - \frac{(m-1)(m-3)\hdots(3)}{(m)(m-2)\hdots(2)}(1-\gamma^2)^{1/2}\gamma+ \frac{(m-1)!!}{m!!}\int_0^{\arccos\gamma} \sin\phi d\phi
+		\end{split} \\
+		&= \frac{(m-1)!!}{m!!}\left(1-\gamma-\gamma(1-\gamma^2)^{(m+1)/2}\sum_{i=1}^{(m-1)/2}\frac{(m-2i)!!}{(m+1-2i)!!}(1-\gamma^2)^{-i} \right) \\
+		&= \frac{B(\frac{m+1}{2}, \frac{1}{2})}{2}\left(1-\gamma-\gamma(1-\gamma^2)^{(m+1)/2}\sum_{i=1}^{\lfloor m/2 \rfloor}\frac{B(\frac{m+2-2i}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^{i}} \right)
+	\end{align}
+\end{proof}
+
+We can substitute the solution from \ref{prop:sin integral} int \ref{eq:first two part} to get the following.
+\begin{equation}
+	\begin{split}
+		P_1(c) &= \frac{2^D r^{D}}{A_{D-1} S_1}\int_0^{\pi/2} \hdots \int_0^{\pi/2}\prod_{j=2}^{D-1}\sin^{D-1-j}\phi_j\bigg(\frac{\gamma}{2}B\left(\frac{D-1}{2}, \frac{1}{2}\right)\left(g(\gamma, D-2)-\gamma(1-\gamma^2)^{(D-1)/2}\sum_{k=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2k}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^k}\right) \\
+		&\qquad + \int_0^{\arccos{\gamma}} \cos\phi_1\sin^{D-2}\phi_1  d\phi_1 \bigg)d\phi_2 \hdots d\phi_{D-1}
+	\end{split}
+\end{equation}
+Where $\gamma = S_1(c-1)/r$.
+
 
 Applying u-substitution where $u=\sin\phi_1$ we get the following
-\begin{equation} \label{eq:final phi integral}
-	= \frac{2^D r^D}{A_{D-1} S_1}\int_0^{\pi/2} \hdots \int_0^{\pi/2} \frac{1}{D-1} \prod_{j=2}^{D-1}\sin^{D-1-j}\phi_i d\phi_2\hdots d\phi_{D-1}
-\end{equation}
+\begin{align} 
+	P_1(c) &= \frac{2^D r^D \xi}{A_{D-1} S_1}\int_0^{\pi/2} \hdots \int_0^{\pi/2} \prod_{j=2}^{D-1}\sin^{D-1-j}\phi_i d\phi_2\hdots d\phi_{D-1} \\ \label{eq:final phi integral}
+	\xi &= \frac{\gamma}{2}B\left(\frac{D-1}{2}, \frac{1}{2}\right)\left(g(\gamma, D-2)-\gamma(1-\gamma^2)^{(D-1)/2}\sum_{k=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2k}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^k}\right) + \frac{1}{D-1}(1-\gamma^2)^{(D-1)/2} \\
+	&= \frac{1}{D-1}\left(\frac{\pi\gamma}{B(\frac{D}{2}, \frac{1}{2})}\left(g(\gamma, D-2)-\gamma(1-\gamma^2)^{(D-1)/2}\sum_{k=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2k}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^k}\right) + (1-\gamma^2)^{(D-1)/2}\right) \label{eq:xi}
+\end{align}
 
-To solve the remaining $D-2$ integrals, we start by noting the method of integration by reduction.
+To solve the remaining $D-2$ integrals, we start by noting that we can simplify the result from \ref{prop:sin integral}
+by noting that the remaining upper bounds of integration are all $\pi/2$. 
+
+Restating the result, we have the following
 \begin{align}
-	I(m) = \int_0^{\pi/2} \sin^m \phi d\phi &= -\frac{1}{m}\sin^{m-1}\phi \cos\phi \Big{|}_0^{\pi/2} + \frac{m-1}{m}\int_0^{\pi/2}\sin^{m-2}\phi d\phi\\
-	&= 0 + \frac{m-1}{m}\left(-\frac{1}{m-2}\sin^{m-3}\phi \cos\phi \Big{|}_0^{\pi/2} + \frac{m-3}{m-2}\int_0^{\pi/2}\sin^{m-4}\phi d\phi\right)
-\end{align}
-Note that this is valid only when $m>0$. This reduction continues until one of two things happens. If $m$ is even, then the final integrand becomes $sin^0\phi = 1$. 
-In this case we get the following
-\begin{equation} \label{eq:m even}
-	I(m) = \frac{(m-1)!!}{m!!}\int_0^{\pi/2} d\phi = \frac{\pi (m-1)!!}{2m!!}
-\end{equation}
-
-In the case where $m$ is odd, we get the following
-\begin{equation} \label{eq:m odd}
-	I(m) = \frac{(m-1)!!}{m!!}\int_0^{\pi/2}\sin\phi d\phi = \frac{(m-1)!!}{m!!}
-\end{equation}
-
-For every integral in \ref{eq:final phi integral} we can use either \ref{eq:m even} or \ref{eq:m odd} as a solution where $m$ is equal to the exponent. Each integral contributes
-to a product of the form
-
-\begin{equation}
-	\int_0^{\pi/2} \hdots \int_0^{\pi/2} \prod_{j=2}^{D-1}\sin^{D-1-j}\phi_i d\phi_2\hdots d\phi_{D-1} = \int_0^{\pi/2}\prod_{m=1}^{D-3}I(m) d\phi_{D-1}
-\end{equation}
-Because of the two possible values for $I(m)$, we get the following expression
-\begin{align} 	\int_0^{\pi/2}\prod_{m=1}^{D-3}I(m) d\phi_{D-1} &= \int_0^{\pi/2} \frac{1}{(D-3)!!}\left(\frac{\pi}{2}\right)^{\frac{D-3-k}{2}} d\phi_{D-1}\label{eq:reduction result}
-\\ k&=1-D\bmod 2 
+	\int_0^{\arccos \gamma}sin^m\phi d\phi &= \frac{1}{2}B\left(\frac{m+1}{2}, \frac{1}{2}\right)\left(g(\gamma, m) - \gamma\sum_{i=1}^{\lfloor m/2 \rfloor}\frac{B(\frac{m+2-2i}{2}, \frac{1}{2})}{\pi}(1-\gamma^2)^{(m+1)/2-i}\right) \\
+	\int_0^{\arccos 0}sin^m\phi d\phi &= \frac{1}{2}B\left(\frac{m+1}{2}, \frac{1}{2}\right)(1-0) \\
+	&= \frac{1}{2}B\left(\frac{m+1}{2}, \frac{1}{2}\right)
 \end{align}
 
-The final integration simply adds a factor of $\pi/2$. Substituting \ref{eq:reduction result} into \ref{eq:final phi integral} we get
+For every integral in \ref{eq:final phi integral} we get the following product.
 \begin{align}
-	P(C>0|r, D, N=1, S) &= \frac{2^Dr^D}{A_{D-1}S_1(D-1)}\frac{1}{(D-3)!!}\left(\frac{\pi}{2}\right)^{\frac{D-3-k}{2}}\frac{\pi}{2}\\
-	&= \frac{2^{\frac{D+3+k}{2}-1}r^D\pi^{\frac{D-3-k}{2}+1}}{A_{D-1}S_1(D-1)!!}
+	P_1(c) &= \frac{2^D r^D \xi}{A_{D-1} S_1}\prod_{j=2}^{D-1}\frac{1}{2}B\left(\frac{j+1}{2}, \frac{1}{2}\right) \\
+	&= \frac{2^D r^D \xi}{A_{D-1} S_1} \frac{\Gamma(\frac{3}{2})}{\Gamma(\frac{D+1}{2})}\left(\frac{\sqrt{\pi}}{2}\right)^{D-2}
 \end{align}
 
-We can now substitute in a double factorial representation of $A_{D-1}$ as follows
+We can now substitute in an expression of $A_{D-1}$ as follows
 \begin{align}
-	A_{D-1} &= \left(\frac{\sqrt{2}}{\sqrt{\pi}}\right)^{D\bmod2}\frac{2^{\frac{D}{2}}\pi^{\frac{D}{2}}r^{D-1}}{(D-2)!!}\\
-	P &= \left(\frac{\sqrt{\pi}}{\sqrt{2}}\right)^{D\bmod 2}\frac{2^{\frac{1+k}{2}}(D-2)!!}{\pi^{\frac{1+k}{2}}(D-1)!!}\frac{r}{S_1}\\
-	&= \left(\frac{\pi}{2}\right)^{D\bmod 2}\frac{2(D-2)!!}{\pi(D-1)!!}\frac{r}{S_1}\\
-	&= \begin{cases}
-		\frac{2(D-2)!!}{\pi(D-1)!!}\frac{r}{S_1} & D\bmod 2 = 0 \\
-		\frac{(D-2)!!}{(D-1)!!}\frac{r}{S_1} & D\bmod 2 = 1
-	\end{cases}
+	A_{D-1} &= \frac{2\pi^{D/2}r^{n-1}}{\Gamma(\frac{D}{2})}\\
+	P_1(c) &= \frac{2^D r^D \xi}{2\pi^{D/2}r^{n-1}S_1} \frac{\Gamma(\frac{D}{2})\Gamma(\frac{3}{2})}{\Gamma(\frac{D+1}{2})}\left(\frac{\sqrt{\pi}}{2}\right)^{D-2} \\
+	&= \frac{2 r \xi}{\pi S_1} \frac{\Gamma(\frac{D}{2})\Gamma(\frac{1}{2})\frac{1}{2}}{\Gamma(\frac{D+1}{2})} \\
+	&= \frac{r \xi}{\pi S_1}B\left(\frac{D}{2}, \frac{1}{2}\right)
 \end{align}
+Substituting in our function for $\xi$ in \ref{eq:xi}
+\begin{align}
+	P_1(c) &= \frac{r}{S_1}\left(\frac{\gamma}{D-1}\right)
+\end{align}
+% Need to verify and make correct
 
-Instead of double factorial operations, we can represent this probability in terms of the gamma function.
-\begin{equation}
-	P(C>0|r, D, N=1, S) = \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{1}{2})\Gamma(\frac{D+1}{2})}\frac{r}{S_1}
-\end{equation}
 
 \subsubsection{$r>S_1$}
 When $r>S_1$ we must split the bounds of integration for the conditions where $\phi_1<\arccos{\frac{S_1}{r}}$ and $\phi_1>\arccos{\frac{S_1}{r}}$. 

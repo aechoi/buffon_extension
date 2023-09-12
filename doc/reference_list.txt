@@ -3,3 +3,5 @@ need to figure out how to do bibtex references, so until then
  Blumenson, L. E. (1960). "A Derivation of n-Dimensional Spherical Coordinates"
     # Derivation of spherical coordinates, used to define PDF
 
+https://arxiv.org/pdf/1401.3210.pdf
+   # pivot buffon needle
