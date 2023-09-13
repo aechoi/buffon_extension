@@ -21,9 +21,9 @@ def prob_of_crossing_single_set(lengths: np.array, dim: int, C: int, S: int):
         meeting the crossing criteria."""
     if dim <= 1:
         raise ValueError("dim must be greater than 1")
-    i_s = lengths < S * (C - 1)
-    i_m = (lengths >= S * (C - 1)) * (lengths < S * C)
-    i_l = lengths >= S * C
+    i_s = lengths < (S * (C - 1))
+    i_m = (lengths >= (S * (C - 1))) * (lengths < (S * C))
+    i_l = lengths >= (S * C)
 
     r_s = lengths[i_s]
     r_m = lengths[i_m]
@@ -55,7 +55,7 @@ def prob_of_crossing_single_set_small_r(lengths, dim, C, S):
         A numpy array the same length as `lengths` with the probability of
         meeting the crossing criteria."""
     r = lengths
-    gamma = S[0] * (C - 1) / r
+    gamma = S * (C - 1) / r
     loop_sum = np.sum(
         [
             spec.beta((dim - 2 * i) / 2, 0.5) / (1 - gamma**2) ** i
@@ -64,16 +64,17 @@ def prob_of_crossing_single_set_small_r(lengths, dim, C, S):
         axis=0,
     )
     if dim % 2 == 0:
-        parity_shape = 2 * gamma * np.arccos(gamma)
+        parity_shape = 2 / np.pi * np.arccos(gamma)
     else:
-        parity_shape = np.pi * gamma * (1 - gamma)
+        parity_shape = 1 - gamma
     probability = (
         r
-        / (np.pi * S[0])
+        / S
         * (
             (1 - gamma**2) ** ((dim - 1) / 2)
+            / np.pi
             * (spec.beta(dim / 2, 0.5) + gamma**2 * loop_sum)
-            - parity_shape
+            - gamma * parity_shape
         )
     )
     return probability
