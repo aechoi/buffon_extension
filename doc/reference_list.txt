@@ -5,3 +5,9 @@ need to figure out how to do bibtex references, so until then
 
 https://arxiv.org/pdf/1401.3210.pdf
    # pivot buffon needle
+
+
+George Marsaglia. "Choosing a Point from the Surface of a Sphere." Ann.
+    Math. Statist. 43 (2) 645 - 646, April, 1972.
+    https://doi.org/10.1214/aoms/1177692644
+    # sampling a uniformly distributed spherical sample
