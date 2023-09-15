@@ -20,12 +20,12 @@
 \usepackage{amsthm}
 \usepackage{tikz}
 \usepackage{pgfplots}
+\usepackage{todonotes}
 \usetikzlibrary{patterns}
 \usepgfplotslibrary{fillbetween}
 \pgfplotsset{compat=1.17}
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}
-
 
 
 \title{Multidimensional Extension of Buffon's Needle Problem}
@@ -56,6 +56,7 @@ pdfkeywords={Buffon's needle problem, Geometric probability},
 }
 
 \begin{document}
+\todo{Get rid of all "we". I'm a bit conflicted on whether it's supposed to be active or passive voice, but most seem to be passive?}
 \maketitle
 
 \begin{abstract}
@@ -85,7 +86,7 @@ Given $D\in\mathbb{N}_{>0}$ and $N\in[1,2,\dots,D]$, consider a grid on $\mathbb
 has a potentially unique spacing of $S_i$. For example, if $D=2, N=1, S_1=2$, the grid would match the original Buffon Needle problem and would have only a single set of parallel lines 2 units apart.
 If $D=2, N=2, S=[1, 2]$, the grid would have 2 sets of parallel lines that are orthogonal to each other, matching the problem in Laplace's extension. One set of lines would have a spacing of 1 unit and 
 the other would have a spacing of 2 units.
-% Insert diagram of two examples here
+\missingfigure[]{Depictions of the buffon needle and laplace extension}
 \begin{tikzpicture}
 	
 \end{tikzpicture}
@@ -156,6 +157,7 @@ In general, the probability of meeting some number of crossings given any set of
 
 Where $V$ is the hypervolume in which some sort of crossing condition is met. The definition of these crossing conditions and the solution to the above equation will be
 explored for a variety of parameters.
+\todo{Probably need to elaborate and define what I mean by "crossing condition"}
 
 We start with a simplified set of parameters where there is only a single set of parallel hyperplanes. We are interested in the condition where at least $c$ crossings happen. 
 That is, in this section we are interested in the probability $P(C\ge c | r, D, N=1, S)$. For brevity, we will refer to this as $P_1(c)$.
@@ -189,9 +191,10 @@ The domain of $x_1$ also provides a maximum bound for the maximum acceptable val
 	\phi_1 < \arccos{\frac{S_1(c-1)}{r}}
 \end{equation}
 
-
+\todo{Maybe call out Fubini directly here?}
 We can now express our volume integral in terms of these conditions and solve for the location dimensions. Because our probability density function is finite across the entire domain, we may arbitrarily choose the order of integration except
 for $x_1$ and $\phi_1$ whose bounds are dependent and will require the bounds of integration to change if their order is swapped.
+\todo{In general with the math, no idea if I'm too hand-holdy or not hand holdy enough}
 \begin{align} \label{eq:volume integral}
 	P_1(c) &= \int_0^{\pi/2} \hdots \int_0^{\pi/2} \int_0^{\arccos{\frac{S_1(c-1)}{r}}}\int_0^{S_D} \hdots \int_0^{S_2} \int_{m(\phi_1)}^{S_1} f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1})dx_1 dx_2 \hdots dx_D d\phi_1 d\phi_2 \hdots d\phi_{D-1}\\
 	&= \int_0^{\pi/2} \hdots \int_0^{\pi/2}\int_0^{\arccos{\frac{S_1(c-1)}{r}}}\left(\prod_{i=2}^DS_i\right)\left(S_1c-m(\phi_1)\right)  f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1}) d\phi_1 d\phi_2 \hdots d\phi_{D-1} \\
@@ -220,6 +223,7 @@ When $r<S_1c$ we have the following expression by substituting $S_1c - r\cos{\ph
 \end{align}
 
 The two interior integrals can be solved via integration by reduction and u-substitution respectively. It is convenient if we first define the following proposition.
+\todo{This prop can be condensed by maybe just citing the gamma representation of a multi-factorial}
 \begin{proposition} \label{prop:double fac beta}
 	When given the ratio $(k-1)!!/k!!$ where the double exclam represents the double factorial function, it is equivalent the following.
 	\begin{equation}
@@ -367,7 +371,7 @@ We get a solution reminiscent of the original Buffon needle problem ($2r/\pi S$)
 
 
 \subsection{$r>S_1c$}
-% This subsection feels pretty loosy-goosy. TODO add in more rigor 
+\todo{This section feels pretty loosy goosy. Seems like need to be more rigorous}
 When $r>S_1c$, the value of $m(\phi_1)$ is no longer constant for all $\phi_1$. Normally this would require
 the splitting of the bounds of integration for the conditions where $\phi_1<\arccos{\frac{S_1}{r}}$ and $\phi_1>\arccos{\frac{S_1}{r}}$. 
 However, there is an alternative method which can avoid additional integration.
@@ -383,7 +387,8 @@ formula for $P_1(c)$ calculated for when $r<S_1c$ took the integral from the cur
 to the line $S_1c$ and resulted in $\xi$. This is shown in figures \ref{fig:short r int} and \ref{fig:long r int} as
 the blue shaded region.
 
-\begin{figure} 
+\todo{fix figure spacing, maybe put the figs side by side instead}
+\begin{figure}
     \centering
     \begin{tikzpicture}
         \begin{axis}[
@@ -505,15 +510,63 @@ distribution (such as a D-dimensional gaussian variable).
 \begin{figure}[h]
 	\centerline{\includegraphics[width=5in]{numeric_sim_N1.png}}
 	\caption{Comparison of numerically simulated crossing probability and modeled probabilities
-	for $c\in[1, 2, 3, 4]$. Solutions are shown for dimensions 2 through 10. 10,000 samples were
+	for $c\in[1, 2, 3, 4]$. A hyperplane spacing of 1 is used. Solutions are shown for dimensions 2 through 10. 10,000 samples were
 	used in the numeric simulation.}
 	\label{fig:numeric sim N1}
 \end{figure}
 
-\section{Probability of crossing $N=n$}
+\section{Probability of crossing $N\ge 1$}
+When there is only a single set of parallel hyperplanes, there is only one way for a needle to make
+$c$ intersections. The needle would have to go through $c$ hyperplanes in a single direction.
+When we increase the number of orthogonal sets of hyperplanes then we must deal with the fact that
+there are now many ways to cross $c$ hyperplanes due to the many combinations of directions available.
 
+For instance, if $N=2$ and we want to know when $C=2$, then a valid number of crossings occurs if the
+needle crosses 2 hyperplanes in $x_1$ and 0 in $x_2$, or 1 hyperplane in each direction, or 0 hyperplanes
+in $x_1$ and 2 in $x_2$.
 
-%Below here is template stuff
+For simplicity, we begin with the assumption that $r<\min(S)$ to ensure that the needle can never cross
+more than 1 hyperplane in any given direction. We will then investigate what happens as $r$ grows in
+size.
+
+\subsection{$N\ge 1, r<\min(S)$}
+Let $P_{1\cap2\cap\hdots\cap n}(C=n|r,D,N,S)=P_{1\cap\hdots\cap n}$ be the probability that the
+needle crosses at least 1 hyperplane in each of the directions $x_1, x_2, \hdots, x_n$. Similarly,
+let $P_{1\cup2\cup\hdots\cup n}(C\ge 1|r,D,N,S)=P_{1\cup\hdots\cup n}(1)$ be the probability that
+the needle crosses at least 1 hyperplane in direction $x_1$ or $x_2$ or so on. This probability
+is equivalent to the probability that $P(C\ge 1|r,D,N,S)$ as crossing a hyperplane in any 
+direction is sufficient to meet the condition $C\ge 1$. Using the inclusion-exclusion principle,
+this probability can be written as the following sum.
+
+\begin{equation}
+	P(C\ge 1|r, D, N, S) = P_{1\cup2\cup\hdots\cup N} = \sum_{k=1}^N (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le N}P_{i_1 \cap \hdots \cap i_k} \right)
+\end{equation}
+
+Similarly, for $C\ge c$, we can define the set of events $E_c^N$ which consists of each of the
+$N \choose c$ hyperplane crossing combinations. For example, $E_2^3=\{(1,2), (1,3), (2,3)\}$.
+If the needle crosses hyperplanes in all of the directions listed in any element of $E_c^N$,
+then the crossing condition for the criteria $C \ge c$ has been met.
+
+\begin{equation}
+	P(C\ge c|r, D, N, S) = P_{(\cap E_c^N[1])\cup(\cap E_c^N[2])\cup\hdots\cup(\cap E_c^N[{N \choose c}])} = \sum_{k=1}^N (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le N}P_{E_c^N[i_1] \cap \hdots \cap E_c^N[i_k]} \right)
+\end{equation}
+
+This expression requires an equation for the probability of having at least 1 crossing in
+multiple hyperplane directions. 
+
+\begin{proposition}
+	For any given set of hyperplane directions, $\emph{H}$, the probability that a needle would cross
+	at least 1 hyperplane in each of the specified directions can be represented as follows.
+	\begin{equation}
+		P_{H_1 \cap \hdots \cap H_N} = \frac{r^N \Gamma(\frac{D}{2})}{(\prod_{i=1}^N S_i) \pi^{N/2} \Gamma(\frac{D+N}{2})}
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	
+\end{proof}
+
+%Below here is template stuff ==========================================================
 \section{Headings: first level}
 \label{sec:headings}
 

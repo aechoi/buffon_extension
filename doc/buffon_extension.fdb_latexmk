@@ -1,19 +1,19 @@
 # Fdb version 4
-["bibtex buffon_extension"] 1694580046 "buffon_extension.aux" "buffon_extension.bbl" "buffon_extension" 1694580227 0
+["bibtex buffon_extension"] 1694757033 "buffon_extension.aux" "buffon_extension.bbl" "buffon_extension" 1694758369 0
   "./references.bib" 1694453114 978 f28d9c92be8a79c7f9924c5ce8b7b771 ""
-  "buffon_extension.aux" 1694580226 5436 7eb516c68415879d5fdd34f4db9e8764 "pdflatex"
+  "buffon_extension.aux" 1694758368 7809 db373749c97a16e148037eaf1225d17a "pdflatex"
   "c:/texlive/2023/texmf-dist/bibtex/bst/natbib/unsrtnat.bst" 1694461993 24550 a41a6405f4de768c43e871d9fbce2bc8 ""
   (generated)
   "buffon_extension.bbl"
   "buffon_extension.blg"
   (rewritten before read)
-["pdflatex"] 1694580223 "c:/Users/choialex/Documents/personal/code/buffon_extension/doc/buffon_extension.tex" "buffon_extension.pdf" "buffon_extension" 1694580227 0
+["pdflatex"] 1694758365 "c:/Users/choialex/Documents/personal/code/buffon_extension/doc/buffon_extension.tex" "buffon_extension.pdf" "buffon_extension" 1694758369 0
   "arxiv.sty" 1694453114 7903 73d629a9ecdf79da8148f7f0df8c6662 ""
-  "buffon_extension.aux" 1694580226 5436 7eb516c68415879d5fdd34f4db9e8764 "pdflatex"
-  "buffon_extension.bbl" 1694580046 1289 811f2f10a4c9526928889f337bf96170 "bibtex buffon_extension"
-  "buffon_extension.out" 1694580226 2394 a105e27682d998f08a55225cad6ffa4f "pdflatex"
-  "buffon_extension.tex" 1694580223 33858 1190d6b3dd9532cc20c2d24a65d11360 ""
-  "c:/Users/choialex/Documents/personal/code/buffon_extension/doc/buffon_extension.tex" 1694580223 33858 1190d6b3dd9532cc20c2d24a65d11360 ""
+  "buffon_extension.aux" 1694758368 7809 db373749c97a16e148037eaf1225d17a "pdflatex"
+  "buffon_extension.bbl" 1694757033 1289 811f2f10a4c9526928889f337bf96170 "bibtex buffon_extension"
+  "buffon_extension.out" 1694758368 2501 5001462cfe5dd85f143f9b597090b334 "pdflatex"
+  "buffon_extension.tex" 1694758364 37424 ed6ab19095c748eefed089b13be7e9fc ""
+  "c:/Users/choialex/Documents/personal/code/buffon_extension/doc/buffon_extension.tex" 1694758364 37424 ed6ab19095c748eefed089b13be7e9fc ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc" 1694459071 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1694458287 2971 def0b6c1f0b107b3b936def894055589 ""
   "c:/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1694459745 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -113,6 +113,7 @@
   "c:/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryintersections.code.tex" 1694462525 5286 9a47f1a4030b41b12ff25b93bef99d01 ""
   "c:/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypatterns.code.tex" 1694462525 770 82e332cc9cc48e06b8070d74393a185a ""
   "c:/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryplotmarks.code.tex" 1694462525 325 36322b0789619b270aec5993d5a9ed08 ""
+  "c:/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex" 1694462525 3937 3f208572dd82c71103831da976d74f1a ""
   "c:/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex" 1694462525 11518 738408f795261b70ce8dd47459171309 ""
   "c:/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex" 1694462525 186782 af500404a9edec4d362912fe762ded92 ""
   "c:/texlive/2023/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.pathmorphing.code.tex" 1694462525 8843 5533436db3e30fbad1e0440db6027dac ""
@@ -193,6 +194,8 @@
   "c:/texlive/2023/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.code.tex" 1694462561 71792 dba1b75b15201895eb36f142f13b3238 ""
   "c:/texlive/2023/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.verb.code.tex" 1694462561 3286 c17079ba50483e1ac1721268ea016041 ""
   "c:/texlive/2023/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty" 1694464883 7008 f92eaa0a3872ed622bbf538217cd2ab7 ""
+  "c:/texlive/2023/texmf-dist/tex/generic/xkeyval/xkeyval.tex" 1694465290 19231 27205ee17aaa2902aea3e0c07a3cfc65 ""
+  "c:/texlive/2023/texmf-dist/tex/generic/xkeyval/xkvutils.tex" 1694465290 7677 9cb1a74d945bc9331f2181c0a59ff34a ""
   "c:/texlive/2023/texmf-dist/tex/latex/amscls/amsthm.sty" 1694457068 12594 0d51ac3a545aaaa555021326ff22a6cc ""
   "c:/texlive/2023/texmf-dist/tex/latex/amsfonts/amsfonts.sty" 1694457074 5949 3f3fd50a8cc94c3d4cbf4fc66cd3df1c ""
   "c:/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd" 1694457074 961 6518c6525a34feb5e8250ffa91731cff ""
@@ -264,9 +267,12 @@
   "c:/texlive/2023/texmf-dist/tex/latex/psnfss/ts1ptm.fd" 1694462861 619 96f56dc5d1ef1fe1121f1cfeec70ee0c ""
   "c:/texlive/2023/texmf-dist/tex/latex/refcount/refcount.sty" 1694463258 9878 9e94e8fa600d95f9c7731bb21dfb67a4 ""
   "c:/texlive/2023/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1694463295 9714 ba3194bd52c8499b3f1e3eb91d409670 ""
+  "c:/texlive/2023/texmf-dist/tex/latex/todonotes/todonotes.sty" 1694464595 21300 a6e0d5f13b9360f0419aa0d6b30a9c96 ""
+  "c:/texlive/2023/texmf-dist/tex/latex/tools/calc.sty" 1694464605 10214 75bcd28386d4b4b9f28b2aff3cea7b24 ""
   "c:/texlive/2023/texmf-dist/tex/latex/units/nicefrac.sty" 1694464893 4029 0462ee5ab265cf59dc15a41a3b883101 ""
   "c:/texlive/2023/texmf-dist/tex/latex/url/url.sty" 1694464947 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "c:/texlive/2023/texmf-dist/tex/latex/xcolor/xcolor.sty" 1694465190 56148 51a9a8571c07b9921892ae11063ae853 ""
+  "c:/texlive/2023/texmf-dist/tex/latex/xkeyval/xkeyval.sty" 1694465290 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "c:/texlive/2023/texmf-dist/web2c/texmf.cnf" 1694456879 40967 d940221f8762fd5848760382d97d1226 ""
   "c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1694465486 4721899 cfa71210c04771cdc920860e90d7431d ""
   "c:/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1694465697 8183803 84dfab2a8952f0fe8a4e647b140d8c57 ""

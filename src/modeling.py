@@ -120,6 +120,39 @@ def prob_of_crossing_small_r(lengths: np.array, dim: int, c: int, N: int, S: np.
     return probability
 
 
+def prob_of_crossing_small_r_ge(
+    lengths: np.array, dim: int, c: int, N: int, S: np.array
+):
+    """Return the probability of crossing greater than or equal to c hyperplanes.
+
+    Args:
+        - lengths: lengths of the line segment to calculate the prob of.
+            For now must be <= all S
+        - dim: the dimension of the space the needle is embedded in
+        - c: the number of hyperplanes
+        - N: the number of sets of parallel D-1 dimensional hyperplanes
+        - S: the spacing for each of the N hyperplanes. Must have length N.
+
+    Returns:
+        The probability that the line segment has at least 1 crossing in all
+        sets of hyperplanes."""
+    probability = 0
+    combos = list(combinations(S[:N], c))
+    for idx in range(1, int(spec.comb(N, c)) + 1):
+        for combocombo in combinations(combos, idx):
+            combo_list = list(set(sum(combocombo, ())))
+            c_list_len = len(combo_list)
+            probability += (
+                (-1) ** (idx + 1)
+                * lengths**c_list_len
+                / np.prod(combo_list)
+                / np.pi ** (c_list_len / 2)
+                * spec.gamma(dim / 2)
+                / spec.gamma((dim + c_list_len) / 2)
+            )
+    return probability
+
+
 def prob_of_crossing_vs_dim(
     length: int, dims: np.array, C: int = 0, N: int = 1, S=None
 ):
