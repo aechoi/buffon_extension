@@ -558,12 +558,28 @@ multiple hyperplane directions.
 	For any given set of hyperplane directions, $\emph{H}$, the probability that a needle would cross
 	at least 1 hyperplane in each of the specified directions can be represented as follows.
 	\begin{equation}
-		P_{H_1 \cap \hdots \cap H_N} = \frac{r^N \Gamma(\frac{D}{2})}{(\prod_{i=1}^N S_i) \pi^{N/2} \Gamma(\frac{D+N}{2})}
+		P_{H_1 \cap \hdots \cap H_h} = \frac{r^h \Gamma(\frac{D}{2})}{(\prod_{i=1}^h S_{H,i}) \pi^{h/2} \Gamma(\frac{D+h}{2})}
 	\end{equation}
 \end{proposition}
 
 \begin{proof}
-	
+	The set of of hyperplane directions, $H$, with spacings $S_H$ is a subset of all the 
+	hyperplanes that grid the space. Without loss of generalization, the axes can be relabeled to
+	align $H_1$ with $x_1$, $H_2$ with $x_2$ and so on. All other hyperplanes that are not included
+	in the set $H$ can be ignored as any intersections with them are irrelevant.
+
+	The necessary conditions for crossings to occur in each direction specified in $H$ is as follows
+	\begin{align}
+		&r\cos\phi_1 + x_1 > S_1 \\
+		&r\sin\phi_1\cos\phi_2 + x_2 > S_2 \\
+		&\vdots \\
+		&r\sin\phi_1\sin\phi_2\hdots\sin\phi_{h-2}\cos\phi_{h-1} \\
+		&\begin{cases}
+			r\sin\phi_1\hdots\sin\phi_{h-1}cos\phi_{h} & h < D \\
+			r\sin\phi_1\hdots\sin\phi_{h-2}sin\phi_{h-1} & h = D
+		\end{cases}
+	\end{align}
+	Starting with \ref{eq:volume integral}, the following 
 \end{proof}
 
 %Below here is template stuff ==========================================================

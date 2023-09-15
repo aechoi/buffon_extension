@@ -1,19 +1,19 @@
 # Fdb version 4
-["bibtex buffon_extension"] 1694757033 "buffon_extension.aux" "buffon_extension.bbl" "buffon_extension" 1694758369 0
+["bibtex buffon_extension"] 1694792085 "buffon_extension.aux" "buffon_extension.bbl" "buffon_extension" 1694792759 0
   "./references.bib" 1694453114 978 f28d9c92be8a79c7f9924c5ce8b7b771 ""
-  "buffon_extension.aux" 1694758368 7809 db373749c97a16e148037eaf1225d17a "pdflatex"
+  "buffon_extension.aux" 1694792758 7809 0e7308c2568c201022554dbf9e3ca6a4 "pdflatex"
   "c:/texlive/2023/texmf-dist/bibtex/bst/natbib/unsrtnat.bst" 1694461993 24550 a41a6405f4de768c43e871d9fbce2bc8 ""
   (generated)
   "buffon_extension.bbl"
   "buffon_extension.blg"
   (rewritten before read)
-["pdflatex"] 1694758365 "c:/Users/choialex/Documents/personal/code/buffon_extension/doc/buffon_extension.tex" "buffon_extension.pdf" "buffon_extension" 1694758369 0
+["pdflatex"] 1694792755 "c:/Users/choialex/Documents/personal/code/buffon_extension/doc/buffon_extension.tex" "buffon_extension.pdf" "buffon_extension" 1694792759 0
   "arxiv.sty" 1694453114 7903 73d629a9ecdf79da8148f7f0df8c6662 ""
-  "buffon_extension.aux" 1694758368 7809 db373749c97a16e148037eaf1225d17a "pdflatex"
-  "buffon_extension.bbl" 1694757033 1289 811f2f10a4c9526928889f337bf96170 "bibtex buffon_extension"
-  "buffon_extension.out" 1694758368 2501 5001462cfe5dd85f143f9b597090b334 "pdflatex"
-  "buffon_extension.tex" 1694758364 37424 ed6ab19095c748eefed089b13be7e9fc ""
-  "c:/Users/choialex/Documents/personal/code/buffon_extension/doc/buffon_extension.tex" 1694758364 37424 ed6ab19095c748eefed089b13be7e9fc ""
+  "buffon_extension.aux" 1694792758 7809 0e7308c2568c201022554dbf9e3ca6a4 "pdflatex"
+  "buffon_extension.bbl" 1694792085 1289 811f2f10a4c9526928889f337bf96170 "bibtex buffon_extension"
+  "buffon_extension.out" 1694792758 2501 5001462cfe5dd85f143f9b597090b334 "pdflatex"
+  "buffon_extension.tex" 1694792754 38271 ea490e05fe7c4b56e7ef09e4b7191b35 ""
+  "c:/Users/choialex/Documents/personal/code/buffon_extension/doc/buffon_extension.tex" 1694792754 38271 ea490e05fe7c4b56e7ef09e4b7191b35 ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc" 1694459071 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1694458287 2971 def0b6c1f0b107b3b936def894055589 ""
   "c:/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1694459745 3524 cb3e574dea2d1052e39280babc910dc8 ""
