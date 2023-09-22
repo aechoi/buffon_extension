@@ -602,7 +602,34 @@ multiple hyperplane directions.
 		P_{H_1\cap\hdots\cap H_h} = \frac{2^Dr^{D-1}}{A_{D-1}\prod_{i=1}^h S_i} \idotsint_\phi  \int_{m_h(\phi_h)}^{S_h} \hdots \int_{m_1(\phi_1)}^{S_1} \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dx_1\hdots dx_h d\phi_1 \hdots d\phi_{D-1}
 	\end{equation}
 
-	The lower bounds of integration for the remaining spatial dimensions functions $m_i(\phi_i)$ 
+	Given that $r$ is less than every spacing $S_i$, every function $m_i(\phi_i)$ is guaranteed
+	to be greater than zero. Every spatial integral will reduce to the polar representation of
+	the corresponding $x_i$. This simplifies to the following.
+
+	\begin{align}
+		P_{H_1\cap\hdots\cap H_h} &= \frac{2^Dr^{D-1}}{A_{D-1}\prod_{i=1}^h S_i} \idotsint_\phi r^h \left( \prod_{k=1}^{\min(D-1, h)} \cos\phi_k\sin^{h-k}\phi_k\right) \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 \hdots d\phi_{D-1} \\
+		&= \frac{2^Dr^{D+h-1}}{A_{D-1}\prod_{i=1}^h S_i} \idotsint_\phi \left( \prod_{k=1}^{\min(D-1, h)} \cos\phi_k\sin^{D+h-2k-1}\phi_k\right) \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 \hdots d\phi_{D-1}
+	\end{align}
+
+	The product from $k=1$ to $\min(D-1,h)$ can be reduced by using u-substitution where 
+	$u=\sin\phi_k$. Assuming the minimum function evaluates to $h$, this results as follows
+
+	\begin{align}
+		P_{H_1\cap\hdots\cap H_h} &= \frac{2^Dr^{D+h-1}}{A_{D-1}\prod_{i=1}^h S_i} \idotsint_0^{\pi/2} \frac{1}{(D+h-2)(D+h-4)\hdots(D-h)} \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_{h+1} \hdots d\phi_{D-1} \\
+		&= \frac{2^Dr^{D+h-1}}{A_{D-1}\prod_{i=1}^h S_i} \frac{(D-h-2)!!}{(D+h-2)!!} \idotsint_0^{\pi/2} \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_{h+1} \hdots d\phi_{D-1} \\
+		&= \frac{2^Dr^{D+h-1}}{A_{D-1}\prod_{i=1}^h S_i} \frac{\Gamma(\frac{D-h}{2})}{2^h \Gamma(\frac{D+h}{2})} \prod_{j=h+1}^{D-1}\frac{B(\frac{D-j}{2}, \frac{1}{2})}{2} \\
+		&= \frac{2^Dr^{h}\Gamma(\frac{D}{2})}{2 \pi^{D/2}\prod_{i=1}^h S_i} \frac{\Gamma(\frac{D-h}{2})}{2^h \Gamma(\frac{D+h}{2})} \frac{\Gamma(\frac{1}{2})}{\Gamma(\frac{D-h}{2})} \frac{\sqrt{\pi}^{D-h-1}}{2^{D-h-1}} \\
+		&= \frac{r^{h}}{\pi^{h/2}\prod_{i=1}^h S_i} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+h}{2})} \\
+	\end{align}
+
+	If $h$ is greater than $D-1$ (ie. $h=D$), the result remains the same.
+	\begin{align}
+		P_{H_1\cap\hdots\cap H_h} &= \frac{2^Dr^{D+h-1}}{A_{D-1}\prod_{i=1}^h S_i}  \frac{1}{(D+h-2)(D+h-4)\hdots(4)(2)}  \\
+		&= \frac{2^Dr^{h} \Gamma(\frac{D}{2})}{2 \pi^{D/2} \prod_{i=1}^h S_i} \frac{1}{(D+h-2)!!} \\
+		&= \frac{2^Dr^{h} \Gamma(\frac{D}{2})}{2 \pi^{D/2} \prod_{i=1}^h S_i} \frac{1}{2^{(D+h-2)/2} \Gamma(\frac{D+h}{2})} \\
+	\end{align}
+
+
 \end{proof}
 
 %Below here is template stuff ==========================================================
