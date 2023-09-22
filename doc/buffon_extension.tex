@@ -570,16 +570,39 @@ multiple hyperplane directions.
 
 	The necessary conditions for crossings to occur in each direction specified in $H$ is as follows
 	\begin{align}
-		&r\cos\phi_1 + x_1 > S_1 \\
-		&r\sin\phi_1\cos\phi_2 + x_2 > S_2 \\
+		S_1 &\le x_1 + r\cos\phi_1\\
+		S_2 &\le x_2 + r\sin\phi_1\cos\phi_2\\
 		&\vdots \\
-		&r\sin\phi_1\sin\phi_2\hdots\sin\phi_{h-2}\cos\phi_{h-1} \\
-		&\begin{cases}
-			r\sin\phi_1\hdots\sin\phi_{h-1}cos\phi_{h} & h < D \\
-			r\sin\phi_1\hdots\sin\phi_{h-2}sin\phi_{h-1} & h = D
+		S_{h-1} &\le x_{h-1} + r\sin\phi_1\sin\phi_2\hdots\sin\phi_{h-2}\cos\phi_{h-1}\\
+		S_{h} &\le x_h + \begin{cases}
+			r\sin\phi_1\hdots\sin\phi_{h-1}\cos\phi_{h} & h < D \\
+			r\sin\phi_1\hdots\sin\phi_{h-2}\sin\phi_{h-1} & h = D
 		\end{cases}
 	\end{align}
-	Starting with \ref{eq:volume integral}, the following 
+
+	These conditions, along with the domain of $x_i \forall i\in {1,\hdots,h}$, define the bounds of the
+	volume where the needle crosses a hyperplane in each direction $H$.
+	
+	\begin{align}
+		S_1 \ge x_1 \ge m_1(\phi_1) &= \max\{0, S_1-r\cos\phi_1\}\\
+		S_2 \ge x_2 \ge m_2(\phi_2) &= \max\{0, S_2-r\sin\phi_1\cos\phi_2\}\\
+		&\vdots \\
+		S_{h-1} \ge x_{h-1} \ge m_{h-1}(\phi_{h-1}) &= \max\{0, S_{h-1}-r\sin\phi_1\hdots\sin\phi_{h-2}\cos\phi_{h-1}\}\\
+		S_h \ge x_h \ge m_{h}(\phi_{h}) &= \max\left\{0, S_h - \begin{cases}
+			r\sin\phi_1\hdots\sin\phi_{h-1}\cos\phi_{h} & h < D\\
+			r\sin\phi_1\hdots\sin\phi_{h-2}\sin\phi_{h-1} & h = D
+		\end{cases} \right\}
+	\end{align}
+	\todo{turn the "any integration order" thing into a prop}
+	Starting with \ref{eq:volume integral}, the crossing conditions above are encoded into
+	the bounds of integration. Using [REF], the integrals with respect to the
+	spatial dimensions in dimensions greater than $h$ are reduced to a single coefficient.
+
+	\begin{equation}
+		P_{H_1\cap\hdots\cap H_h} = \frac{2^Dr^{D-1}}{A_{D-1}\prod_{i=1}^h S_i} \idotsint_\phi  \int_{m_h(\phi_h)}^{S_h} \hdots \int_{m_1(\phi_1)}^{S_1} \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dx_1\hdots dx_h d\phi_1 \hdots d\phi_{D-1}
+	\end{equation}
+
+	The lower bounds of integration for the remaining spatial dimensions functions $m_i(\phi_i)$ 
 \end{proof}
 
 %Below here is template stuff ==========================================================
