@@ -530,10 +530,10 @@ more than 1 hyperplane in any given direction. We will then investigate what hap
 size.
 
 \subsection{$N\ge 1, r<\min(S)$}
-Let $P_{1\cap2\cap\hdots\cap n}(C=n|r,D,N,S)=P_{1\cap\hdots\cap n}$ be the probability that the
-needle crosses at least 1 hyperplane in each of the directions $x_1, x_2, \hdots, x_n$. Similarly,
-let $P_{1\cup2\cup\hdots\cup n}(C\ge 1|r,D,N,S)=P_{1\cup\hdots\cup n}(1)$ be the probability that
-the needle crosses at least 1 hyperplane in direction $x_1$ or $x_2$ or so on. This probability
+Let $P_{1\cap2\cap\hdots\cap h}(C=n|r,D,N,S)=P_{1\cap\hdots\cap h}$ be the probability that the
+needle crosses at least 1 hyperplane in each of the directions $x_1, x_2, \hdots, x_h$. Similarly,
+let $P_{1\cup2\cup\hdots\cup h}(C\ge 1|r,D,N,S)=P_{1\cup\hdots\cup h}$ be the probability that
+the needle crosses at least 1 hyperplane in any direction $x_1, x_2, \hdots, x_h$. This probability
 is equivalent to the probability that $P(C\ge 1|r,D,N,S)$ as crossing a hyperplane in any 
 direction is sufficient to meet the condition $C\ge 1$. Using the inclusion-exclusion principle,
 this probability can be written as the following sum.
@@ -552,13 +552,13 @@ then the crossing condition for the criteria $C \ge c$ has been met.
 \end{equation}
 
 This expression requires an equation for the probability of having at least 1 crossing in
-multiple hyperplane directions. 
+each direction listed. 
 
 \begin{proposition}
 	For any given set of hyperplane directions, $\emph{H}$, the probability that a needle would cross
 	at least 1 hyperplane in each of the specified directions can be represented as follows.
 	\begin{equation}
-		P_{H_1 \cap \hdots \cap H_h} = \frac{r^h \Gamma(\frac{D}{2})}{(\prod_{i=1}^h S_{H,i}) \pi^{h/2} \Gamma(\frac{D+h}{2})}
+		P_{H_1 \cap \hdots \cap H_h} = \frac{r^h }{ \pi^{h/2} (\prod_{i=1}^h S_{H,i}) }\frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+h}{2})}
 	\end{equation}
 \end{proposition}
 
@@ -627,6 +627,7 @@ multiple hyperplane directions.
 		P_{H_1\cap\hdots\cap H_h} &= \frac{2^Dr^{D+h-1}}{A_{D-1}\prod_{i=1}^h S_i}  \frac{1}{(D+h-2)(D+h-4)\hdots(4)(2)}  \\
 		&= \frac{2^Dr^{h} \Gamma(\frac{D}{2})}{2 \pi^{D/2} \prod_{i=1}^h S_i} \frac{1}{(D+h-2)!!} \\
 		&= \frac{2^Dr^{h} \Gamma(\frac{D}{2})}{2 \pi^{D/2} \prod_{i=1}^h S_i} \frac{1}{2^{(D+h-2)/2} \Gamma(\frac{D+h}{2})} \\
+		&= \frac{r^{h}}{\pi^{h/2} \prod_{i=1}^h S_i} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+h}{2})} \\
 	\end{align}
 
 

@@ -1,8 +1,8 @@
-PWD c:/Users/choialex/Documents/personal/code/buffon_extension/doc
+PWD C:/Users/Alex/Documents/_projTech/20 Buffon Extension/buffon_extension/doc
 INPUT c:/texlive/2023/texmf.cnf
 INPUT c:/texlive/2023/texmf-dist/web2c/texmf.cnf
 INPUT c:/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT c:/Users/choialex/Documents/personal/code/buffon_extension/doc/buffon_extension.tex
+INPUT c:/Users/Alex/Documents/_projTech/20 Buffon Extension/buffon_extension/doc/buffon_extension.tex
 OUTPUT buffon_extension.log
 INPUT c:/texlive/2023/texmf-dist/tex/latex/base/article.cls
 INPUT c:/texlive/2023/texmf-dist/tex/latex/base/article.cls
