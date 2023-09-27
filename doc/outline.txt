@@ -1,0 +1,6 @@
+Intro
+probability density function of needle
+    hypersphere surface area
+definition of crossing conditions
+    example by defining crossing conditions for initial case
+when we can change the order of integration

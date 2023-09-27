@@ -21,6 +21,8 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{todonotes}
+\usepackage{caption}
+\usepackage{subcaption}
 \usetikzlibrary{patterns}
 \usepgfplotslibrary{fillbetween}
 \pgfplotsset{compat=1.17}
@@ -56,7 +58,6 @@ pdfkeywords={Buffon's needle problem, Geometric probability},
 }
 
 \begin{document}
-\todo{Get rid of all "we". I'm a bit conflicted on whether it's supposed to be active or passive voice, but most seem to be passive?}
 \maketitle
 
 \begin{abstract}
@@ -83,13 +84,46 @@ In this paper, we investigate a particular extension that allows the needle to b
 with parallel hyperplanes rather than lines. Additionally, we will look at gridding the space with orthogonal sets of hyperplanes, thereby extending Laplace's extension into higher dimensions.
 
 Given $D\in\mathbb{N}_{>0}$ and $N\in[1,2,\dots,D]$, consider a grid on $\mathbb{R}^D$ formed by $N$ orthogonal sets of regularly spaced hyperplanes where each set of hyperplanes
-has a potentially unique spacing of $S_i$. For example, if $D=2, N=1, S_1=2$, the grid would match the original Buffon Needle problem and would have only a single set of parallel lines 2 units apart.
-If $D=2, N=2, S=[1, 2]$, the grid would have 2 sets of parallel lines that are orthogonal to each other, matching the problem in Laplace's extension. One set of lines would have a spacing of 1 unit and 
+has a potentially unique spacing of $S_i$. For example, if $D=2, N=1, S_1=2$, the grid would match the original Buffon Needle problem and would have only a single set of parallel lines 2 units apart as seen in \ref{fig:buffon example}.
+If $D=2, N=2, S=[1, 2]$, the grid would have 2 sets of parallel lines that are orthogonal to each other, matching the problem in Laplace's extension as seen in \ref{fig:laplace example}. One set of lines would have a spacing of 1 unit and 
 the other would have a spacing of 2 units.
-\missingfigure[]{Depictions of the buffon needle and laplace extension}
-\begin{tikzpicture}
-	
-\end{tikzpicture}
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\begin{tikzpicture}
+			% Buffon Needle lines
+			\foreach \x in {0,1,2,...,5} {
+			\draw (\x,0) -- (\x,3);
+			}
+			% Needle
+			\draw[thick] (2.2,1.5) -- (3.2,2) node[midway, above] {$r$};
+			\draw[<->] (2,1) -- (3,1) node[midway, below] {$S_1$};
+		\end{tikzpicture}
+		\caption{$D=2, N=1, S_1=2$, the parameter set matching Buffon's Needle Problem. In this case $C=1$.}
+		\label{fig:buffon example}
+	\end{subfigure}
+	\hspace{1cm}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\begin{tikzpicture}
+			% Laplace Extension lines
+			\foreach \x in {0,1,2,...,5} {
+			\draw (\x,0) -- (\x,3);
+			}
+			\foreach \y in {0.25,0.75,...,2.75} {
+			\draw (-0.5,\y) -- (5.5,\y);
+			}
+			% Needle
+			\draw[thick] (2.2,1.5) -- (3.2,2) node[midway, above] {$r$};
+			\draw[<->] (2,1.18) -- (3,1.18) node[midway, below] {$S_1$};
+			\draw[<->] (1.8,1.25) -- (1.8,1.75) node[left, midway] {$S_2$};
+		\end{tikzpicture}
+		\caption{$D=2, N=2, S=[2,1]$, the parameter set matching Laplace's Extension. In this case $C=2$.}
+		\label{fig:laplace example}
+	\end{subfigure}
+	\caption{Examples of different parameter sets}
+\end{figure}
 
 A line segment of length $r\in\mathbb{R}^+$ is randomly located in the space such that one of its end points, $P_0$, is uniformly distributed
 across the entire domain. The line segment's orientation is independently distributed such that when considering $P_0$ as the center of a $(D-1)$-sphere of radius $r$, the other point, $P_1$,
@@ -143,30 +177,37 @@ $A_{D-1}$ is the surface area of a $(D-1)$-sphere.
 \end{proof}
 
 Then by independence, the joint probability density function for the entire line segment can be expressed as 
-\begin{equation} \label{eq:general pdf}
+\begin{equation} 
 	f_{\vec{X},\vec{\phi}}(x_1, \hdots, x_D, \phi_1, \hdots, \phi_{D-1}) = \frac{2^D}{A_{D-1}}\left(\prod_{i=1}^D\frac{1}{S_i}\right)\left(\prod_{j=1}^{D-1}r\sin^{D-1-j}\phi_j\right)
 \end{equation} 
+
+The expression for the surface area of a $D-1$ dimensional hyperpsehere, $A_{D-1}=\frac{2\pi^{D/2}r^{D-1}}{\Gamma(D/2)}$,
+can be substituted in and simplified.
+
+\begin{equation}\label{eq:general pdf}
+	f_{\vec{X},\vec{\phi}}(\vec{x}, \vec{\phi}) = \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^DS_i} \left(\prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j\right)
+\end{equation}
 
 \section{Probability of crossing $N=1$}
 In general, the probability of meeting some number of crossings given any set of parameters can be described as follows.
 
 \begin{align} 
-	P(C\ge c|r, D, N, S)&=\idotsint_V f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1})dx_1 \hdots dx_D d\phi_1 \hdots d\phi_{D-1}\\
-	&= \frac{2^Dr^{D-1}}{A_{D-1}\prod_{i=1}^D S_i} \idotsint_V \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dx_1\hdots dx_D d\phi_1 \hdots d\phi_{D-1} \label{eq:volume integral}
+	P(C\ge c|r, D, N, S)&=\idotsint_V f_{\vec{X}\vec\phi}(\phi_1,\hdots,\phi_{D-1})dx_1 \hdots dx_D d\phi_1 \hdots d\phi_{D-1}\\
+	&= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^DS_i} \idotsint_V \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dx_1\hdots dx_D d\phi_1 \hdots d\phi_{D-1} \label{eq:volume integral}
 \end{align}
 
-Where $V$ is the hypervolume in which some sort of crossing condition is met. The definition of these crossing conditions and the solution to the above equation will be
+Where $V$ is the hypervolume in which the condition $C\ge c$ is true. The necessary conditions for achieving some number of intersections
+will be called \emph{crossing conditions}. The definition of these crossing conditions and the solution to the above equation will be
 explored for a variety of parameters.
-\todo{Probably need to elaborate and define what I mean by "crossing condition"}
 
-We start with a simplified set of parameters where there is only a single set of parallel hyperplanes. We are interested in the condition where at least $c$ crossings happen. 
-That is, in this section we are interested in the probability $P(C\ge c | r, D, N=1, S)$. For brevity, we will refer to this as $P_1(c)$.
+We start with a simplified set of parameters where there is only a single set of parallel hyperplanes and the needle intersects a
+hyperplane at least $c$ times. That is, the probability $P(C\ge c | r, D, N=1, S)$. For brevity, we will refer to this as $P_1(c)$.
 
-Due to rotational symmetry of the line segment, it should not matter in which direction the hyperplanes extend. Without loss of generality we assume the planes are in the
-direction of $x_1$.
+Due to rotational symmetry of the line segment, it should not matter in which direction the hyperplanes extend. Without loss of
+generality we assume the planes are in the direction of $x_1$.
 
-Because $P_0$ is constrained to be within the gridcell at the origin and because the orthant we are investigating is in the direction of $x_1$, we know that a crossing occurs
-whenever the following condition is met
+Because $P_0$ is constrained to be within the gridcell at the origin and because the orthant we are investigating is in the direction
+of $x_1$, we know that a crossing occurs whenever the following equivalent conditions are met.
 \begin{align}
 	x_1 &+ r\cos{\phi_1} > S_1c\\
 	r &> \frac{S_1c - x_1}{\cos{\phi_1}} \\
@@ -177,7 +218,7 @@ whenever the following condition is met
 The minimum of $\frac{S_1c - x_1}{\cos{\phi_1}}$ occurs at $x_1=S_1, \phi_1=0$ with a value of $S_1(c-1)$. Therefore if $r<S_1(c-1)$ we can guarantee that the crossing condition
 cannot be satisfied. This results in
 \begin{equation}
-	P(C\ge c|r<S_1(c-1), N=1) = 0
+	P_1(C\ge c|r<S_1(c-1)) = 0
 \end{equation}
 
 The domains of $x_1$ can then be used to define the space in which a valid crossing has occured 
@@ -194,7 +235,7 @@ The domain of $x_1$ also provides a maximum bound for the maximum acceptable val
 \todo{Maybe call out Fubini directly here?}
 We can now express our volume integral in terms of these conditions and solve for the location dimensions. Because our probability density function is finite across the entire domain, we may arbitrarily choose the order of integration except
 for $x_1$ and $\phi_1$ whose bounds are dependent and will require the bounds of integration to change if their order is swapped.
-\todo{In general with the math, no idea if I'm too hand-holdy or not hand holdy enough}
+\todo{Use fubini to simplify the unimportant integrals first before tackling the crossing conditions}
 \begin{align} \label{eq:volume integral}
 	P_1(c) &= \int_0^{\pi/2} \hdots \int_0^{\pi/2} \int_0^{\arccos{\frac{S_1(c-1)}{r}}}\int_0^{S_D} \hdots \int_0^{S_2} \int_{m(\phi_1)}^{S_1} f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1})dx_1 dx_2 \hdots dx_D d\phi_1 d\phi_2 \hdots d\phi_{D-1}\\
 	&= \int_0^{\pi/2} \hdots \int_0^{\pi/2}\int_0^{\arccos{\frac{S_1(c-1)}{r}}}\left(\prod_{i=2}^DS_i\right)\left(S_1c-m(\phi_1)\right)  f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1}) d\phi_1 d\phi_2 \hdots d\phi_{D-1} \\
