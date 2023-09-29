@@ -319,6 +319,8 @@ INPUT c:/texlive/2023/texmf-dist/tex/latex/caption/caption3.sty
 INPUT c:/texlive/2023/texmf-dist/tex/latex/caption/caption3.sty
 INPUT c:/texlive/2023/texmf-dist/tex/latex/caption/subcaption.sty
 INPUT c:/texlive/2023/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/float/float.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/float/float.sty
 INPUT c:/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypatterns.code.tex
 INPUT c:/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypatterns.code.tex
 INPUT c:/texlive/2023/texmf-dist/tex/generic/pgf/libraries/pgflibrarypatterns.code.tex

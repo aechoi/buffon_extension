@@ -1,18 +1,18 @@
 # Fdb version 4
-["bibtex buffon_extension"] 1695828376 "buffon_extension.aux" "buffon_extension.bbl" "buffon_extension" 1695828380 0
+["bibtex buffon_extension"] 1696001265 "buffon_extension.aux" "buffon_extension.bbl" "buffon_extension" 1696001461 0
   "./references.bib" 1693283874 954 f28d9c92be8a79c7f9924c5ce8b7b771 ""
-  "buffon_extension.aux" 1695828379 8243 6fcacbfe3d4d7bd6779af701a257419a "pdflatex"
+  "buffon_extension.aux" 1696001460 8362 cf08066eaa8a02941eb1a4c875ed7ff0 "pdflatex"
   "c:/texlive/2023/texmf-dist/bibtex/bst/natbib/unsrtnat.bst" 1693249707 24550 a41a6405f4de768c43e871d9fbce2bc8 ""
   (generated)
   "buffon_extension.bbl"
   "buffon_extension.blg"
   (rewritten before read)
-["pdflatex"] 1695828376 "c:/Users/Alex/Documents/_projTech/20 Buffon Extension/buffon_extension/doc/buffon_extension.tex" "buffon_extension.pdf" "buffon_extension" 1695828380 0
+["pdflatex"] 1696001458 "c:/Users/Alex/Documents/_projTech/20 Buffon Extension/buffon_extension/doc/buffon_extension.tex" "buffon_extension.pdf" "buffon_extension" 1696001461 0
   "arxiv.sty" 1693459923 7641 73d629a9ecdf79da8148f7f0df8c6662 ""
-  "buffon_extension.aux" 1695828379 8243 6fcacbfe3d4d7bd6779af701a257419a "pdflatex"
-  "buffon_extension.bbl" 1695828376 1289 811f2f10a4c9526928889f337bf96170 "bibtex buffon_extension"
-  "buffon_extension.out" 1695828379 2501 5001462cfe5dd85f143f9b597090b334 "pdflatex"
-  "c:/Users/Alex/Documents/_projTech/20 Buffon Extension/buffon_extension/doc/buffon_extension.tex" 1695828372 43334 1269946e7976b6d8b49bba556375f0c0 ""
+  "buffon_extension.aux" 1696001460 8362 cf08066eaa8a02941eb1a4c875ed7ff0 "pdflatex"
+  "buffon_extension.bbl" 1696001265 1289 811f2f10a4c9526928889f337bf96170 "bibtex buffon_extension"
+  "buffon_extension.out" 1696001460 2501 5001462cfe5dd85f143f9b597090b334 "pdflatex"
+  "c:/Users/Alex/Documents/_projTech/20 Buffon Extension/buffon_extension/doc/buffon_extension.tex" 1696001457 43895 4e46e12d1e95f75aaf8173f739645050 ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc" 1693244953 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1693243799 2971 def0b6c1f0b107b3b936def894055589 ""
   "c:/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1693246040 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -225,6 +225,7 @@
   "c:/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1693245310 13886 d1306dcf79a944f6988e688c1785f9ce ""
   "c:/texlive/2023/texmf-dist/tex/latex/etoolbox/etoolbox.sty" 1693245428 46845 3b58f70c6e861a13d927bff09d35ecbc ""
   "c:/texlive/2023/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty" 1693245603 18450 88279bf67c81e69f8e3f1c1bad1a26c5 ""
+  "c:/texlive/2023/texmf-dist/tex/latex/float/float.sty" 1693245952 6749 16d2656a1984957e674b149555f1ea1d ""
   "c:/texlive/2023/texmf-dist/tex/latex/geometry/geometry.sty" 1693246316 41601 9cf6c5257b1bc7af01a58859749dd37a ""
   "c:/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg" 1693246580 1213 620bba36b25224fa9b7e1ccb4ecb76fd ""
   "c:/texlive/2023/texmf-dist/tex/latex/graphics-cfg/graphics.cfg" 1693246580 1224 978390e9c2234eab29404bc21b268d1e ""
