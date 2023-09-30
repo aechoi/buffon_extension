@@ -218,9 +218,9 @@ From this crossing condition, we define the bounds of the relevant hypervolume. 
 $\phi_1$. As such, the hypervolume spans the entire domain of every other variable. Importantly, because the integrand of \ref{eq:raw integral}
 describes a PDF, the conditions for Fubini's theorem hold. Therefore the order of integration can be freely switched so long as any variable
 limits of integration are accounted for. All integrals with respect to the translational dimensions $x_2, \hdots, x_D$ can be simplified
-for all $i>2$. Taking $g(\vec\phi)$ as the integrand
+for all $i>2$. Taking $f(\vec\phi)$ as the integrand
 \begin{equation}
-	\int_0^{S_i}g(\vec\phi)dx_i = S_ig(\vec\phi) \label{eq:irrelevant translational}
+	\int_0^{S_i}f(\vec\phi)dx_i = S_if(\vec\phi) \label{eq:irrelevant translational}
 \end{equation}
 
 Similarly, all of the integrals with respect to $\phi_2, \hdots, \phi_{D-1}$ can be simplified as well using the following identity.
@@ -242,7 +242,7 @@ The product of beta functions can be simplified by expanding into gamma function
 
 Substituting \ref{eq:beta prod} into \ref{eq:preproduct simplification} yields
 \begin{equation}
-	P_{N=1}(c) = \frac{2\Gamma(\frac{D}{2})}{\pi^{1/2}S_1\Gamma(\frac{D-1}{2})} \iint_{\phi_1,x_1}\sin^{D-2}\phi_1 dx_1 d\phi_1
+	P_{N=1}(c) = \frac{2\Gamma(\frac{D}{2})}{\pi^{1/2}S_1\Gamma(\frac{D-1}{2})} \iint_{\phi_1,x_1}\sin^{D-2}\phi_1 dx_1 d\phi_1 \label{eq:n=1 int}
 \end{equation}
 
 For the remaining integrals, the limits of integration are defined by the domain in which the crossing conditions are satisfied. This
@@ -293,21 +293,28 @@ This partitions the problem into three regions depending on the value of $r$.
 \end{alignat}
 
 The probability $P_{N=1}(c)$ will be derived for the two cases given in \ref{eq:short needle condition} and \ref{eq:long needle condition}
-in \S \ref{s:short needle} and \S \ref{s:long needle} respectively.
+in \S \ref{s:short needle} and \S \ref{s:long needle} respectively. Numeric simulation and comparison will be explored in \S \ref{s:n=1 numeric}
 
 \subsection{$S_1(c-1)<r<S_1c$} \label{s:short needle}
-When $r<S_1c$ we have the following expression by substituting $S_1c - r\cos{\phi_1}$ for $m(\phi_1)$.
+Using the conditions \ref{eq:x cross cond} and \ref{eq:phi cross cond}, the limits of integration can be defined for the expression found
+in \ref{eq:n=1 int}.
+\begin{equation}
+	P_{N=1}(c) = \frac{2\Gamma(\frac{D}{2})}{\pi^{1/2}S_1\Gamma(\frac{D-1}{2})} \int_0^{m_{\phi_1}(x_1)}\int_{m_{x_1}(\phi_1)}^{S_1}\sin^{D-2}\phi_1 dx_1 d\phi_1 
+\end{equation}
+Simplifying with \ref{eq:short needle condition} and the upper bound for $x_1$ yields the following.
 \begin{align}
-	P_1(c) &= \frac{ 2^Dr^{D-1} }{A_{D-1}S_1}\int_0^{\pi/2} \hdots \int_0^{\pi/2}\int_0^{\arccos{\frac{S_1(c-1)}{r}}} (S_1(1-c)+r\cos\phi_1) \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 d\phi_2\hdots d\phi_{D-1}\\
-	&= \frac{2^D r^{D-1}}{A_{D-1} S_1}\int_0^{\pi/2} \hdots \int_0^{\pi/2}\int_0^{\arccos{\frac{S_1(c-1)}{r}}} (S_1(1-c)+ r\cos\phi_1)\sin^{D-2}\phi_1 \prod_{j=2}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 d\phi_2 \hdots d\phi_{D-1} \\
-	\begin{split} \label{eq:first two part}
-		&= \frac{2^D r^{D}}{A_{D-1} S_1}\int_0^{\pi/2} \hdots \int_0^{\pi/2}\prod_{j=2}^{D-1}\sin^{D-1-j}\phi_j\bigg(\frac{S_1(1-c)}{r}\int_0^{\arccos{\frac{S_1(c-1)}{r}}} \sin^{D-2}\phi_1  d\phi_1 \\
-		&\qquad + \int_0^{\arccos{\frac{S_1(c-1)}{r}}} \cos\phi_1\sin^{D-2}\phi_1  d\phi_1 \bigg)d\phi_2 \hdots d\phi_{D-1}
-	\end{split}
+	P_{N=1}(c) &= \frac{2\Gamma(\frac{D}{2})}{\pi^{1/2}S_1\Gamma(\frac{D-1}{2})} \int_0^{\arccos\frac{S_1(c-1)}{r}}\int_{S_1c-r\cos\phi_1}^{S_1}\sin^{D-2}\phi_1 dx_1 d\phi_1 \\
+	&= \frac{2\Gamma(\frac{D}{2})}{\pi^{1/2}S_1\Gamma(\frac{D-1}{2})} \int_0^{\arccos\frac{S_1(c-1)}{r}} (S_1(1-c) + r\cos\phi_1)\sin^{D-2}\phi_1 d\phi_1
 \end{align}
 
-The two interior integrals can be solved via integration by reduction and u-substitution respectively. It is convenient if we first define the following proposition.
-\todo{This prop can be condensed by maybe just citing the gamma representation of a multi-factorial}
+Substituting in $\gamma = \frac{S_1(c-1)}{r}$ yields the following
+\begin{align}
+	P_{N=1}(c) &= \frac{2r}{\pi^{1/2}S_1} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D-1}{2})} \int_0^{\arccos\gamma} (-\gamma + \cos\phi_1)\sin^{D-2}\phi_1 d\phi_1 \\
+	&= \frac{2r}{\pi^{1/2}S_1} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D-1}{2})} \left[-\gamma\int_0^{\arccos\gamma} \sin^{D-2}\phi_1d\phi_1 + \frac{1}{D-1}(1-\gamma^2)^{\frac{D-1}{2}} \right] \label{eq:n=1 last int}
+\end{align}
+
+To solve, we derive an expression for the remaining integral. Before doing so, it is convenient to derive an expression for the following
+ratio of double factorials.
 \begin{proposition} \label{prop:double fac beta}
 	When given the ratio $(k-1)!!/k!!$ where the double exclam represents the double factorial function, it is equivalent the following.
 	\begin{equation}
@@ -326,8 +333,7 @@ The two interior integrals can be solved via integration by reduction and u-subs
 	\end{align}
 	If $n\bmod 2= 1$
 	\begin{align}
-		n!! &= n(n-2)\hdots(3)(1) \\
-		&= \frac{n!}{(n-1)!!} \\
+		n!! &= \frac{n!}{(n-1)!!} \\
 		&= \frac{n!}{2^{(n-1)/2}(\frac{n-1}{2})!} \label{eq:double factorial odd}
 	\end{align}
 
@@ -349,15 +355,15 @@ The two interior integrals can be solved via integration by reduction and u-subs
 	We now repeat the process for the case where $k$ is odd.
 	\begin{align}
 		\frac{(k-1)!!}{k!!} &= \left(\frac{k-1}{2}\right)!2^{(k-1)/2}\frac{(\frac{k-1}{2})!2^{(k-1)/2}}{k!} \\
-		&= \frac{2\Gamma(\frac{1}{2})}{2\Gamma(\frac{1}{2})}\frac{2^{k-1}(\frac{k-1}{2})!^2}{k!} \\
-		&= \frac{\Gamma(\frac{1}{2})}{2\Gamma(\frac{1}{2})}\frac{\frac{2}{2}\frac{4}{2}\hdots\frac{k-3}{2}\frac{k-1}{2}(\frac{k-1}{2}!)}{\frac{1}{2}\frac{2}{2}\hdots\frac{k-1}{2}\frac{k}{2}} \\
-		&= \frac{\Gamma(\frac{1}{2})}{2\Gamma(\frac{1}{2})}\frac{\frac{k-1}{2}!}{\frac{1}{2}\frac{3}{2}\hdots\frac{k-2}{2}\frac{k}{2}} \\
-		&= \frac{\Gamma(\frac{1}{2})\Gamma(\frac{k+1}{2})}{2\Gamma(\frac{k+2}{2})} \\
+		&= \frac{2\Gamma(\frac{1}{2})}{2\Gamma(\frac{1}{2})}\frac{2^{k-1}(\frac{k-1}{2})!^2}{k!} = \frac{\Gamma(\frac{1}{2})}{2\Gamma(\frac{1}{2})}\frac{\frac{2}{2}\frac{4}{2}\hdots\frac{k-3}{2}\frac{k-1}{2}(\frac{k-1}{2}!)}{\frac{1}{2}\frac{2}{2}\hdots\frac{k-1}{2}\frac{k}{2}} \\
+		&= \frac{\Gamma(\frac{1}{2})}{2\Gamma(\frac{1}{2})}\frac{\frac{k-1}{2}!}{\frac{1}{2}\frac{3}{2}\hdots\frac{k-2}{2}\frac{k}{2}} = \frac{\Gamma(\frac{1}{2})\Gamma(\frac{k+1}{2})}{2\Gamma(\frac{k+2}{2})} \\
 		&= \frac{1}{2}B\left(\frac{k+1}{2}, \frac{1}{2}\right)
 	\end{align}
 \end{proof}
 
-We now define the following proposition for the initial integral in \ref{eq:first two part}.
+The solution for the remaining integral in \ref{eq:n=1 last int} can now be solved in general for any whole number exponential of the
+sin function.
+
 \begin{proposition} \label{prop:sin integral}
 	Any integral of the form $\int_0^{\arccos(\gamma)} \sin^m \phi d\phi$ has two possible solutions depending on the parity of $m$.
 	\begin{align}
@@ -383,8 +389,6 @@ We now define the following proposition for the initial integral in \ref{eq:firs
 			&= -\frac{1}{m}(1-\gamma^2)^{(m-1)/2}\gamma - \frac{m-1}{m(m-2)}(1-\gamma^2)^{(m-3)/2}\gamma - \hdots \\
 			&\qquad \qquad - \frac{(m-1)(m-3)\hdots(3)}{(m)(m-2)\hdots(2)}(1-\gamma^2)^{1/2}\gamma+ \frac{(m-1)!!}{m!!}\int_0^{\arccos\gamma} d\phi
 		\end{split} \\
-		&= \frac{(m-1)!!}{m!!}\left(-\frac{(m-2)!!}{(m-1)!!}(1-\gamma^2)^{(m-1)/2}\gamma - \frac{(m-4)!!}{(m-3)!!}(1-\gamma^2)^{(m-3)/2}\gamma - \hdots - \frac{0!!}{1!!}(1-\gamma^2)^{1/2}+ \arccos\gamma\right)\\
-		&= \frac{(m-1)!!}{m!!}\left(\arccos\gamma-\gamma\sum_{i=1}^{m/2}\frac{(m-2i)!!}{(m+1-2i)!!}(1-\gamma^2)^{(m+1-2i)/2} \right)\\
 		&= \frac{(m-1)!!}{m!!}\left(\arccos\gamma-\gamma(1-\gamma^2)^{(m+1)/2}\sum_{i=1}^{m/2}\frac{(m-2i)!!}{(m+1-2i)!!}(1-\gamma^2)^{-i} \right)
 	\end{align}
 	Using \ref{prop:double fac beta} we can reduce to the following.
@@ -404,55 +408,21 @@ We now define the following proposition for the initial integral in \ref{eq:firs
 	\end{align}
 \end{proof}
 
-We can substitute the solution from \ref{prop:sin integral} int \ref{eq:first two part} to get the following.
-\begin{equation}
-	\begin{split}
-		P_1(c) &= \frac{2^D r^{D}}{A_{D-1} S_1}\int_0^{\pi/2} \hdots \int_0^{\pi/2}\prod_{j=2}^{D-1}\sin^{D-1-j}\phi_j\bigg(\frac{-\gamma}{2}B\left(\frac{D-1}{2}, \frac{1}{2}\right)\left(g(\gamma, D-2)-\gamma(1-\gamma^2)^{(D-1)/2}\sum_{k=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2k}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^k}\right) \\
-		&\qquad + \int_0^{\arccos{\gamma}} \cos\phi_1\sin^{D-2}\phi_1  d\phi_1 \bigg)d\phi_2 \hdots d\phi_{D-1}
-	\end{split}
-\end{equation}
-Where $\gamma = S_1(c-1)/r$.
-
-
-Applying u-substitution where $u=\sin\phi_1$ we get the following
-\begin{align} 
-	P_1(c) &= \frac{2^D r^D \xi}{A_{D-1} S_1}\int_0^{\pi/2} \hdots \int_0^{\pi/2} \prod_{j=2}^{D-1}\sin^{D-1-j}\phi_i d\phi_2\hdots d\phi_{D-1} \label{eq:final phi integral} \\
-	\xi &= \frac{-\gamma}{2}B\left(\frac{D-1}{2}, \frac{1}{2}\right)\left(g(\gamma, D-2)-\gamma(1-\gamma^2)^{(D-1)/2}\sum_{k=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2k}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^k}\right) + \frac{1}{D-1}(1-\gamma^2)^{(D-1)/2} \label{eq:xi}
-\end{align}
-
-To solve the remaining $D-2$ integrals, we start by noting that we can simplify the result from \ref{prop:sin integral}
-by noting that the remaining upper bounds of integration are all $\pi/2$. 
-
-Restating the result, we have the following
+Using the result of \ref{prop:sin integral} on \ref{eq:n=1 last int} yields the following
 \begin{align}
-	\int_0^{\arccos \gamma}sin^m\phi d\phi &= \frac{1}{2}B\left(\frac{m+1}{2}, \frac{1}{2}\right)\left(g(\gamma, m) - \gamma\sum_{i=1}^{\lfloor m/2 \rfloor}\frac{B(\frac{m+2-2i}{2}, \frac{1}{2})}{\pi}(1-\gamma^2)^{(m+1)/2-i}\right) \\
-	\int_0^{\arccos 0}sin^m\phi d\phi &= \frac{1}{2}B\left(\frac{m+1}{2}, \frac{1}{2}\right)(1-0) \\
-	&= \frac{1}{2}B\left(\frac{m+1}{2}, \frac{1}{2}\right)
+	P_{N=1}(c) &= \frac{2r}{\pi^{1/2}S_1} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D-1}{2})} \left[-\gamma\frac{B(\frac{D-1}{2}, \frac{1}{2})}{2}\left(g(\gamma, D-2) - \gamma(1-\gamma^2)^{\frac{D-1}{2}} \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^i}\right) + \frac{1}{D-1}(1-\gamma^2)^\frac{D-1}{2} \right] \\
+	&= \frac{r}{S_1} \left[-\gamma\left(g(\gamma, D-2) - \gamma(1-\gamma^2)^{\frac{D-1}{2}} \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^i}\right) + \frac{B(\frac{D}{2}, \frac{1}{2})}{\pi}(1-\gamma^2)^\frac{D-1}{2} \right] \\
+	&= \frac{r}{S_1} \left[\frac{(1-\gamma^2)^{\frac{D-1}{2}}}{\pi} \left(B\left(\frac{D}{2}, \frac{1}{2} \right) + \gamma^2 \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{(1-\gamma^2)^i}\right) - \gamma g(\gamma, D-2) \right] \\
 \end{align}
 
-For every integral in \ref{eq:final phi integral} we get the following product.
+As an example, setting the parameters relevant for the classical 2 dimensional Buffon needle problem results in the expected probability.
 \begin{align}
-	P_1(c) &= \frac{2^D r^D \xi}{A_{D-1} S_1}\prod_{j=2}^{D-1}\frac{1}{2}B\left(\frac{D-j}{2}, \frac{1}{2}\right) \\
-	&= \frac{2^D r^D \xi}{A_{D-1} S_1} \frac{\Gamma(\frac{1}{2})}{\Gamma(\frac{D-1}{2})}\left(\frac{\sqrt{\pi}}{2}\right)^{D-2}
+	c&=1, D=2, N=1, S=s \\
+	\gamma &= \frac{s(c-1)}{r} = 0 \\
+	P_{N=1}(c) &= \frac{r}{s} \left[ \frac{1}{\pi} \left( \frac{\Gamma(1)\Gamma(\frac{1}{2})}{\Gamma(\frac{3}{2})} + 0 \right) - 0\right] \\
+	&= \frac{2r}{\pi s}
 \end{align}
-
-We can now substitute in an expression of $A_{D-1}$ as follows
-\begin{align}
-	A_{D-1} &= \frac{2\pi^{D/2}r^{n-1}}{\Gamma(\frac{D}{2})}\\
-	P_1(c) &= \frac{2^D r^D \xi}{2\pi^{D/2}r^{D-1}S_1} \frac{\Gamma(\frac{D}{2})\Gamma(\frac{1}{2})}{\Gamma(\frac{D+1}{2})}\left(\frac{\sqrt{\pi}}{2}\right)^{D-2} \\
-	&= \frac{2 r }{\pi S_1} \frac{\xi \pi}{ B(\frac{D-1}{2}, \frac{1}{2})}
-\end{align}
-We get a solution reminiscent of the original Buffon needle problem ($2r/\pi S$) with an extra factor that is dependent on the dimension of the space. Substituting in our function for $\xi$ in \ref{eq:xi} and simplifying, we get
-\begin{align}
-	\begin{split}
-		P_1(c) &= \frac{2r}{\pi S_1}\bigg(-\frac{\gamma \pi B(\frac{D-1}{2}, \frac{1}{2}) }{2B (\frac{D-1}{2}, \frac{1}{2})}\left(g(\gamma, D-2)-\gamma(1-\gamma^2)^{(D-1)/2}\sum_{k=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2k}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^k}\right) \\
-		&\qquad + \frac{\pi}{B(\frac{D-1}{2}, \frac{1}{2})(D-1)}(1-\gamma^2)^{(D-1)/2} \bigg)
-	\end{split} \\
-	&=  \frac{2r}{\pi S_1} \bigg(-\frac{\gamma \pi}{2}\left(g(\gamma, D-2)-\gamma(1-\gamma^2)^{(D-1)/2}\sum_{k=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2k}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^k}\right) + \frac{B(\frac{D}{2}, \frac{1}{2})}{2}(1-\gamma^2)^{(D-1)/2} \bigg) \\
-	&=  \frac{r}{S_1} \bigg(\frac{(1-\gamma^2)^{(D-1)/2}}{\pi}\left(B(\frac{D}{2}, \frac{1}{2}) + \gamma^2\sum_{k=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2k}{2}, \frac{1}{2})}{(1-\gamma^2)^k}\right) - \gamma g(\gamma, D-2) \bigg)
-\end{align}
-
-
+Additional validation and comparison to numeric simulation will be explored in \S \ref{s:n=1 numeric}
 
 \subsection{$r>S_1c$} \label{s:long needle}
 \todo{This section feels pretty loosy goosy. Seems like need to be more rigorous}
@@ -573,7 +543,7 @@ As such, the result is simply
 \end{align}
 
 
-\subsection{Numeric Validation of Crossing $N=1$}
+\subsection{Numeric Validation of Crossing $N=1$} \label{s:n=1 numeric}
 To summarize, the probability that a randomly placed line segment will cross at least $c$
 hyperplanes given that there is 1 set of parallel hyperplanes with spacing $S_1$ is as follows
 
