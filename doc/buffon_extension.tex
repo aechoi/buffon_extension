@@ -148,15 +148,16 @@ Translational symmetry of the grid of hyperplanes allows us to consider the doma
 Reflectional symmetry of the grid also allows us to consider the domain of $\vec{y}$ to be a single orthant of the hypersphere. For convenience, we will pick the orthant where
 $\phi_i \in [0, \pi/2]$.
 
-The rest of the paper is organized as follows. A derivation of the joint probability density function for $P_0$ and $P_1$ will be provided in \S 2. The derivation and validation
-of the crossing probabilities for $N=1$ will be given in \S 3. The derivation and validation of the crossing probabiities for any $N$ and $r<\min(S)$ will be given in \S 4. Analysis of the limits
+The rest of the paper is organized as follows. A derivation of the joint probability density function for $P_0$ and $P_1$ will be provided in \S \ref{s:needle pdf}. The derivation and validation
+of the crossing probabilities for $N=1$ will be given in \S \ref{s:n=1}. The derivation and validation of the crossing probabiities for any $N$ and $r<\min(S)$ will be given in \S 4. Analysis of the limits
 and extrema of the probabilities is explored in \S 4.
 
-\section{Joint Probability Density of the Line Segment}
+\section{Joint Probability Density of the Line Segment} \label{s:needle pdf}
 Each coordinate for $P_0$ can be defined as a uniformly distributed random variable $X_i\sim{\rm Uniform}(0,S_i)$. Due to independence, the joint PDF for $P_0$ is the product
 $\prod_{i=1}^D \frac{1}{S_i}$. By the definition of the problem, the coordinates $\vec{x}$ do not influence the orientation of the line segment defined by $\vec{\phi}$. 
 The probability density function for the uniform distribution of points on an orthant of the hypersphere can be determined by calculating the area element in terms of spherical coordinates.
 
+\todo{This doesn't seem like it needs to be a prop as it's only really used once. Maybe the prop should be the PDF of the whole segment}
 \begin{proposition}
 In spherical coordinates, the probability density function for a uniform distribution on an orthant of a hypersphere is $\frac{2^D}{A_{D-1}}\prod_{j=1}^{D-1}r\sin^{D-1-j}\phi_j$ where
 $A_{D-1}$ is the surface area of a $(D-1)$-sphere.
@@ -189,18 +190,17 @@ can be substituted in and simplified.
 	f_{\vec{X},\vec{\phi}}(\vec{x}, \vec{\phi}) = \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^DS_i} \left(\prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j\right)
 \end{equation}
 
-\section{Probability of crossing $N=1$}
+\section{Probability of Crossing with a Single set of Hyperplanes ($N=1$)} \label{s:n=1}
 In general, the probability of meeting some number of crossings given any set of parameters can be described as follows.
 
 \begin{align} 
-	P(C\ge c|r, D, N, S)&=\idotsint_V f_{\vec{X}\vec\phi}(\phi_1,\hdots,\phi_{D-1})dx_1 \hdots dx_D d\phi_1 \hdots d\phi_{D-1}\\
+	P(C\ge c|r, D, N, S)&=\idotsint_V f_{\vec{X}\vec\phi}(\phi_1,\hdots,\phi_{D-1})dx_1 \hdots dx_D d\phi_1 \hdots d\phi_{D-1} \label{eq:raw integral}\\
 	&= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^DS_i} \idotsint_V \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dx_1\hdots dx_D d\phi_1 \hdots d\phi_{D-1} \label{eq:volume integral}
 \end{align}
 
 Where $V$ is the hypervolume in which the condition $C\ge c$ is true. The necessary conditions for achieving some number of intersections
 will be called \emph{crossing conditions}. The definition of these crossing conditions and the solution to the above equation will be
 explored for a variety of parameters.
-
 We start with a simplified set of parameters where there is only a single set of parallel hyperplanes and the needle intersects a
 hyperplane at least $c$ times. That is, the probability $P(C\ge c | r, D, N=1, S) \forall c, r, D, S$. For brevity, we will refer to this
 as $P_{N=1}(c)$.
@@ -208,59 +208,94 @@ as $P_{N=1}(c)$.
 Due to rotational symmetry of the line segment, it does not matter in which direction the hyperplanes extend. Without loss of
 generality we assume the planes are in the direction of $x_1$.
 
-Because $P_0$ is constrained to be within the gridcell at the origin and because the orthant we are investigating is in the direction
-of $x_1$, we know that a crossing occurs whenever the following equivalent conditions are met.
+Because $P_0$ is constrained to be within the gridcell at the origin and because the orientation of the needle is constrained to a single
+orthant which points in the positive direction of $x_1$, we know that a crossing occurs whenever the following condition is met.
+\begin{equation}
+	x_1 + r\cos{\phi_1} > S_1c
+\end{equation}
+
+From this crossing condition, we define the bounds of the relevant hypervolume. Note that the constraints above only apply to $x_1$ and
+$\phi_1$. As such, the hypervolume spans the entire domain of every other variable. Importantly, because the integrand of \ref{eq:raw integral}
+describes a PDF, the conditions for Fubini's theorem hold. Therefore the order of integration can be freely switched so long as any variable
+limits of integration are accounted for. All integrals with respect to the translational dimensions $x_2, \hdots, x_D$ can be simplified
+for all $i>2$. Taking $g(\vec\phi)$ as the integrand
+\begin{equation}
+	\int_0^{S_i}g(\vec\phi)dx_i = S_ig(\vec\phi) \label{eq:irrelevant translational}
+\end{equation}
+
+Similarly, all of the integrals with respect to $\phi_2, \hdots, \phi_{D-1}$ can be simplified as well using the following identity.
+\begin{equation}
+	\int_0^{\pi/2}\sin^{D-1-j}\phi_jd\phi_j = \frac{B(\frac{D-j}{2}, \frac{1}{2})}{2}\label{eq:irrelevant rotational}
+\end{equation}
+
+Where $B$ is the beta function. Substituting \ref{eq:irrelevant translational} and \ref{eq:irrelevant rotational} into 
+\ref{eq:volume integral} results in
+\begin{equation} \label{eq:preproduct simplification}
+	P_{N=1}(c) = \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}S_1} \prod_{k=2}^{D-1}\frac{B(\frac{D-k}{2}, \frac{1}{2})}{2} \iint_{\phi_1,x_1}\sin^{D-2}\phi_1 dx_1 d\phi_1
+\end{equation}
+
+The product of beta functions can be simplified by expanding into gamma functions as follows.
 \begin{align}
-	x_1 &+ r\cos{\phi_1} > S_1c\\
-	r &> \frac{S_1c - x_1}{\cos{\phi_1}} \\
-	x_1 &> S_1c - r\cos{\phi_1} \\
-	\phi_1 &< \arccos{\frac{S_1c-x_1}{r}}
+	\prod_{k=2}^{D-1}\frac{B(\frac{D-k}{2}, \frac{1}{2})}{2} &= \frac{1}{2^{D-2}} \frac{\Gamma(\frac{D-2}{2})\Gamma(\frac{1}{2})}{\Gamma(\frac{D-1}{2})} \frac{\Gamma(\frac{D-3}{2})\Gamma(\frac{1}{2})}{\Gamma(\frac{D-2}{2})} \hdots \frac{\Gamma(\frac{1}{2})\Gamma(\frac{1}{2})}{\Gamma(\frac{2}{2})} \\
+	&= \frac{1}{2^{D-2}} \frac{\Gamma(\frac{1}{2})\Gamma(\frac{1}{2})^{D-2}}{\Gamma(\frac{D-1}{2})} = \frac{\pi^{(D-1)/2}}{2^{D-2}\Gamma(\frac{D-1}{2})} \label{eq:beta prod}
 \end{align}
 
-From these crossing conditions, we define the bounds of the relevant hypervolume. Note that the constraints above only apply to $x_1$ and
-$\phi_1$. As such, the hypervolume spans the entire domain of every other variable. 
+Substituting \ref{eq:beta prod} into \ref{eq:preproduct simplification} yields
+\begin{equation}
+	P_{N=1}(c) = \frac{2\Gamma(\frac{D}{2})}{\pi^{1/2}S_1\Gamma(\frac{D-1}{2})} \iint_{\phi_1,x_1}\sin^{D-2}\phi_1 dx_1 d\phi_1
+\end{equation}
 
-The minimum of $\frac{S_1c - x_1}{\cos{\phi_1}}$ occurs at $x_1=S_1, \phi_1=0$ with a value of $S_1(c-1)$. Therefore if $r<S_1(c-1)$ we can guarantee that the crossing condition
-cannot be satisfied. 
+For the remaining integrals, the limits of integration are defined by the domain in which the crossing conditions are satisfied. This
+can be derived by combining the domains for the variables and the domain for the crossing condition. Recall the following
+\begin{gather*}
+	0 < x_1 < S_1 \\
+	0 < \phi_1 < \frac{\pi}{2} \\
+	x_1 + r\cos\phi_1 > S_1c
+\end{gather*}
+
+Combining these inequalities results in the following domain where the crossing conditions are satisfied.
+\begin{gather}
+	\max(0, S_1c-r\cos\phi_1) < x_1 < S_1 \label{eq:x cross cond} \\
+	0 < \phi_1 < \min(\frac{\pi}{2}, \arccos\frac{S_1c-x_1}{r}) \label{eq:phi cross cond} \\
+	r > \frac{S_1c - x_1}{\cos{\phi_1}} \label{eq:r cross cond}
+\end{gather}
+
+The min function in \ref{eq:phi cross cond} can be simplified to $\arccos\frac{S_1c-x_1}{r}$ as the conditions for the alternative are
+only possible in the trivial case where $c=0$ as shown below.
+\begin{align}
+	m_{\phi_1}(x_1) = \min(\frac{\pi}{2}, \arccos\frac{S_1c-x_1}{r}) &= \begin{cases}
+		\frac{\pi}{2} & x_1>S_1c \\
+		\arccos\frac{S_1c-x_1}{r} & \text{otherwise}
+	\end{cases} \\
+	&= \arccos\frac{S_1c-x_1}{r} 
+\end{align}
+
+The final inequality, \ref{eq:r cross cond}, provides a lower bound for the parameter $r$. The minimum of $\frac{S_1c - x_1}{\cos{\phi_1}}$
+occurs at $x_1=S_1, \phi_1=0$ with a value of $S_1(c-1)$. Therefore if $r\le S_1(c-1)$ we can guarantee that the crossing condition
+cannot be satisfied. This is equivalent to the scenario where the needle is too short to cross the necessary number of hyperplanes, even when it is oriented
+orthogonally to the hyperplanes.
 \begin{equation}
 	P_{N=1}(C\ge c|r<S_1(c-1)) = 0
 \end{equation}
-This is equivalent to the scenario where the needle is too short to cross the necessary number of hyperplanes, even when it is oriented
-orthogonally to the hyperplanes.
 
-The domains of $x_1$ can then be used to define the space in which a valid crossing has occured 
-\begin{align} 
-	m(\phi_1) &< x_1 < S_1 \\ \label{eq:crossing condition 0}
-	m(\phi_1) &= \max(0, S_1c-r\cos{\phi_1}) 
-\end{align}
-
-The domain of $x_1$ also provides a maximum bound for the maximum acceptable value of $\phi_1$ when $x_1 = S_1$.
-\begin{align}
-	0 < \phi_1 &< \min\left(\frac{\pi}{2}, \arccos{\frac{S_1(c-1)}{r}}\right) \\
-	0 < \phi_1 &< \arccos{\frac{S_1(c-1)}{r}}
-\end{align}
-
-\todo{Maybe call out Fubini directly here?}
-We can now express our volume integral in terms of these conditions and solve for the location dimensions. Because our probability density function is finite across the entire domain, we may arbitrarily choose the order of integration except
-for $x_1$ and $\phi_1$ whose bounds are dependent and will require the bounds of integration to change if their order is swapped.
-\todo{Use fubini to simplify the unimportant integrals first before tackling the crossing conditions}
-\begin{align} \label{eq:volume integral}
-	P_1(c) &= \int_0^{\pi/2} \hdots \int_0^{\pi/2} \int_0^{\arccos{\frac{S_1(c-1)}{r}}}\int_0^{S_D} \hdots \int_0^{S_2} \int_{m(\phi_1)}^{S_1} f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1})dx_1 dx_2 \hdots dx_D d\phi_1 d\phi_2 \hdots d\phi_{D-1}\\
-	&= \int_0^{\pi/2} \hdots \int_0^{\pi/2}\int_0^{\arccos{\frac{S_1(c-1)}{r}}}\left(\prod_{i=2}^DS_i\right)\left(S_1c-m(\phi_1)\right)  f_{\vec\phi}(\phi_1,\hdots,\phi_{D-1}) d\phi_1 d\phi_2 \hdots d\phi_{D-1} \\
-	&= \frac{ 2^Dr^{D-1} \prod_{i=2}^DS_i}{A_{D-1}\prod_{i=1}^DS_i}\int_0^{\pi/2} \hdots \int_0^{\pi/2}\int_0^{\arccos{\frac{S_1(c-1)}{r}}} (S_1c-m(\phi_1)) \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 d\phi_2\hdots d\phi_{D-1}\\
-	&= \frac{ 2^Dr^{D-1}}{A_{D-1}S_1}\int_0^{\pi/2} \hdots \int_0^{\pi/2}\int_0^{\arccos{\frac{S_1(c-1)}{r}}} (S_1c-m(\phi_1)) \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 d\phi_2 \hdots d\phi_{D-1}
-\end{align}
-
-The value of $m(\phi_1)$ depends on the value of $r$. If $r<S_1c$, then $m(\phi_1)=S_1c-r\cos \phi_1 \forall \phi_1$. If $r>S_1c$ we will need to partition the interval of integration into
-two regions, one where $S_1c-r\cos{\phi_1}$ is greater than 0 and one where it is less than zero. The transition occurs at the value $\phi_1 = \arccos{\frac{S_1c}{r}}$.
+The max function found in \ref{eq:x cross cond} also depends on the length of the needle, $r$. 
 \begin{equation}
-	m(\phi_1) = \begin{cases}
-		0 & \frac{S_1c}{\cos\phi_1}>r>S_1c\\
-		S_1c - r\cos{\phi_1} & \text{otherwise}
+	m_{x_1}(\phi_1) = \max(0, S_1c-r\cos\phi_1) = \begin{cases}
+		0 & r > \frac{S_1c}{\cos\phi_1} \\
+		S_1c-r\cos\phi_1 & \text{otherwise}
 	\end{cases}
 \end{equation}
+This partitions the problem into three regions depending on the value of $r$. 
+\begin{alignat}{2}
+	0 < &r \le S_1(c-1) &&\implies P_{N=1}(c) = 0 \\
+	S_1(c-1) < &r \le S_1c &&\implies m_{x_1}(\phi_1) = S_1c-r\cos\phi_1 \forall \phi_1 \label{eq:short needle condition}\\
+	S_1c < &r &&\implies m_{x_1}(\phi_1) = \max(0, S_1c -r\cos\phi_1) \label{eq:long needle condition}
+\end{alignat}
 
-\subsection{$S_1(c-1)<r<S_1c$}
+The probability $P_{N=1}(c)$ will be derived for the two cases given in \ref{eq:short needle condition} and \ref{eq:long needle condition}
+in \S \ref{s:short needle} and \S \ref{s:long needle} respectively.
+
+\subsection{$S_1(c-1)<r<S_1c$} \label{s:short needle}
 When $r<S_1c$ we have the following expression by substituting $S_1c - r\cos{\phi_1}$ for $m(\phi_1)$.
 \begin{align}
 	P_1(c) &= \frac{ 2^Dr^{D-1} }{A_{D-1}S_1}\int_0^{\pi/2} \hdots \int_0^{\pi/2}\int_0^{\arccos{\frac{S_1(c-1)}{r}}} (S_1(1-c)+r\cos\phi_1) \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 d\phi_2\hdots d\phi_{D-1}\\
@@ -419,7 +454,7 @@ We get a solution reminiscent of the original Buffon needle problem ($2r/\pi S$)
 
 
 
-\subsection{$r>S_1c$}
+\subsection{$r>S_1c$} \label{s:long needle}
 \todo{This section feels pretty loosy goosy. Seems like need to be more rigorous}
 When $r>S_1c$, the value of $m(\phi_1)$ is no longer constant for all $\phi_1$. Normally this would require
 the splitting of the bounds of integration for the conditions where $\phi_1<\arccos{\frac{S_1}{r}}$ and $\phi_1>\arccos{\frac{S_1}{r}}$. 
