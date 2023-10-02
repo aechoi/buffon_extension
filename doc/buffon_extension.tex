@@ -242,7 +242,7 @@ The product of beta functions can be simplified by expanding into gamma function
 
 Substituting \ref{eq:beta prod} into \ref{eq:preproduct simplification} yields
 \begin{equation}
-	P_{N=1}(c) = \frac{2\Gamma(\frac{D}{2})}{\pi^{1/2}S_1\Gamma(\frac{D-1}{2})} \iint_{\phi_1,x_1}\sin^{D-2}\phi_1 dx_1 d\phi_1 \label{eq:n=1 int}
+	P_{N=1}(c) = \frac{2}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \iint_{\phi_1,x_1}\sin^{D-2}\phi_1 dx_1 d\phi_1 \label{eq:n=1 int}
 \end{equation}
 
 For the remaining integrals, the limits of integration are defined by the domain in which the crossing conditions are satisfied. This
@@ -299,18 +299,18 @@ in \S \ref{s:short needle} and \S \ref{s:long needle} respectively. Numeric simu
 Using the conditions \ref{eq:x cross cond} and \ref{eq:phi cross cond}, the limits of integration can be defined for the expression found
 in \ref{eq:n=1 int}.
 \begin{equation}
-	P_{N=1}(c) = \frac{2\Gamma(\frac{D}{2})}{\pi^{1/2}S_1\Gamma(\frac{D-1}{2})} \int_0^{m_{\phi_1}(x_1)}\int_{m_{x_1}(\phi_1)}^{S_1}\sin^{D-2}\phi_1 dx_1 d\phi_1 
+	P_{N=1}(c) = \frac{2}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \int_0^{m_{\phi_1}(x_1)}\int_{m_{x_1}(\phi_1)}^{S_1}\sin^{D-2}\phi_1 dx_1 d\phi_1 
 \end{equation}
 Simplifying with \ref{eq:short needle condition} and the upper bound for $x_1$ yields the following.
 \begin{align}
-	P_{N=1}(c) &= \frac{2\Gamma(\frac{D}{2})}{\pi^{1/2}S_1\Gamma(\frac{D-1}{2})} \int_0^{\arccos\frac{S_1(c-1)}{r}}\int_{S_1c-r\cos\phi_1}^{S_1}\sin^{D-2}\phi_1 dx_1 d\phi_1 \\
-	&= \frac{2\Gamma(\frac{D}{2})}{\pi^{1/2}S_1\Gamma(\frac{D-1}{2})} \int_0^{\arccos\frac{S_1(c-1)}{r}} (S_1(1-c) + r\cos\phi_1)\sin^{D-2}\phi_1 d\phi_1
+	P_{N=1}(c) &= \frac{2}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \int_0^{\arccos\frac{S_1(c-1)}{r}}\int_{S_1c-r\cos\phi_1}^{S_1}\sin^{D-2}\phi_1 dx_1 d\phi_1 \\
+	&= \frac{2}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \int_0^{\arccos\frac{S_1(c-1)}{r}} (S_1(1-c) + r\cos\phi_1)\sin^{D-2}\phi_1 d\phi_1
 \end{align}
 
 Substituting in $\gamma = \frac{S_1(c-1)}{r}$ yields the following
 \begin{align}
-	P_{N=1}(c) &= \frac{2r}{\pi^{1/2}S_1} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D-1}{2})} \int_0^{\arccos\gamma} (-\gamma + \cos\phi_1)\sin^{D-2}\phi_1 d\phi_1 \\
-	&= \frac{2r}{\pi^{1/2}S_1} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D-1}{2})} \left[-\gamma\int_0^{\arccos\gamma} \sin^{D-2}\phi_1d\phi_1 + \frac{1}{D-1}(1-\gamma^2)^{\frac{D-1}{2}} \right] \label{eq:n=1 last int}
+	P_{N=1}(c) &= \frac{2r}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \int_0^{\arccos\gamma} (-\gamma + \cos\phi_1)\sin^{D-2}\phi_1 d\phi_1 \\
+	&= \frac{2r}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \left[-\gamma\int_0^{\arccos\gamma} \sin^{D-2}\phi_1d\phi_1 + \frac{1}{D-1}(1-\gamma^2)^{\frac{D-1}{2}} \right] \label{eq:n=1 last int}
 \end{align}
 
 To solve, we derive an expression for the remaining integral. Before doing so, it is convenient to derive an expression for the following
@@ -325,29 +325,25 @@ ratio of double factorials.
 	\end{equation}
 \end{proposition}
 \begin{proof}
-	We start by deriving a value for $n!!$ in terms of factorials. If $n\bmod 2 = 0$
-	\begin{align}
-		n!! &= n(n-2)\hdots(4)(2) \\
-		&= 2^{n/2}\frac{n}{2}\frac{n-2}{2}\hdots\frac{4}{2}\frac{2}{2} \\
-		&= 2^{n/2}\frac{n}{2}! \label{eq:double factorial even}
-	\end{align}
-	If $n\bmod 2= 1$
-	\begin{align}
-		n!! &= \frac{n!}{(n-1)!!} \\
-		&= \frac{n!}{2^{(n-1)/2}(\frac{n-1}{2})!} \label{eq:double factorial odd}
-	\end{align}
+	Every double factorial can be written in terms of single factorials depending on the parity of the natural number in question.
+	\begin{equation} \label{eq:single factorial}
+		n!! = \begin{cases}
+			2^{n/2}\left(\frac{n}{2}\right)! & n \bmod 2 = 0 \\
+			\cfrac{n!}{2^{(n-1)/2}(\frac{n-1}{2})!} & n \bmod 2 = 1
+		\end{cases}
+	\end{equation}
 
-	Using \ref{eq:double factorial even} and \ref{eq:double factorial odd} we can simplify $(k-1)!!/k!!$. First, assuming that $k$ is even
+	This single factorial representation can be used to simplify $(k-1)!!/k!!$. First, assuming that $k$ is even
 	\begin{align}
 		\frac{(k-1)!!}{k!!} &= \frac{(k-1)!}{2^{(k-2)/2}(\frac{k-2}{2})!}\frac{1}{2^{k/2}(\frac{k}{2})!} \\
 		&= \frac{\Gamma(\frac{1}{2})}{\Gamma(\frac{1}{2})}\frac{\frac{1}{2}\frac{2}{2}\hdots\frac{k-2}{2}\frac{k-1}{2}}{\frac{2}{2}\frac{4}{2}\hdots\frac{k-4}{2}\frac{k-2}{2}(\frac{k}{2}!)} \\
 		&= \frac{\Gamma(\frac{1}{2})}{\Gamma(\frac{1}{2})}\frac{\frac{1}{2}\frac{3}{2}\hdots\frac{k-3}{2}\frac{k-1}{2}}{\frac{k}{2}!}
 	\end{align}
-	Now using the property $n\Gamma(n)=\Gamma(n+1)$ and $n! = \Gamma(n+1)$, we get the following.
+	Using the property $n\Gamma(n)=\Gamma(n+1)$ and $n! = \Gamma(n+1)$, the sequence of fractions can be reduced iteratively.
 	\begin{equation}
 		\frac{(k-1)!!}{k!!} = \frac{\Gamma(\frac{k+1}{2})}{\Gamma(\frac{1}{2})\Gamma(\frac{k+2}{2})}
 	\end{equation}
-	Finally, using $B(x,y)=\Gamma(x)\Gamma(y)/\Gamma(x+y)$ and $\Gamma(1/2) = \sqrt{\pi}$ we get
+	Finally, using $B(x,y)=\Gamma(x)\Gamma(y)/\Gamma(x+y)$ and $\Gamma(1/2) = \sqrt{\pi}$ results in the following.
 	\begin{equation}
 		\frac{(k-1)!!}{k!!} = \frac{1}{\pi}B\left(\frac{k+1}{2}, \frac{1}{2}\right)
 	\end{equation}
@@ -410,9 +406,9 @@ sin function.
 
 Using the result of \ref{prop:sin integral} on \ref{eq:n=1 last int} yields the following
 \begin{align}
-	P_{N=1}(c) &= \frac{2r}{\pi^{1/2}S_1} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D-1}{2})} \left[-\gamma\frac{B(\frac{D-1}{2}, \frac{1}{2})}{2}\left(g(\gamma, D-2) - \gamma(1-\gamma^2)^{\frac{D-1}{2}} \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^i}\right) + \frac{1}{D-1}(1-\gamma^2)^\frac{D-1}{2} \right] \\
+	P_{N=1}(c) &= \frac{2r}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \left[-\gamma\frac{B(\frac{D-1}{2}, \frac{1}{2})}{2}\left(g(\gamma, D-2) - \gamma(1-\gamma^2)^{\frac{D-1}{2}} \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^i}\right) + \frac{1}{D-1}(1-\gamma^2)^\frac{D-1}{2} \right] \\
 	&= \frac{r}{S_1} \left[-\gamma\left(g(\gamma, D-2) - \gamma(1-\gamma^2)^{\frac{D-1}{2}} \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^i}\right) + \frac{B(\frac{D}{2}, \frac{1}{2})}{\pi}(1-\gamma^2)^\frac{D-1}{2} \right] \\
-	&= \frac{r}{S_1} \left[\frac{(1-\gamma^2)^{\frac{D-1}{2}}}{\pi} \left(B\left(\frac{D}{2}, \frac{1}{2} \right) + \gamma^2 \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{(1-\gamma^2)^i}\right) - \gamma g(\gamma, D-2) \right] \\
+	&= \frac{r}{S_1} \left[\frac{(1-\gamma^2)^{\frac{D-1}{2}}}{\pi} \left(B\left(\frac{D}{2}, \frac{1}{2} \right) + \gamma^2 \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{(1-\gamma^2)^i}\right) - \gamma g(\gamma, D-2) \right] \label{eq:n=1 final sol}
 \end{align}
 
 As an example, setting the parameters relevant for the classical 2 dimensional Buffon needle problem results in the expected probability.
@@ -425,147 +421,182 @@ As an example, setting the parameters relevant for the classical 2 dimensional B
 Additional validation and comparison to numeric simulation will be explored in \S \ref{s:n=1 numeric}
 
 \subsection{$r>S_1c$} \label{s:long needle}
-\todo{This section feels pretty loosy goosy. Seems like need to be more rigorous}
-When $r>S_1c$, the value of $m(\phi_1)$ is no longer constant for all $\phi_1$. Normally this would require
-the splitting of the bounds of integration for the conditions where $\phi_1<\arccos{\frac{S_1}{r}}$ and $\phi_1>\arccos{\frac{S_1}{r}}$. 
-However, there is an alternative method which can avoid additional integration.
+When $r>S_1c$, the value of $m_{x_1}(\phi_1)$ is no longer constant for all $\phi_1$. Below is a restatement
+of the general equation for $P(C\ge c)$ when $N=1$, \ref{eq:n=1 int}, and the domain of the crossing conditions.
+\begin{gather*}
+	P_{N=1}(c) = \frac{2}{S_1 B(\frac{D-1}{2}, \frac{1}{2})} \iint_{\phi_1, x_1}\sin ^ {D-2}\phi_1 dx_1 d\phi_1 \\
+	\max(0, S_1c-r\cos\phi_1) < x_1 < S_1 \\
+	0 < \phi_1 < \arccos\frac{S_1c-x_1}{r}
+\end{gather*}
 
-Other than the double integral involving $x_1$ and $\phi_1$, all other terms stay the same. Because we are
-able to change the order of integration, we can claim the following.
-\begin{equation}
-	P_1(c) = \frac{2r}{S_1 B(\frac{D-1}{2}, \frac{1}{2})} \iint_{A}\sin ^ {D-2}\phi_1 dA
-\end{equation}
+There are now two things to note. First, the integrand only varies with $\phi_1$, suggesting that the directional
+derivative of the PDF in the direction of $x_1$ is zero. Second, when $r>S_1c$, the domain of the crossing condition
+can be calculated as the integral spanning the domain $S_1c-r\cos\phi_1<x_1<0$ subtracted from the integral of
+the domain spanning $S_1c-r\cos\phi_1<x_1<S_1$ as seen in Figure \ref{fig:domains}. This difference is explicitly
+written as follows.
 
-There are now two things to note. First, the integrand only varies with $\phi_1$. Second, the 
-formula for $P_1(c)$ calculated for when $r<S_1c$ took the integral from the curve $S_1c - r\cos(\phi_1)$
-to the line $S_1c$ and resulted in $\xi$. This is shown in figures \ref{fig:short r int} and \ref{fig:long r int} as
-the blue shaded region.
+\begin{gather}
+	\int_0^{\phi_{1,h}}\int_{m_{x_1}(\phi_1)}^{S_1}\sin^{D-2}\phi_1dx_1d\phi_1 = \int_0^{\phi_{1,h}}\int_{S_1c-r\cos\phi_1}^{S_1}\sin^{D-2}\phi_1dx_1d\phi_1 - \int_0^{\phi_{1,l}}\int_{S_1c-r\cos\phi_1}^0\sin^{D-2}\phi_1dx_1d\phi_1 \\
+	I_1 = I_2 - I_3 \\
+	\begin{align}
+		\phi_{1,h} &= \arccos\frac{S_1(c-1)}{r} \\
+		\phi_{1,l} &= \arccos\frac{S_1c}{r}
+	\end{align}
+\end{gather}
 
-\todo{fix figure spacing, maybe put the figs side by side instead}
 \begin{figure}
     \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-            axis lines=middle,
-            xlabel={$\phi_1$},
-            ylabel={$x_1$},
-            xmin=0, xmax=pi/2+0.2, % Adjust the x-axis limits
-            ymin=-1.5, ymax=3.5, % Adjust the y-axis limits
-            xtick={0,pi/2}, % Adjust the x-axis tick positions
-            ytick={-1,0,1,2,3}, % Adjust the y-axis tick positions
-            xticklabels={0, $\frac{\pi}{2}$}, % Adjust the x-axis tick labels
-			yticklabels={$-S_1$, 0, $S_1$, $2S_1$, $3S_1$}
-        ]
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\begin{tikzpicture}
+			\begin{axis}[
+				axis lines=middle,
+				xlabel={$\phi_1$},
+				ylabel={$x_1$},
+				xmin=0, xmax=pi/2+0.2, % Adjust the x-axis limits
+				ymin=-1.5, ymax=3.5, % Adjust the y-axis limits
+				xtick={0,pi/2}, % Adjust the x-axis tick positions
+				ytick={-1,0,1,2,3}, % Adjust the y-axis tick positions
+				xticklabels={0, $\frac{\pi}{2}$}, % Adjust the x-axis tick labels
+				yticklabels={$-S_1$, 0, $S_1$, $2S_1$, $3S_1$}
+			]
 
-			% Parameters
-			\def\S{1} % Replace with your desired value for S
-			\def\r{1.7} % Replace with your desired value for r
-			\def\c{2}
-			\pgfmathsetmacro\endshaded{acos(\S*(\c-1)/\r)}
+				% Parameters
+				\def\S{1} % Replace with your desired value for S
+				\def\r{2.7} % Replace with your desired value for r
+				\def\c{2}
+				\pgfmathsetmacro\endshaded{acos(\S*(\c-1)/\r)}
 
+				% Plot the function
+				\addplot[blue, domain=0:pi/2, samples=100, name path=curve] {\S*\c - \r*cos(deg(x))};
+				% \addplot[red, domain=0:pi/2, samples=100, name path=Hcurve] {\S*(\c+1) - \r*cos(deg(x))};
 
-			% Plot the function
-			\addplot[blue, domain=0:pi/2, samples=100, name path=curve] {\S*\c - \r*cos(deg(x))};
+				% Label the function
+				\node[blue] at (axis cs:1,-.5) {$2S_1 - r\cos(\phi_1)$};
+				\node at (axis cs:0.5,0.5) {$P_{N=1}(c)$};
+				% \node[red] at (axis cs:1,2.5) {$3S_1 - r\cos(\phi_1)$};
 
-			% Label the function
-			\node[blue] at (axis cs:1,.5) {$2S_1 - r\cos(\phi_1)$};
+				% Add dashed lines at -S, S, 2S, and 3S on the y-axis
+				\draw[dashed] (axis cs:0,-\S) -- (axis cs:pi/2+0.2,-\S);
+				\draw[dashed, name path = oline] (axis cs:0,0) -- (axis cs:pi/2+0.2,0);
+				\draw[dashed, name path = Sline] (axis cs:0,\S) -- (axis cs:pi/2+0.2,\S);
+				\draw[dashed] (axis cs:0,2*\S) -- (axis cs:pi/2+0.2,2*\S);
+				\draw[dashed] (axis cs:0,3*\S) -- (axis cs:pi/2+0.2,3*\S);
 
-			% Add dashed lines at -S, S, 2S, and 3S on the y-axis
-			\draw[dashed] (axis cs:0,-\S) -- (axis cs:pi/2+0.2,-\S);
-			\draw[dashed, name path = Sline] (axis cs:0,\S) -- (axis cs:pi/2+0.2,\S);
-			\draw[dashed] (axis cs:0,2*\S) -- (axis cs:pi/2+0.2,2*\S);
-			\draw[dashed] (axis cs:0,3*\S) -- (axis cs:pi/2+0.2,3*\S);
+				\addplot[blue!20, fill opacity=0.5] fill between[of=curve and Sline, soft clip={domain=0:1.191}];
+				% \addplot[red!20, pattern=north west lines, pattern color=red] fill between[of=Hcurve and Sline, soft clip={domain=0:0.736}];
+				\addplot[red!20, pattern=north west lines, pattern color=red] fill between[of=curve and oline, soft clip={domain=0:0.736}];
 
-			\addplot[blue!20, fill opacity=0.5] fill between[of=curve and Sline, soft clip={domain=0:0.942}];
+			\end{axis}
+		\end{tikzpicture}
+		\caption{The integral spanning the domain of the crossing condition can be found as a difference
+		between two regions.}\label{fig:domains}
+	\end{subfigure}
+	\hspace{0.5cm}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\begin{tikzpicture}
+			\begin{axis}[
+				axis lines=middle,
+				xlabel={$\phi_1$},
+				ylabel={$x_1$},
+				xmin=0, xmax=pi/2+0.2, % Adjust the x-axis limits
+				ymin=-1.5, ymax=3.5, % Adjust the y-axis limits
+				xtick={0,pi/2}, % Adjust the x-axis tick positions
+				ytick={-1,0,1,2,3}, % Adjust the y-axis tick positions
+				xticklabels={0, $\frac{\pi}{2}$}, % Adjust the x-axis tick labels
+				yticklabels={$-S_1$, 0, $S_1$, $2S_1$, $3S_1$}
+			]
 
-        \end{axis}
-    \end{tikzpicture}
-    \caption{Domain of integration when $r<S_1c$}\label{fig:short r int}
+				% Parameters
+				\def\S{1} % Replace with your desired value for S
+				\def\r{2.7} % Replace with your desired value for r
+				\def\c{2}
+				\pgfmathsetmacro\endshaded{acos(\S*(\c-1)/\r)}
+
+				% Plot the function
+				\addplot[blue, domain=0:pi/2, samples=100, name path=curve] {\S*\c - \r*cos(deg(x))};
+				\addplot[red, domain=0:pi/2, samples=100, name path=Hcurve] {\S*(\c+1) - \r*cos(deg(x))};
+
+				% Label the function
+				\node[blue] at (axis cs:1,-.5) {$2S_1 - r\cos(\phi_1)$};
+				\node[red] at (axis cs:1,2.5) {$3S_1 - r\cos(\phi_1)$};
+
+				% Add dashed lines at -S, S, 2S, and 3S on the y-axis
+				\draw[dashed] (axis cs:0,-\S) -- (axis cs:pi/2+0.2,-\S);
+				\draw[dashed, name path = oline] (axis cs:0,0) -- (axis cs:pi/2+0.2,0);
+				\draw[dashed, name path = Sline] (axis cs:0,\S) -- (axis cs:pi/2+0.2,\S);
+				\draw[dashed] (axis cs:0,2*\S) -- (axis cs:pi/2+0.2,2*\S);
+				\draw[dashed] (axis cs:0,3*\S) -- (axis cs:pi/2+0.2,3*\S);
+
+				\addplot[blue!20, fill opacity=0.5] fill between[of=curve and Sline, soft clip={domain=0:1.191}];
+				\addplot[red!20, pattern=north west lines, pattern color=red] fill between[of=Hcurve and Sline, soft clip={domain=0:0.736}];
+				\addplot[red!20, pattern=north west lines, pattern color=red] fill between[of=curve and oline, soft clip={domain=0:0.736}];
+
+			\end{axis}
+		\end{tikzpicture}
+		\caption{Translational symmetry guarantees that the subtrahend is equivalent to the "short needle"
+		probability of crossing an additional hyperplane.}\label{fig:long r int}
+	\end{subfigure}
+	\caption{}
 \end{figure}
 
-\begin{figure} 
-	\centering
-    \begin{tikzpicture}
-        \begin{axis}[
-            axis lines=middle,
-            xlabel={$\phi_1$},
-            ylabel={$x_1$},
-            xmin=0, xmax=pi/2+0.2, % Adjust the x-axis limits
-            ymin=-1.5, ymax=3.5, % Adjust the y-axis limits
-            xtick={0,pi/2}, % Adjust the x-axis tick positions
-            ytick={-1,0,1,2,3}, % Adjust the y-axis tick positions
-            xticklabels={0, $\frac{\pi}{2}$}, % Adjust the x-axis tick labels
-			yticklabels={$-S_1$, 0, $S_1$, $2S_1$, $3S_1$}
-        ]
-
-			% Parameters
-			\def\S{1} % Replace with your desired value for S
-			\def\r{2.7} % Replace with your desired value for r
-			\def\c{2}
-			\pgfmathsetmacro\endshaded{acos(\S*(\c-1)/\r)}
+The integral $I_2$ is of the same form as the short needle case and can therefore be substituted with the
+solution \ref{eq:n=1 final sol}. Using symmetry of the PDF in the $x_1$ direction, $I_3$ can be rewritten
+with the limits of integration spanning $S_1(c+1)-r\cos\phi_1 < x_1 < S_1$. This is, again, exactly the problem of
+the short needle case but with $c+1$ instead of $c$. This is visualized in Figure \ref{fig:long r int} As such, the result is
+\begin{gather}
+	P_{N=1}(c | r>S_1c) = A(c) - A(c+1) \\
+	A(k) = \frac{r}{S_1} \left[\frac{(1-\gamma^2)^{\frac{D-1}{2}}}{\pi} \left(B\left(\frac{D}{2}, \frac{1}{2} \right) + \gamma^2 \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{(1-\gamma^2)^i}\right) - \gamma g(\gamma, D-2) \right] \\
+	\gamma = \frac{S_1(k-1)}{r} \\
+	g(n, m) = \begin{cases}
+		\frac{2}{\pi}\arccos(n) & m\bmod 2 = 0 \\
+		1-n & m \bmod 2 = 1
+	\end{cases}
+\end{gather}
 
 
-			% Plot the function
-			\addplot[blue, domain=0:pi/2, samples=100, name path=curve] {\S*\c - \r*cos(deg(x))};
-			\addplot[red, domain=0:pi/2, samples=100, name path=Hcurve] {\S*(\c+1) - \r*cos(deg(x))};
-
-			% Label the function
-			\node[blue] at (axis cs:1,-.5) {$2S_1 - r\cos(\phi_1)$};
-			\node[red] at (axis cs:1,2.5) {$3S_1 - r\cos(\phi_1)$};
-
-			% Add dashed lines at -S, S, 2S, and 3S on the y-axis
-			\draw[dashed] (axis cs:0,-\S) -- (axis cs:pi/2+0.2,-\S);
-			\draw[dashed, name path = oline] (axis cs:0,0) -- (axis cs:pi/2+0.2,0);
-			\draw[dashed, name path = Sline] (axis cs:0,\S) -- (axis cs:pi/2+0.2,\S);
-			\draw[dashed] (axis cs:0,2*\S) -- (axis cs:pi/2+0.2,2*\S);
-			\draw[dashed] (axis cs:0,3*\S) -- (axis cs:pi/2+0.2,3*\S);
-
-			\addplot[blue!20, fill opacity=0.5] fill between[of=curve and Sline, soft clip={domain=0:1.191}];
-			\addplot[red!20, pattern=north west lines, pattern color=red] fill between[of=Hcurve and Sline, soft clip={domain=0:0.736}];
-			\addplot[red!20, pattern=north west lines, pattern color=red] fill between[of=curve and oline, soft clip={domain=0:0.736}];
-
-        \end{axis}
-    \end{tikzpicture}
-    \caption{}\label{fig:long r int}
-\end{figure}
-
-When $r$ exceeds the value of $S_1c$, the region enclosed by the curve exceeds the domain of
-interest. Specifically, the region where $x_1<0$. One way to correct for this is to realize
-that the area between the curve and the axis is identical to the area between $x_1=S_1$ and
-the same curve translated up by $S_1$. This is convenient as we have an expression for the
-integrals in the region between curves of the form $S_1c-rcos\phi_1$ and $S_1$. Because the integrand is invariant to
-changes in $x_1$, we can guarantee that the integrals evaluate to the same value. 
-
-As such, the result is simply
-\begin{align}
-	P_1(c | r>S_1c) &= \frac{2r}{S_1 B(\frac{D-1}{2}, \frac{1}{2})} (\xi(c) - \xi(c+1)) \\
-	&= P_1(c | r<S_1c) - P_1(c+1 | r<S_1c)
-\end{align}
-
-
-\subsection{Numeric Validation of Crossing $N=1$} \label{s:n=1 numeric}
+\subsection{Numeric Simulation of Crossing $N=1$} \label{s:n=1 numeric}
 To summarize, the probability that a randomly placed line segment will cross at least $c$
 hyperplanes given that there is 1 set of parallel hyperplanes with spacing $S_1$ is as follows
 
-\begin{gather}
+\begin{gather*}
 	P(C\ge c | r, D, N=1, S) = \begin{cases}
 		0 & r < S(c-1) \\ 
-		\cfrac{2r}{S_1 B(\frac{D-1}{2}, \frac{1}{2})} \xi(c)  & S_1 (c-1) < r < S_1 c \\
-		\cfrac{2r}{S_1 B(\frac{D-1}{2}, \frac{1}{2})} (\xi(c)-\xi(c+1)) & r > S_1c		
+		A(c)  & S_1 (c-1) < r < S_1 c \\
+		A(c) - A(c+1) & r > S_1c		
 	\end{cases} \\
-	\xi(c) = \frac{-\gamma}{2}B\left(\frac{D-1}{2}, \frac{1}{2}\right)\left(g(\gamma, D-2)-\gamma(1-\gamma^2)^{(D-1)/2}\sum_{k=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2k}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^k}\right) + \frac{1}{D-1}(1-\gamma^2)^{(D-1)/2} \\
-	\gamma = \frac{S_1(c-1)}{r} 
-\end{gather}
+	A(k) = \frac{r}{S_1} \left[\frac{(1-\gamma^2)^{\frac{D-1}{2}}}{\pi} \left(B\left(\frac{D}{2}, \frac{1}{2} \right) + \gamma^2 \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{(1-\gamma^2)^i}\right) - \gamma g(\gamma, D-2) \right] \\
+	\gamma = \frac{S_1(k-1)}{r},\ g(n, m) = \begin{cases}
+		\frac{2}{\pi}\arccos(n) & m\bmod 2 = 0 \\
+		1-n & m \bmod 2 = 1
+	\end{cases}
+\end{gather*}
 
-To compare this against numeric simulation, we must generate many samples with uniform spherical
-distribution. We use the method proposed by Marsaglia of normalizing rotationally symmetric
-distribution (such as a D-dimensional gaussian variable).
+To compare this against numeric simulation, many samples of a randomly placed needle must be generated.
+The initial point of the needle, $P_0$, is simulated using a uniformly distributed random variable in 
+the domain $(\vec 0, S)$ and has coordinates $\vec x \in \mathbb{R}^D$. For the other point of the needle, $P_1$, samples 
+with uniform spherical distribution must be generated for higher dimensional space. We use the method
+proposed by Marsaglia \todo{ref} of normalizing a rotationally symmetric distribution 
+(such as a D-dimensional gaussian variable) and label these coordinates as $\vec y \in \mathbb{R}^D$. For a needle of
+length $r$, the point $P_1$ is then at the point $\vec x + r \vec y$.
 
-\begin{figure}[h]
+The number of hyperplanes crossed by the needle in each coordinate is then of the following form.
+\begin{equation}
+	c = \sum_{n=1}^{N} \left|\left\lfloor \frac{x_n+r y_n}{S_n} \right\rfloor\right|
+\end{equation}
+
+The expected value of the probability can then be approximated by simulating many needles, checking
+how many have satisfied the number of crossings, and dividing by the total number of simulations.
+The above procedure was simulated for 100,000 randomly generated needles for each permutation of parameters
+listed below\footnote{For a total of 363.6 million needles} and results shown in Figure \ref{fig:numeric sim N1}. The probabilities were calculated for
+$c\in\{1,2,3,4\}$, needle length $r\in(0, 10]$, dimensions $D\in[2, 10]$, a single hyperplane with
+spacing $S_1=1$.
+
+\begin{figure}[H]
 	\centerline{\includegraphics[width=5in]{numeric_sim_N1.png}}
-	\caption{Comparison of numerically simulated crossing probability and modeled probabilities
-	for $c\in[1, 2, 3, 4]$. A hyperplane spacing of 1 is used. Solutions are shown for dimensions 2 through 10. 10,000 samples were
-	used in the numeric simulation.}
+	\caption{Comparison of numerically simulated and modeled probabilities for a variety of parameters.
+	100,000 needles were simulated for every parameter permutation.}
 	\label{fig:numeric sim N1}
 \end{figure}
 
@@ -584,10 +615,10 @@ more than 1 hyperplane in any given direction. We will then investigate what hap
 size.
 
 \subsection{$N\ge 1, r<\min(S)$}
-Let $P_{1\cap2\cap\hdots\cap h}(C=n|r,D,N,S)=P_{1\cap\hdots\cap h}$ be the probability that the
-needle crosses at least 1 hyperplane in each of the directions $x_1, x_2, \hdots, x_h$. Similarly,
+Let $P_{1\cap2\cap\hdots\cap h}(C=h|r,D,N,S)=P_{1\cap\hdots\cap h}$ be the probability that the
+needle crosses exactly 1 hyperplane in every direction $x_1, x_2, \hdots, x_h$. Similarly,
 let $P_{1\cup2\cup\hdots\cup h}(C\ge 1|r,D,N,S)=P_{1\cup\hdots\cup h}$ be the probability that
-the needle crosses at least 1 hyperplane in any direction $x_1, x_2, \hdots, x_h$. This probability
+the needle crosses at least 1 hyperplane total in any direction $x_1, x_2, \hdots, x_h$. This probability
 is equivalent to the probability that $P(C\ge 1|r,D,N,S)$ as crossing a hyperplane in any 
 direction is sufficient to meet the condition $C\ge 1$. Using the inclusion-exclusion principle,
 this probability can be written as the following sum.
@@ -647,32 +678,36 @@ each direction listed.
 			r\sin\phi_1\hdots\sin\phi_{h-2}\sin\phi_{h-1} & h = D
 		\end{cases} \right\}
 	\end{align}
-	\todo{turn the "any integration order" thing into a prop}
 	Starting with \ref{eq:volume integral}, the crossing conditions above are encoded into
-	the bounds of integration. Using [REF], the integrals with respect to the
-	spatial dimensions in dimensions greater than $h$ are reduced to a single coefficient.
+	the bounds of integration. As in the $N=1$ case, the order of integration is arbitrary
+	so long as the limits of integration are not variable. Therefore the integrals with respect to the
+	spatial dimensions greater than $h$ are reduced to a coefficient.
 
-	\begin{equation}
-		P_{H_1\cap\hdots\cap H_h} = \frac{2^Dr^{D-1}}{A_{D-1}\prod_{i=1}^h S_i} \idotsint_\phi  \int_{m_h(\phi_h)}^{S_h} \hdots \int_{m_1(\phi_1)}^{S_1} \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dx_1\hdots dx_h d\phi_1 \hdots d\phi_{D-1}
-	\end{equation}
+	\begin{align}
+		P_{H_1\cap\hdots\cap H_h} &= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^D S_i} \idotsint_V \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dV \\
+		&= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^h S_i} \idotsint_{\phi}  \int_{m_h(\phi_h)}^{S_h} \hdots \int_{m_1(\phi_1)}^{S_1} \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dx_1\hdots dx_h d\phi_1 \hdots d\phi_{D-1}
+		% &= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^h S_i} \prod_{k=h+1}^{D-1}\frac{B(\frac{D-k}{2}, \frac{1}{2})}{2} \idotsint_{\phi_1\hdots \phi_h x_1 \hdots x_h} \prod_{j=1}^{h}\sin^{D-1-j}\phi_j dx_1\hdots dx_h d\phi_1 \hdots d\phi_{h} \\
+		% &= \frac{2^h}{\pi^{h/2}\prod_{i=1}^h S_i} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D-h}{2})} \idotsint_{\phi_1\hdots \phi_h x_1 \hdots x_h} \prod_{j=1}^{h}\sin^{D-1-j}\phi_j dx_1\hdots dx_h d\phi_1 \hdots d\phi_{h}
+	\end{align}
+
+		% &= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D\2}\prod_{i=1}^h S_i} \prod_{k=h+1}^{D-1}\frac{B(\frac{D-k}{2}, \frac{1}{2})}{2} \idotsint_{\phi_1\hdots \phi_h x_1 \hdots x_h}  \int_{m_h(\phi_h)}^{S_h} \hdots \int_{m_1(\phi_1)}^{S_1} \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dx_1\hdots dx_h d\phi_1 \hdots d\phi_{D-1}
 
 	Given that $r$ is less than every spacing $S_i$, every function $m_i(\phi_i)$ is guaranteed
 	to be greater than zero. Every spatial integral will reduce to the polar representation of
 	the corresponding $x_i$. This simplifies to the following.
 
 	\begin{align}
-		P_{H_1\cap\hdots\cap H_h} &= \frac{2^Dr^{D-1}}{A_{D-1}\prod_{i=1}^h S_i} \idotsint_\phi r^h \left( \prod_{k=1}^{\min(D-1, h)} \cos\phi_k\sin^{h-k}\phi_k\right) \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 \hdots d\phi_{D-1} \\
-		&= \frac{2^Dr^{D+h-1}}{A_{D-1}\prod_{i=1}^h S_i} \idotsint_\phi \left( \prod_{k=1}^{\min(D-1, h)} \cos\phi_k\sin^{D+h-2k-1}\phi_k\right) \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 \hdots d\phi_{D-1}
+		P_{H_1\cap\hdots\cap H_h} &= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^h S_i} \idotsint_\phi r^h \left( \prod_{k=1}^{\min(D-1, h)} \cos\phi_k\sin^{h-k}\phi_k\right) \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 \hdots d\phi_{D-1} \\
+		&= \frac{2^{D-1}r^h\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^h S_i} \idotsint_\phi \left( \prod_{k=1}^{\min(D-1, h)} \cos\phi_k\sin^{D+h-2k-1}\phi_k\right) \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 \hdots d\phi_{D-1}
 	\end{align}
 
 	The product from $k=1$ to $\min(D-1,h)$ can be reduced by using u-substitution where 
-	$u=\sin\phi_k$. Assuming the minimum function evaluates to $h$, this results as follows
+	$u=\sin\phi_k$. Assuming that $h\le D-1$, this results as follows
 
 	\begin{align}
-		P_{H_1\cap\hdots\cap H_h} &= \frac{2^Dr^{D+h-1}}{A_{D-1}\prod_{i=1}^h S_i} \idotsint_0^{\pi/2} \frac{1}{(D+h-2)(D+h-4)\hdots(D-h)} \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_{h+1} \hdots d\phi_{D-1} \\
-		&= \frac{2^Dr^{D+h-1}}{A_{D-1}\prod_{i=1}^h S_i} \frac{(D-h-2)!!}{(D+h-2)!!} \idotsint_0^{\pi/2} \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_{h+1} \hdots d\phi_{D-1} \\
-		&= \frac{2^Dr^{D+h-1}}{A_{D-1}\prod_{i=1}^h S_i} \frac{\Gamma(\frac{D-h}{2})}{2^h \Gamma(\frac{D+h}{2})} \prod_{j=h+1}^{D-1}\frac{B(\frac{D-j}{2}, \frac{1}{2})}{2} \\
-		&= \frac{2^Dr^{h}\Gamma(\frac{D}{2})}{2 \pi^{D/2}\prod_{i=1}^h S_i} \frac{\Gamma(\frac{D-h}{2})}{2^h \Gamma(\frac{D+h}{2})} \frac{\Gamma(\frac{1}{2})}{\Gamma(\frac{D-h}{2})} \frac{\sqrt{\pi}^{D-h-1}}{2^{D-h-1}} \\
+		P_{H_1\cap\hdots\cap H_h} &= \frac{2^{D-1}r^h\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^h S_i} \idotsint_0^{\pi/2} \frac{1}{(D+h-2)(D+h-4)\hdots(D-h)} \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_{h+1} \hdots d\phi_{D-1} \\
+		&= \frac{2^{D-1}r^h\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^h S_i} \frac{(D-h-2)!!}{(D+h-2)!!} \idotsint_0^{\pi/2} \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_{h+1} \hdots d\phi_{D-1} \\
+		&= \frac{2^{D-1}r^h\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^h S_i} \frac{\Gamma(\frac{D-h}{2})}{2^h \Gamma(\frac{D+h}{2})} \prod_{j=h+1}^{D-1}\frac{B(\frac{D-j}{2}, \frac{1}{2})}{2} \\
 		&= \frac{r^{h}}{\pi^{h/2}\prod_{i=1}^h S_i} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+h}{2})} \\
 	\end{align}
 
