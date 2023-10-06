@@ -80,6 +80,12 @@ def prob_of_crossing_single_set_small_r(lengths, dim, C, S):
     return probability
 
 
+def single_set_peak(lengths: np.array, dim: int, C: int, S: int):
+    """Return the length of the needle with the best chance of crossing C hyperplanes
+    and the associated probability."""
+    pass
+
+
 def sum_of_combo_reciprocals(S: np.array, num_choose: int):
     """Given an array of array of values, return the sum of the reciprocals of
     the combo products.

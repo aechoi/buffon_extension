@@ -150,13 +150,14 @@ def get_hypersphere_area(n_dims: int) -> float:
     return 2 * math.pi ** (n_dims / 2) / math.gamma(n_dims / 2)
 
 
-def get_sim_prob_ge(
+def get_sim_prob(
     n_samples: int,
     dim: int,
     lengths: np.array,
     crossings: int = 1,
     n_hyperplanes=1,
     spacing=np.ones(1),
+    operation="ge",
 ) -> np.array:
     """Get the simulated probability that the number of crossings is greater
     than some value
@@ -166,14 +167,18 @@ def get_sim_prob_ge(
     hypersphere = get_samples_gaussian(n_samples, dim)
     ys = xs[None, :] + lengths[:, None, None] * hypersphere[None, :]
 
-    intersections = (
-        np.sum(
-            np.abs((ys[:, :, :] // spacing[None, None, :])[:, :, :n_hyperplanes]),
-            axis=2,
-        )
-        >= crossings
-    ) * 1
-    probabilities = np.sum(intersections, axis=1) / n_samples
+    intersections = np.sum(
+        np.abs((ys[:, :, :] // spacing[None, None, :])[:, :, :n_hyperplanes]),
+        axis=2,
+    )
+    match operation:
+        case "ge":
+            count = (intersections >= crossings) * 1
+        case "e":
+            count = (intersections == crossings) * 1
+        case "le":
+            count = (intersections <= crossings) * 1
+    probabilities = np.sum(count, axis=1) / n_samples
     return probabilities
 
 
@@ -193,9 +198,35 @@ def get_sim_prob_e(
 
     intersections = (
         np.sum(
-            np.abs(np.floor(ys[:, :, :n_hyperplanes] / spacing[None, None, :])), axis=2
+            np.abs((ys[:, :, :] // spacing[None, None, :])[:, :, :n_hyperplanes]),
+            axis=2,
         )
         == crossings
+    ) * 1
+    probabilities = np.sum(intersections, axis=1) / n_samples
+    return probabilities
+
+
+def get_sim_prob_le(
+    n_samples: int,
+    dim: int,
+    lengths: np.array,
+    crossings: int = 1,
+    n_hyperplanes=1,
+    spacing=np.ones(1),
+) -> np.array:
+    """Get the simulated probability that the number of crossings is greater
+    than some value"""
+    xs = np.random.random((n_samples, dim)) * spacing[None, :]
+    hypersphere = get_samples_gaussian(n_samples, dim)
+    ys = xs[None, :] + lengths[:, None, None] * hypersphere[None, :]
+
+    intersections = (
+        np.sum(
+            np.abs((ys[:, :, :] // spacing[None, None, :])[:, :, :n_hyperplanes]),
+            axis=2,
+        )
+        <= crossings
     ) * 1
     probabilities = np.sum(intersections, axis=1) / n_samples
     return probabilities

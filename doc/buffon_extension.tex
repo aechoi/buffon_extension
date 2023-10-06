@@ -149,8 +149,9 @@ Reflectional symmetry of the grid also allows us to consider the domain of $\vec
 $\phi_i \in [0, \pi/2]$.
 
 The rest of the paper is organized as follows. A derivation of the joint probability density function for $P_0$ and $P_1$ will be provided in \S \ref{s:needle pdf}. The derivation and validation
-of the crossing probabilities for $N=1$ will be given in \S \ref{s:n=1}. The derivation and validation of the crossing probabiities for any $N$ and $r<\min(S)$ will be given in \S 4. Analysis of the limits
-and extrema of the probabilities is explored in \S 4.
+of the crossing probabilities for $N=1$ will be given in \S \ref{s:n=1}. The derivation and validation of the crossing probabilities for any $N$ and $r<\min(S)$ will be given in \S 4. Numeric
+simulation of the crossing probabilities will be compared to modeled probabilities in \S 5, along with analysis of the limits
+and extrema of the probabilities.
 
 \section{Joint Probability Density of the Line Segment} \label{s:needle pdf}
 Each coordinate for $P_0$ can be defined as a uniformly distributed random variable $X_i\sim{\rm Uniform}(0,S_i)$. Due to independence, the joint PDF for $P_0$ is the product
@@ -556,50 +557,6 @@ the short needle case but with $c+1$ instead of $c$. This is visualized in Figur
 \end{gather}
 
 
-\subsection{Numeric Simulation of Crossing $N=1$} \label{s:n=1 numeric}
-To summarize, the probability that a randomly placed line segment will cross at least $c$
-hyperplanes given that there is 1 set of parallel hyperplanes with spacing $S_1$ is as follows
-
-\begin{gather*}
-	P(C\ge c | r, D, N=1, S) = \begin{cases}
-		0 & r < S(c-1) \\ 
-		A(c)  & S_1 (c-1) < r < S_1 c \\
-		A(c) - A(c+1) & r > S_1c		
-	\end{cases} \\
-	A(k) = \frac{r}{S_1} \left[\frac{(1-\gamma^2)^{\frac{D-1}{2}}}{\pi} \left(B\left(\frac{D}{2}, \frac{1}{2} \right) + \gamma^2 \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{(1-\gamma^2)^i}\right) - \gamma g(\gamma, D-2) \right] \\
-	\gamma = \frac{S_1(k-1)}{r},\ g(n, m) = \begin{cases}
-		\frac{2}{\pi}\arccos(n) & m\bmod 2 = 0 \\
-		1-n & m \bmod 2 = 1
-	\end{cases}
-\end{gather*}
-
-To compare this against numeric simulation, many samples of a randomly placed needle must be generated.
-The initial point of the needle, $P_0$, is simulated using a uniformly distributed random variable in 
-the domain $(\vec 0, S)$ and has coordinates $\vec x \in \mathbb{R}^D$. For the other point of the needle, $P_1$, samples 
-with uniform spherical distribution must be generated for higher dimensional space. We use the method
-proposed by Marsaglia \todo{ref} of normalizing a rotationally symmetric distribution 
-(such as a D-dimensional gaussian variable) and label these coordinates as $\vec y \in \mathbb{R}^D$. For a needle of
-length $r$, the point $P_1$ is then at the point $\vec x + r \vec y$.
-
-The number of hyperplanes crossed by the needle in each coordinate is then of the following form.
-\begin{equation}
-	c = \sum_{n=1}^{N} \left|\left\lfloor \frac{x_n+r y_n}{S_n} \right\rfloor\right|
-\end{equation}
-
-The expected value of the probability can then be approximated by simulating many needles, checking
-how many have satisfied the number of crossings, and dividing by the total number of simulations.
-The above procedure was simulated for 100,000 randomly generated needles for each permutation of parameters
-listed below\footnote{For a total of 363.6 million needles} and results shown in Figure \ref{fig:numeric sim N1}. The probabilities were calculated for
-$c\in\{1,2,3,4\}$, needle length $r\in(0, 10]$, dimensions $D\in[2, 10]$, a single hyperplane with
-spacing $S_1=1$.
-
-\begin{figure}[H]
-	\centerline{\includegraphics[width=5in]{numeric_sim_N1.png}}
-	\caption{Comparison of numerically simulated and modeled probabilities for a variety of parameters.
-	100,000 needles were simulated for every parameter permutation.}
-	\label{fig:numeric sim N1}
-\end{figure}
-
 \section{Probability of crossing $N\ge 1$}
 When there is only a single set of parallel hyperplanes, there is only one way for a needle to make
 $c$ intersections. The needle would have to go through $c$ hyperplanes in a single direction.
@@ -611,8 +568,7 @@ needle crosses 2 hyperplanes in $x_1$ and 0 in $x_2$, or 1 hyperplane in each di
 in $x_1$ and 2 in $x_2$.
 
 For simplicity, we begin with the assumption that $r<\min(S)$ to ensure that the needle can never cross
-more than 1 hyperplane in any given direction. We will then investigate what happens as $r$ grows in
-size.
+more than 1 hyperplane in any given direction.
 
 \subsection{$N\ge 1, r<\min(S)$}
 Let $P_{1\cap2\cap\hdots\cap h}(C=h|r,D,N,S)=P_{1\cap\hdots\cap h}$ be the probability that the
@@ -722,28 +678,80 @@ each direction listed.
 
 \end{proof}
 
-%Below here is template stuff ==========================================================
-\section{Headings: first level}
-\label{sec:headings}
+\section{Numeric Simulation of Crossing and Other Conditions when $N=1$} \label{s:n=1 numeric}
+To summarize, the probability that a randomly placed line segment will cross at least $c$
+hyperplanes given that there is 1 set of parallel hyperplanes with spacing $S_1$ is as follows
 
-\lipsum[4] See Section \ref{sec:headings}.
+\begin{gather*}
+	P(C\ge c | r, D, N=1, S) = \begin{cases}
+		0 & r < S(c-1) \\ 
+		A(c)  & S_1 (c-1) < r < S_1 c \\
+		A(c) - A(c+1) & r > S_1c		
+	\end{cases} \\
+	A(k) = \frac{r}{S_1} \left[\frac{(1-\gamma^2)^{\frac{D-1}{2}}}{\pi} \left(B\left(\frac{D}{2}, \frac{1}{2} \right) + \gamma^2 \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{(1-\gamma^2)^i}\right) - \gamma g(\gamma, D-2) \right] \\
+	\gamma = \frac{S_1(k-1)}{r},\ g(n, m) = \begin{cases}
+		\frac{2}{\pi}\arccos(n) & m\bmod 2 = 0 \\
+		1-n & m \bmod 2 = 1
+	\end{cases}
+\end{gather*}
 
-\subsection{Headings: second level}
-\lipsum[5]
-\begin{equation} 
-	\xi _{ij}(t)=P(x_{t}=i,x_{t+1}=j|y,v,w;\theta)= {\frac {\alpha _{i}(t)a^{w_t}_{ij}\beta _{j}(t+1)b^{v_{t+1}}_{j}(y_{t+1})}{\sum _{i=1}^{N} \sum _{j=1}^{N} \alpha _{i}(t)a^{w_t}_{ij}\beta _{j}(t+1)b^{v_{t+1}}_{j}(y_{t+1})}}
+To compare this against numeric simulation, many samples of a randomly placed needle must be generated.
+The initial point of the needle, $P_0$, is simulated using a uniformly distributed random variable in 
+the domain $(\vec 0, S)$ and has coordinates $\vec x \in \mathbb{R}^D$. For the other point of the needle, $P_1$, samples 
+with uniform spherical distribution must be generated for higher dimensional space. We use the method
+proposed by Marsaglia \todo{ref} of normalizing a rotationally symmetric distribution 
+(such as a D-dimensional gaussian variable) and label these coordinates as $\vec y \in \mathbb{R}^D$. For a needle of
+length $r$, the point $P_1$ is then at the point $\vec x + r \vec y$.
+
+The number of hyperplanes crossed by the needle in each coordinate is then of the following form.
+\begin{equation}
+	c = \sum_{n=1}^{N} \left|\left\lfloor \frac{x_n+r y_n}{S_n} \right\rfloor\right|
 \end{equation}
 
+The expected value of the probability can then be approximated by simulating many needles, checking
+how many have satisfied the number of crossings, and dividing by the total number of simulations.
+The above procedure was simulated for 100,000 randomly generated needles for each permutation of parameters
+listed below\footnote{For a total of 363.6 million needles} and results shown in Figure \ref{fig:numeric sim N1}. The probabilities were calculated for
+$c\in\{1,2,3,4\}$, needle length $r\in(0, 10]$, dimensions $D\in[2, 10]$, a single hyperplane with
+spacing $S_1=1$.
 
+\begin{figure}
+	\centerline{\includegraphics[width=5in]{numeric_sim_N1.png}}
+	\caption{Comparison of numerically simulated and modeled probabilities for a variety of parameters.
+	100,000 needles were simulated for every parameter permutation.}
+	\label{fig:numeric sim N1}
+\end{figure}
 
-\subsubsection{Headings: third level}
-\lipsum[6]
+Similarly, the count of intersections can be compared to an exact number of crossings as well. The modeled
+probability can be calculated as follows.
 
-\paragraph{Paragraph}
-\lipsum[7]
+\begin{gather}
+	P(C=c|r, D, N=1, S) = P(C\ge c|r, D, N=1, S) - P(C\ge c+1|r, D, N=1, S)
+\end{gather}
 
+\begin{figure}
+	\centerline{\includegraphics[width=5in]{numeric_sim_N1_e.png}}
+	\caption{Numeric and modeled probability for exactly $c$ needle crossings.}
+	\label{fig:numeric sim N1 e}
+\end{figure}
 
+The simulated and modeled probabilities can be found in Figure \ref{fig:numeric sim N1 e}. In the exact
+crossing condition, there is a needle length that maximizes the probability that a certain number of crossings
+occur. This can be calculated by taking the derivative of the expression for $P(C=c)$ with respect to $r$
+and setting it equal to zero.
 
+\begin{gather}
+	\frac{d}{dr}\gamma(k) = -\frac{S_1(k-1)}{r^2} \\
+	\frac{d}{dr}A(k) = \frac{A(k)}{r}+\frac{r}{S_1}\left( \frac{}{} \right) \\
+	\frac{d}{dr}P(C=c|r,D,N=1,S) = 0 = \begin{cases}
+		0 & r<S_1(c-1) \\
+		\frac{d}{dr}A(c) - 0 & S_1(c-1) < r < S_1 \\
+		\frac{d}{dr}A(c) - \frac{d}{dr}(2A(c+1)) & S_1c<r<S_1(c+1) \\
+		\frac{d}{dr}A(c) - \frac{d}{dr}(2A(c+1)) + \frac{d}{dr}A(c+2) & r>S_1(c+1)
+	\end{cases}
+\end{gather}
+
+% template stuff
 \section{Examples of citations, figures, tables, references}
 \label{sec:others}
 
@@ -753,53 +761,15 @@ Citations use \verb+natbib+. The documentation may be found at
 	\url{http://mirrors.ctan.org/macros/latex/contrib/natbib/natnotes.pdf}
 \end{center}
 
-Here is an example usage of the two main commands (\verb+citet+ and \verb+citep+): Some people thought a thing \citep{kour2014real, hadash2018estimate} but other people thought something else \citep{kour2014fast}. Many people have speculated that if we knew exactly why \citet{kour2014fast} thought this\dots
+Here is an example usage of the two main commands (\verb+citet+ and \verb+citep+): Some people thought a
+thing \citep{kour2014real, hadash2018estimate} but other people thought something else \citep{kour2014fast}. 
+Many people have speculated that if we knew exactly why \citet{kour2014fast} thought this\dots
 
-\subsection{Figures}
-\lipsum[10]
-See Figure \ref{fig:fig1}. Here is how you add footnotes. \footnote{Sample of the first footnote.}
-\lipsum[11]
-
-\begin{figure}
-	\centering
-	\fbox{\rule[-.5cm]{4cm}{4cm} \rule[-.5cm]{4cm}{0cm}}
-	\caption{Sample figure caption.}
-	\label{fig:fig1}
-\end{figure}
-
-\subsection{Tables}
-See awesome Table~\ref{tab:table}.
 
 The documentation for \verb+booktabs+ (`Publication quality tables in LaTeX') is available from:
 \begin{center}
 	\url{https://www.ctan.org/pkg/booktabs}
 \end{center}
-
-
-\begin{table}
-	\caption{Sample table title}
-	\centering
-	\begin{tabular}{lll}
-		\toprule
-		\multicolumn{2}{c}{Part}                   \\
-		\cmidrule(r){1-2}
-		Name     & Description     & Size ($\mu$m) \\
-		\midrule
-		Dendrite & Input terminal  & $\sim$100     \\
-		Axon     & Output terminal & $\sim$10      \\
-		Soma     & Cell body       & up to $10^6$  \\
-		\bottomrule
-	\end{tabular}
-	\label{tab:table}
-\end{table}
-
-\subsection{Lists}
-\begin{itemize}
-	\item Lorem ipsum dolor sit amet
-	\item consectetur adipiscing elit.
-	\item Aliquam dignissim blandit est, in dictum tortor gravida eget. In ac rutrum magna.
-\end{itemize}
-
 
 \bibliographystyle{unsrtnat}
 \bibliography{references}  %%% Uncomment this line and comment out the ``thebibliography'' section below to use the external .bib file (using bibtex) .
