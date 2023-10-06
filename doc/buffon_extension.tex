@@ -84,15 +84,15 @@ $\frac{2r}{s\pi}$ when $r<s$. Variations and extensions of this problem have bee
 In this paper, we investigate a particular extension that allows the needle to be dropped into a space with dimension greater than 2. In these higher dimensions, we will rule the space
 with parallel hyperplanes rather than lines. Additionally, we will look at gridding the space with orthogonal sets of hyperplanes, thereby extending Laplace's extension into higher dimensions.
 
-Given $D\in\mathbb{N}_{>0}$ and $N\in[1,2,\dots,D]$, consider a grid on $\mathbb{R}^D$ formed by $N$ orthogonal sets of regularly spaced hyperplanes where each set of hyperplanes
+Given $D\in\mathbb{N}_{>0}$ and $N\in[1,2,\dots,D]$, consider a grid on $\mathbb{R}^D$ formed by $N$ orthogonal sets of regularly spaced hyperplanes. Each set of hyperplanes
 has a potentially unique spacing of $S_i$. For example, if $D=2, N=1, S_1=2$, the grid would match the original Buffon Needle problem and would have only a single set of parallel lines 2 units apart as seen in \ref{fig:buffon example}.
-If $D=2, N=2, S=[1, 2]$, the grid would have 2 sets of parallel lines that are orthogonal to each other, matching the problem in Laplace's extension as seen in \ref{fig:laplace example}. One set of lines would have a spacing of 1 unit and 
-the other would have a spacing of 2 units.
+If $D=2, N=2, S=[2, 1]$, the grid would have 2 sets of parallel lines that are orthogonal to each other, matching the problem in Laplace's extension as seen in \ref{fig:laplace example}. One set of lines would have a spacing of 2 units and 
+the other would have a spacing of 1 unit.
 
 A line segment of length $r\in\mathbb{R}^+$ is randomly located in the space such that one of its end points, $P_0$, is uniformly distributed
 across the entire domain. The line segment's orientation is independently distributed such that when considering $P_0$ as the center of a $(D-1)$-sphere of radius $r$, the other point, $P_1$,
 is uniformly distributed on the surface of that hypersphere. This line segment may intersect with $C\in\mathbb{N}$ unique hyperplanes. This paper studies the probability that the line segment
-intersects with at least $c$ hyperplanes, $P(C\ge c|r, D, N, S)$. From there, solutions for crossing less than $c$ hyperplanes and exactly $c$ hyperplanes can
+intersects with at least $c$ hyperplanes, $P(C\ge c|r, D, N, S)$. From there, solutions for crossing at most $c$ hyperplanes and exactly $c$ hyperplanes can
 be derived.
 \begin{figure}[H]
 	\centering
@@ -144,12 +144,19 @@ We will define the coordinates of line segment using $\vec{x}\in\mathbb{R}^D$ fo
 	\phi_j &\in \begin{cases}[0, \pi] & j<D-1 \\ [0, 2\pi] & j=D-1\end{cases}
 \end{align*}
 
-Translational symmetry of the grid of hyperplanes allows us to consider the domain of $P_0$ to be $x_i\in[0,S_i]$ as the origin can be moved to any point on the grid.
-Reflectional symmetry of the grid also allows us to consider the domain of $\vec{y}$ to be a single orthant of the hypersphere. For convenience, we will pick the orthant where
-$\phi_i \in [0, \pi/2]$.
+The selection of basis vectors provide simplifications to the problem. Translational symmetry of the selection
+of $P_0$ allows the origin to be freely moved without loss of generaliztion. By placing the origin of the coordinate
+system on a vertex of the grid cell containing $P_0$ and constraining the basis vectors to be collinear with the
+edges of that grid cell, the domain of $x_i$ is constrained to $[0, S_i]$. The particular vertex can be chosen
+to ensure that the needle is oriented in the direction of a particular orthant. For convenience, we will choose
+the orthant such that $\phi_i \in [0, \pi/2].$
+% Translational symmetry of the grid of hyperplanes allows us to consider the domain of $P_0$ to be $x_i\in[0,S_i]$ as the gridcell containing $P_0$ can be redefined as 
+% the grid cell at the origin. Reflectional symmetry of the grid also allows us to consider the domain of $\vec{y}$ to be a single orthant of the hypersphere as the basis
+% vectors $\hat{e_i}$ can be reflected to ensure that the needle's orientation is directed in a certain orthant. For convenience, we will pick the orthant where
+% $\phi_i \in [0, \pi/2]$.
 
 The rest of the paper is organized as follows. A derivation of the joint probability density function for $P_0$ and $P_1$ will be provided in \S \ref{s:needle pdf}. The derivation and validation
-of the crossing probabilities for $N=1$ will be given in \S \ref{s:n=1}. The derivation and validation of the crossing probabilities for any $N$ and $r<\min(S)$ will be given in \S 4. Numeric
+of the crossing probabilities for $N=1$ will be given in \S \ref{s:n=1}. The derivation and validation of the crossing probabilities for all $N$ and $r<\min(S)$ will be given in \S 4. Numeric
 simulation of the crossing probabilities will be compared to modeled probabilities in \S 5, along with analysis of the limits
 and extrema of the probabilities.
 
