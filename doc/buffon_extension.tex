@@ -74,7 +74,7 @@ pdfkeywords={Buffon's needle problem, Geometric probability},
 \section{Introduction}
 Buffon's needle problem was originally posed in the 18th century with the following premise. Given a line segment, or "needle", of length $r$ randomly dropped on a two-dimensional plane
 ruled with a set of parallel lines regularly spaced $s$ units apart, what is the probability that the needle crosses at least 1 of the lines? The solution, it turns out, is
-$\frac{2r}{s\pi}$ when $r<s$. Variations and extensions of this problem have been investigated as well, including
+$\frac{2r}{s\pi}$ when the needle is short, $r<s$. Variations and extensions of this problem have been investigated as well, including
 \begin{itemize}
 	\item Laplace's Extension - Investigating when the plane is gridded with 2 orthogonal sets of parallel lines with spacings $s_1$ and $s_2$.
 	\item Buffon's Noodle - Instead of being rigidly straight, the needle is permitted to bend (a "noodle").
@@ -578,40 +578,75 @@ For simplicity, we begin with the assumption that $r<\min(S)$ to ensure that the
 more than 1 hyperplane in any given direction.
 
 \subsection{$N\ge 1, r<\min(S)$}
-Let $P_{1\cap2\cap\hdots\cap h}(C=h|r,D,N,S)=P_{1\cap\hdots\cap h}$ be the probability that the
-needle crosses exactly 1 hyperplane in every direction $x_1, x_2, \hdots, x_h$. Similarly,
-let $P_{1\cup2\cup\hdots\cup h}(C\ge 1|r,D,N,S)=P_{1\cup\hdots\cup h}$ be the probability that
-the needle crosses at least 1 hyperplane total in any direction $x_1, x_2, \hdots, x_h$. This probability
-is equivalent to the probability that $P(C\ge 1|r,D,N,S)$ as crossing a hyperplane in any 
-direction is sufficient to meet the condition $C\ge 1$. Using the inclusion-exclusion principle,
-this probability can be written as the following sum.
+Let $P(C_i\ge c_i|r,D,N,S)=P(C_i\ge c_i)$ be the probability that a needle crosses at least $c_i$ hyperplanes in the direction of
+$x_i$. This is representable with a hypervolume where the relevant crossing condition is satisfied.
+Let $P(C_1\ge c_1 , \hdots , C_N\ge c_N|r,D,N,S)=P(\vec{C}\ge \vec{c})$ be the probability that the needle crosses at
+least $c_i$ hyperplanes in the direction $x_i$ for all whole number values of $i$ up to $N$. This is equivalent
+to the intersection of each individual hypervolume associated with each $P(C_i\ge c_i)$. Additionally,
+let $P(C_1\ge c_1 \cup \hdots \cup C_N\ge c_N|r,D,N,S)=P(\cup\vec{c})$ be the probability that any of the
+crossing conditions are satisfied. This is equivalent to the union of each hypervolume. Finally, let $\hat e_i$
+be a vector where the $i$th entry is $1$ and all other entries are zero.
+
+Using this notation, the probability $P(C\ge 1|r, D, N, S)$ is equivalent to the probability $P(\cup\vec{c})$
+when $\vec{c}$ is an $N$ length list of ones, $\vec{1}_N$. This can be written in terms of intersections using
+the inclusion-exclusion principle.
 
 \begin{equation}
-	P(C\ge 1|r, D, N, S) = P_{1\cup2\cup\hdots\cup N} = \sum_{k=1}^N (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le N}P_{i_1 \cap \hdots \cap i_k} \right)
+	P(C\ge 1|r, D, N, S) = P(\cup\vec{1}_N) = \sum_{k=1}^N (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le N}P(\hat{e}_{i_1}, \hdots, \hat{e}_{i_k})\right)
 \end{equation}
 
 Similarly, for $C\ge c$, we can define the set of events $E_c^N$ which consists of each of the
-$N \choose c$ hyperplane crossing combinations. For example, $E_2^3=\{(1,2), (1,3), (2,3)\}$.
-If the needle crosses hyperplanes in all of the directions listed in any element of $E_c^N$,
-then the crossing condition for the criteria $C \ge c$ has been met.
-
+$N \choose c$ hyperplane crossing combinations that a short needle, $r<\min(S)$ can make. For example, 
+$E_2^3=\{[1,1,0], [1,0,1], [0,1,1]\}$. Assuming the elements of $E_c^N$ are arbitrarily ordered into a list,
+we notate the $i$th element as $E_c^N[i]$. If the needle crosses hyperplanes in all of the directions listed
+in any element of $E_c^N$, then the crossing condition for the criteria $C \ge c$ has been met. Let
+$P(\cup E_c^N)$ be the probability that any element of $E_c^N$ has satisfied its crossing conditions.
+Explicitly, this can be written as follows.
 \begin{equation}
-	P(C\ge c|r, D, N, S) = P_{(\cap E_c^N[1])\cup(\cap E_c^N[2])\cup\hdots\cup(\cap E_c^N[{N \choose c}])} = \sum_{k=1}^N (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le N}P_{E_c^N[i_1] \cap \hdots \cap E_c^N[i_k]} \right)
+	P(C\ge c|r<\min(S), D, N, S) = P(\cup E_c^N) = P((\vec{C} \ge E_c^N[1]) \cup \hdots \cup (\vec{C} \ge E_c^N[N]))
 \end{equation}
 
-This expression requires an equation for the probability of having at least 1 crossing in
-each direction listed. 
+Again, using the inclusion-exclusion principle, this can be expressed strictly with intersections as follows.
+
+\begin{equation}
+	P(\cup E_c^N) = \sum_{k=1}^{N\choose c} (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le {N\choose c}}P(\vec{C}\ge E_c^N[i_1] , \hdots , \vec{C}\ge E_c^N[i_k]) \right)
+\end{equation}
+
+The condition $\vec{C}\ge E_c^N[i_1], \hdots , \vec{C}\ge E_c^N[i_k]$ can be condensed by rewriting in the
+following way due to the fact that a short needle can never cross more than one hyperplane per direction.
+
+\begin{align}
+	P(\vec{C}\ge E_c^N[i_1], \hdots , \vec{C}\ge E_c^N[i_k]) &= P\begin{pmatrix}
+		C_1 \ge \max(E_c^N[i_1][1], \hdots, E_c^N[i_k][1]), \\
+		\vdots \\
+		C_N \ge \max(E_c^N[i_1][N], \hdots, E_c^N[i_k][N])
+	\end{pmatrix} \\
+	&= P(\vec{C}\ge E_c^N[i_1]\cup \hdots \cup E_c^N[i_k])
+\end{align}
+
+For example, following the elements of $E_2^3$ for a short needle, the following holds.
+\begin{equation}
+	P(\vec{C}\ge[1,1,0], \vec{C}\ge[1,0,1], \vec{C}\ge [0,1,1]) = P(\vec{C} \ge [1,1,1])
+\end{equation}
+
+The probability that a short needle crossing at least $c$ hyperplanes can therefore be written as the following.
+\begin{equation}
+	P(C\ge c|r<\min(S), D, N, S) = \sum_{k=1}^{N\choose c} (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le {N\choose c}}P(\vec{C}\ge E_c^N[i_1]\cup \hdots \cup E_c^N[i_k]) \right) \label{eq:combo probs}
+\end{equation}
+
+To evaluate this, an expression must be derived for the probability that a short needle crosses some subset
+of hyperplanes exactly once each.
 
 \begin{proposition}
-	For any given set of hyperplane directions, $\emph{H}$, the probability that a needle would cross
+	For any given list of hyperplane directions, $H$, the probability that a short needle would cross
 	at least 1 hyperplane in each of the specified directions can be represented as follows.
 	\begin{equation}
-		P_{H_1 \cap \hdots \cap H_h} = \frac{r^h }{ \pi^{h/2} (\prod_{i=1}^h S_{H,i}) }\frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+h}{2})}
+		P_{H_1 \cap \hdots \cap H_h} = \frac{r^h }{ \pi^{h/2} (\prod_{i=1}^h S_{H[i]}) }\frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+h}{2})}
 	\end{equation}
 \end{proposition}
 
 \begin{proof}
-	The set of hyperplane directions, $H$, with spacings $S_H$ is a subset of all the 
+	The list of hyperplane directions, $H$, with spacings $S_H$ is a subset of all the 
 	hyperplanes that grid the space. Without loss of generalization, the axes can be relabeled to
 	align $H_1$ with $x_1$, $H_2$ with $x_2$ and so on. All other hyperplanes that are not included
 	in the set $H$ can be ignored as any intersections with them are irrelevant.
@@ -679,13 +714,26 @@ each direction listed.
 		P_{H_1\cap\hdots\cap H_h} &= \frac{2^Dr^{D+h-1}}{A_{D-1}\prod_{i=1}^h S_i}  \frac{1}{(D+h-2)(D+h-4)\hdots(4)(2)}  \\
 		&= \frac{2^Dr^{h} \Gamma(\frac{D}{2})}{2 \pi^{D/2} \prod_{i=1}^h S_i} \frac{1}{(D+h-2)!!} \\
 		&= \frac{2^Dr^{h} \Gamma(\frac{D}{2})}{2 \pi^{D/2} \prod_{i=1}^h S_i} \frac{1}{2^{(D+h-2)/2} \Gamma(\frac{D+h}{2})} \\
-		&= \frac{r^{h}}{\pi^{h/2} \prod_{i=1}^h S_i} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+h}{2})} \\
+		&= \frac{r^{h}}{\pi^{h/2} \prod_{i=1}^h S_i} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+h}{2})} \label{eq:h crossings short}
 	\end{align}
-
-
 \end{proof}
 
-\section{Numeric Simulation of Crossing and Other Conditions when $N=1$} \label{s:n=1 numeric}
+\todo{this can be simplified by pulling out the stuff that's not dependent on the $i_js$}
+Substituting \ref{eq:h crossings short} into \ref{eq:combo probs} yields the following.
+\begin{gather}
+	% P(C\ge c|r<\min(S), D, N, S) = \sum_{k=1}^{N\choose c} (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le {N\choose c}}P(\vec{C}\ge E_c^N[i_1]\cup \hdots \cup E_c^N[i_k]) \right) \label{eq:combo probs}
+	P(C\ge c|r<\min(S), D, N, S) = \sum_{k=1}^{N\choose c} (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le {N\choose c}}\frac{r^k}{\pi^{k/2} \prod_{j=1}^N S^r_j}\frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+k}{2})} \right) \\
+	S^r = \text{diag}(E_c^N[i_1]\cup\hdots\cup E_c^N[i_k]) S
+\end{gather}
+
+As an example, Laplace's extension of the short needle problem can be evaluated as follows.
+\begin{align}
+	P(C \ge 1|r<\min(S), 2, 2, S) &= \frac{r\Gamma(1)}{\sqrt{\pi}\Gamma(\frac{3}{2})}\left( \frac{1}{S_1}+\frac{1}{S_2}\right) - \frac{r^2\Gamma(1)}{\pi S_1S_2 \Gamma(2)} \\
+	&= \frac{2r(S_1+S_2)-r^2}{\pi S_1S_2}
+\end{align}
+Additional validation for a variety of parameters is provided in Section \S\ref{s:n=1 numeric}.
+
+\section{Numeric Simulation of Crossing and Other Conditions} \label{s:n=1 numeric}
 To summarize, the probability that a randomly placed line segment will cross at least $c$
 hyperplanes given that there is 1 set of parallel hyperplanes with spacing $S_1$ is as follows
 
