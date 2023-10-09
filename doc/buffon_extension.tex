@@ -29,6 +29,7 @@
 \pgfplotsset{compat=1.17}
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
 
 
 \title{Multidimensional Extension of Buffon's Needle Problem}
@@ -84,10 +85,14 @@ $\frac{2r}{s\pi}$ when the needle is short, $r<s$. Variations and extensions of 
 In this paper, we investigate a particular extension that allows the needle to be dropped into a space with dimension greater than 2. In these higher dimensions, we will rule the space
 with parallel hyperplanes rather than lines. Additionally, we will look at gridding the space with orthogonal sets of hyperplanes, thereby extending Laplace's extension into higher dimensions.
 
-Given $D\in\mathbb{N}_{>0}$ and $N\in[1,2,\dots,D]$, consider a grid on $\mathbb{R}^D$ formed by $N$ orthogonal sets of regularly spaced hyperplanes. Each set of hyperplanes
-has a potentially unique spacing of $S_i$. For example, if $D=2, N=1, S_1=2$, the grid would match the original Buffon Needle problem and would have only a single set of parallel lines 2 units apart as seen in \ref{fig:buffon example}.
-If $D=2, N=2, S=[2, 1]$, the grid would have 2 sets of parallel lines that are orthogonal to each other, matching the problem in Laplace's extension as seen in \ref{fig:laplace example}. One set of lines would have a spacing of 2 units and 
-the other would have a spacing of 1 unit.
+Given $D\in\mathbb{N}_{>0}$, consider a grid on $\mathbb{R}^D$ formed by $D$ orthogonal sets of regularly spaced hyperplanes. Each set of hyperplanes
+has a potentially unique spacing of $S_i$. We may only be interested in intersections that the needle makes 
+with the first $N$ sets of hyperplanes where $N\in[1,2,\dots,D]$. For example, if $D=2, N=1, S_1=2$, the
+grid would match the original Buffon Needle problem and would have only a single set of relevant parallel lines 2
+units apart as seen in \ref{fig:buffon example}. If $D=2, N=2, S=[2, 1]$, needle intersections with either
+set of parallel lines would be counted, matching the problem in Laplace's extension as seen in 
+\ref{fig:laplace example}. One set of lines would have a spacing of 2 units and the other would have a 
+spacing of 1 unit.
 
 A line segment of length $r\in\mathbb{R}^+$ is randomly located in the space such that one of its end points, $P_0$, is uniformly distributed
 across the entire domain. The line segment's orientation is independently distributed such that when considering $P_0$ as the center of a $(D-1)$-sphere of radius $r$, the other point, $P_1$,
@@ -161,97 +166,127 @@ simulation of the crossing probabilities will be compared to modeled probabiliti
 and extrema of the probabilities.
 
 \section{Joint Probability Density of the Line Segment} \label{s:needle pdf}
-Each coordinate for $P_0$ can be defined as a uniformly distributed random variable $X_i\sim{\rm Uniform}(0,S_i)$. Due to independence, the joint PDF for $P_0$ is the product
-$\prod_{i=1}^D \frac{1}{S_i}$. By the definition of the problem, the coordinates $\vec{x}$ do not influence the orientation of the line segment defined by $\vec{\phi}$. 
-The probability density function for the uniform distribution of points on an orthant of the hypersphere can be determined by calculating the area element in terms of spherical coordinates.
+In general, the probability of the needle crossing some number of hyperplanes given
+a set of parameters can be described as follows.
 
-\todo{This doesn't seem like it needs to be a prop as it's only really used once. Maybe the prop should be the PDF of the whole segment}
-\begin{proposition}
-In spherical coordinates, the probability density function for a uniform distribution on an orthant of a hypersphere is $\frac{2^D}{A_{D-1}}\prod_{j=1}^{D-1}r\sin^{D-1-j}\phi_j$ where
-$A_{D-1}$ is the surface area of a $(D-1)$-sphere.
+\begin{align} 
+	P(C\ge c|r, D, N, S)&=\idotsint_V f_{\vec{X}\vec\Phi}(\vec{x}, \vec{\phi})dx_1 \hdots dx_D d\phi_1 \hdots d\phi_{D-1} \label{eq:raw integral}
+\end{align}
+
+Where $V$ is the hypervolume in which the condition $C\ge c$ is true and $f$ is the probability
+density function of the needle. The necessary conditions for achieving some number of intersections
+will be called \emph{crossing conditions}. The definition of these crossing conditions and the solution to the above equation will be
+explored for a variety of parameters.
+
+\begin{proposition} \label{p:pdf}
+The probability density function of the needle's location and orientation $(\vec{x}, \vec{\phi})$ can be 
+expressed as follows.
+\begin{equation}
+	f_{\vec{X}, \vec{\Phi}}(\vec{x}, \vec{\phi}) = \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^{D}S_i}\left( \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j \right)
+\end{equation}
 \end{proposition}
 \begin{proof}
-	The area element of an $(D-1)$-sphere of radius $r$ can be expressed as 
-	\begin{equation} \label{eq:1}
-	d\Omega = \left(\prod_{j=1}^{D-1}r\sin^{D-1-j}\phi_j\right)d\phi_1 \hdots d\phi_{D-1}
+	Each coordinate for $P_0$ can be defined as a uniformly distributed random 
+	variable $X_i\sim{\rm Uniform}(0,S_i)$. Due to independence, the joint PDF 
+	for $P_0$ is the product $\prod_{i=1}^D \frac{1}{S_i}$. 
+	
+	By the definition of the problem, the coordinates $\vec{x}$ do not influence 
+	the orientation of the line segment defined by $\vec{\phi}$. The probability 
+	density function for the uniform distribution of points on an orthant of the 
+	hypersphere can be determined by calculating the area element in terms of 
+	spherical coordinates.
+
+	The area element of an $(D-1)$-sphere of radius $r$ is
+	\todo{cite}
+	\begin{equation} \label{eq:area element}
+		d\Omega = \left(\prod_{j=1}^{D-1}r\sin^{D-1-j}\phi_j\right)d\phi_1 \hdots d\phi_{D-1}
 	\end{equation}
 	The probability that a point lies in this differential element can be expressed as follows.
-	\begin{equation} \label{eq:2}
-	f_{\Omega}(\Omega)d\Omega = f_{\vec{\phi}}(\phi_1, \hdots, \phi_{D-1})d\phi_1 \hdots d\phi_{D-1}
+	\begin{equation} \label{eq:differential prob}
+		f_{\Omega}(\Omega)d\Omega = f_{\vec{\phi}}(\phi_1, \hdots, \phi_{D-1})d\phi_1 \hdots d\phi_{D-1}
 	\end{equation}
-	The points are uniformly distributed over the surface of an orthant of the hypersphere implying that $f_{\Omega}(\Omega) = \frac{2^D}{A_{D-1}}$. Substituting this and
-	\ref{eq:1} into \ref{eq:2} yields
+	The points are uniformly distributed over the surface of an orthant of the hypersphere
+	implying that $f_{\Omega}(\Omega) = \frac{2^D}{A_{D-1}}$. Substituting this and
+	\ref{eq:area element} into \ref{eq:differential prob} yields
 	\begin{equation}
-	\frac{2^D}{A_{D-1}}\prod_{j=1}^{D-1}r\sin^{D-1-j}\phi_j = f_{\vec{\phi}}(\phi_1, \hdots, \phi_{D-1})
+		\frac{2^D}{A_{D-1}}\prod_{j=1}^{D-1}r\sin^{D-1-j}\phi_j = f_{\vec{\phi}}(\phi_1, \hdots, \phi_{D-1})
+	\end{equation}
+
+	By independence, the joint probability density function for the entire needle
+	can be expressed as the product of the two PDFs.
+	\begin{equation} 
+		f_{\vec{X},\vec{\phi}}(x_1, \hdots, x_D, \phi_1, \hdots, \phi_{D-1}) = \frac{2^D}{A_{D-1}}\left(\prod_{i=1}^D\frac{1}{S_i}\right)\left(\prod_{j=1}^{D-1}r\sin^{D-1-j}\phi_j\right)
+	\end{equation}
+
+	The expression for the surface area of a $D-1$ dimensional hypersphere, 
+	$A_{D-1}=\frac{2\pi^{D/2}r^{D-1}}{\Gamma(D/2)}$,
+	can be substituted in and the expression can be simplified.
+
+	\begin{equation}\label{eq:general pdf}
+		f_{\vec{X},\vec{\Phi}}(\vec{x}, \vec{\phi}) = \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^DS_i} \left(\prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j\right)
 	\end{equation}
 \end{proof}
 
-Then by independence, the joint probability density function for the entire line segment can be expressed as 
-\begin{equation} 
-	f_{\vec{X},\vec{\phi}}(x_1, \hdots, x_D, \phi_1, \hdots, \phi_{D-1}) = \frac{2^D}{A_{D-1}}\left(\prod_{i=1}^D\frac{1}{S_i}\right)\left(\prod_{j=1}^{D-1}r\sin^{D-1-j}\phi_j\right)
-\end{equation} 
+The PDF from Proposition \ref{p:pdf} can be substituted into the expression from \ref{eq:raw integral}
+to get the following.
+\begin{align} 
+	P(C\ge c|r, D, N, S)=\frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^DS_i} \idotsint_V \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dx_1\hdots dx_D d\phi_1 \hdots d\phi_{D-1} \label{eq:volume integral}
+\end{align}
 
-The expression for the surface area of a $D-1$ dimensional hypersphere, $A_{D-1}=\frac{2\pi^{D/2}r^{D-1}}{\Gamma(D/2)}$,
-can be substituted in and simplified.
-
-\begin{equation}\label{eq:general pdf}
-	f_{\vec{X},\vec{\phi}}(\vec{x}, \vec{\phi}) = \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^DS_i} \left(\prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j\right)
-\end{equation}
 
 \section{Probability of Crossing with a Single set of Hyperplanes ($N=1$)} \label{s:n=1}
-In general, the probability of meeting some number of crossings given any set of parameters can be described as follows.
-
-\begin{align} 
-	P(C\ge c|r, D, N, S)&=\idotsint_V f_{\vec{X}\vec\phi}(\phi_1,\hdots,\phi_{D-1})dx_1 \hdots dx_D d\phi_1 \hdots d\phi_{D-1} \label{eq:raw integral}\\
-	&= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^DS_i} \idotsint_V \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dx_1\hdots dx_D d\phi_1 \hdots d\phi_{D-1} \label{eq:volume integral}
-\end{align}
-
-Where $V$ is the hypervolume in which the condition $C\ge c$ is true. The necessary conditions for achieving some number of intersections
-will be called \emph{crossing conditions}. The definition of these crossing conditions and the solution to the above equation will be
-explored for a variety of parameters.
 We start with a simplified set of parameters where there is only a single set of parallel hyperplanes and the needle intersects a
 hyperplane at least $c$ times. That is, the probability $P(C\ge c | r, D, N=1, S) \forall c, r, D, S$. For brevity, we will refer to this
-as $P_{N=1}(c)$.
+as $P_{N=1}(c)$. 
 
-Due to rotational symmetry of the line segment, it does not matter in which direction the hyperplanes extend. Without loss of
-generality we assume the planes are in the direction of $x_1$.
+\begin{proposition}
+	For the case of $N=1$, the volume integral representing the probability of a needle intersecting at least $c$ hyperplanes
+	can be represented as follows.
+	\begin{equation*}
+		P_{N=1}(c) = \frac{2}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \iint_{\phi_1,x_1}\sin^{D-2}\phi_1 dx_1 d\phi_1
+	\end{equation*}
+\end{proposition}
+\begin{proof}
+	Due to rotational symmetry of the line segment, it does not matter in which direction the hyperplanes extend. Without loss of
+	generality we assume the planes are in the direction of $x_1$.
 
-Because $P_0$ is constrained to be within the gridcell at the origin and because the orientation of the needle is constrained to a single
-orthant which points in the positive direction of $x_1$, we know that a crossing occurs whenever the following condition is met.
-\begin{equation}
-	x_1 + r\cos{\phi_1} > S_1c
-\end{equation}
+	Because $P_0$ is constrained to be within the gridcell at the origin and because the orientation of the needle is constrained to a single
+	orthant which points in the positive direction of $x_1$, a crossing occurs whenever the following condition is met.
+	\begin{equation}
+		x_1 + r\cos{\phi_1} > S_1c
+	\end{equation}
 
-From this crossing condition, we define the bounds of the relevant hypervolume. Note that the constraints above only apply to $x_1$ and
-$\phi_1$. As such, the hypervolume spans the entire domain of every other variable. Importantly, because the integrand of \ref{eq:raw integral}
-describes a PDF, the conditions for Fubini's theorem hold. Therefore the order of integration can be freely switched so long as any variable
-limits of integration are accounted for. All integrals with respect to the translational dimensions $x_2, \hdots, x_D$ can be simplified
-for all $i>2$. Taking $f(\vec\phi)$ as the integrand
-\begin{equation}
-	\int_0^{S_i}f(\vec\phi)dx_i = S_if(\vec\phi) \label{eq:irrelevant translational}
-\end{equation}
+	From this crossing condition, the bounds of the relevant hypervolume can be defined. Note that the constraints above only apply to $x_1$ and
+	$\phi_1$. As such, the hypervolume spans the entire domain of every other variable. Importantly, because the integrand of \ref{eq:raw integral}
+	describes a PDF, the conditions for Fubini's theorem hold. Therefore the order of integration can be freely switched so long as any variable
+	limits of integration are accounted for. All integrals with respect to the translational dimensions $x_2, \hdots, x_D$ can be simplified
+	for all $i>2$. Taking $f(\vec\phi)$ as the integrand
+	\begin{equation}
+		\int_0^{S_i}f(\vec\phi)dx_i = S_if(\vec\phi) \label{eq:irrelevant translational}
+	\end{equation}
 
-Similarly, all of the integrals with respect to $\phi_2, \hdots, \phi_{D-1}$ can be simplified as well using the following identity.
-\begin{equation}
-	\int_0^{\pi/2}\sin^{D-1-j}\phi_jd\phi_j = \frac{B(\frac{D-j}{2}, \frac{1}{2})}{2}\label{eq:irrelevant rotational}
-\end{equation}
+	Similarly, all of the integrals with respect to $\phi_2, \hdots, \phi_{D-1}$ can be simplified as well using the following identity.
+	\begin{equation}
+		\int_0^{\pi/2}\sin^{D-1-j}\phi_jd\phi_j = \frac{B(\frac{D-j}{2}, \frac{1}{2})}{2}\label{eq:irrelevant rotational}
+	\end{equation}
 
-Where $B$ is the beta function. Substituting \ref{eq:irrelevant translational} and \ref{eq:irrelevant rotational} into 
-\ref{eq:volume integral} results in
-\begin{equation} \label{eq:preproduct simplification}
-	P_{N=1}(c) = \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}S_1} \prod_{k=2}^{D-1}\frac{B(\frac{D-k}{2}, \frac{1}{2})}{2} \iint_{\phi_1,x_1}\sin^{D-2}\phi_1 dx_1 d\phi_1
-\end{equation}
+	Where $B$ is the beta function. Substituting \ref{eq:irrelevant translational} and \ref{eq:irrelevant rotational} into 
+	\ref{eq:volume integral} results in
+	\begin{equation} \label{eq:preproduct simplification}
+		P_{N=1}(c) = \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}S_1} \prod_{k=2}^{D-1}\frac{B(\frac{D-k}{2}, \frac{1}{2})}{2} \iint_{\phi_1,x_1}\sin^{D-2}\phi_1 dx_1 d\phi_1
+	\end{equation}
 
-The product of beta functions can be simplified by expanding into gamma functions as follows.
-\begin{align}
-	\prod_{k=2}^{D-1}\frac{B(\frac{D-k}{2}, \frac{1}{2})}{2} &= \frac{1}{2^{D-2}} \frac{\Gamma(\frac{D-2}{2})\Gamma(\frac{1}{2})}{\Gamma(\frac{D-1}{2})} \frac{\Gamma(\frac{D-3}{2})\Gamma(\frac{1}{2})}{\Gamma(\frac{D-2}{2})} \hdots \frac{\Gamma(\frac{1}{2})\Gamma(\frac{1}{2})}{\Gamma(\frac{2}{2})} \\
-	&= \frac{1}{2^{D-2}} \frac{\Gamma(\frac{1}{2})\Gamma(\frac{1}{2})^{D-2}}{\Gamma(\frac{D-1}{2})} = \frac{\pi^{(D-1)/2}}{2^{D-2}\Gamma(\frac{D-1}{2})} \label{eq:beta prod}
-\end{align}
+	The product of beta functions can be simplified by expanding into gamma functions as follows.
+	\begin{align}
+		\prod_{k=2}^{D-1}\frac{B(\frac{D-k}{2}, \frac{1}{2})}{2} &= \frac{1}{2^{D-2}} \frac{\Gamma(\frac{D-2}{2})\Gamma(\frac{1}{2})}{\Gamma(\frac{D-1}{2})} \frac{\Gamma(\frac{D-3}{2})\Gamma(\frac{1}{2})}{\Gamma(\frac{D-2}{2})} \hdots \frac{\Gamma(\frac{1}{2})\Gamma(\frac{1}{2})}{\Gamma(\frac{2}{2})} \\
+		&= \frac{1}{2^{D-2}} \frac{\Gamma(\frac{1}{2})\Gamma(\frac{1}{2})^{D-2}}{\Gamma(\frac{D-1}{2})} = \frac{\pi^{(D-1)/2}}{2^{D-2}\Gamma(\frac{D-1}{2})} \label{eq:beta prod}
+	\end{align}
 
-Substituting \ref{eq:beta prod} into \ref{eq:preproduct simplification} yields
-\begin{equation}
-	P_{N=1}(c) = \frac{2}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \iint_{\phi_1,x_1}\sin^{D-2}\phi_1 dx_1 d\phi_1 \label{eq:n=1 int}
-\end{equation}
+	Substituting \ref{eq:beta prod} into \ref{eq:preproduct simplification} yields
+	\begin{equation}
+		P_{N=1}(c) = \frac{2}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \iint_{\phi_1,x_1}\sin^{D-2}\phi_1 dx_1 d\phi_1 \label{eq:n=1 int}
+	\end{equation}
+\end{proof}
 
 For the remaining integrals, the limits of integration are defined by the domain in which the crossing conditions are satisfied. This
 can be derived by combining the domains for the variables and the domain for the crossing condition. Recall the following
@@ -304,34 +339,18 @@ The probability $P_{N=1}(c)$ will be derived for the two cases given in \ref{eq:
 in \S \ref{s:short needle} and \S \ref{s:long needle} respectively. Numeric simulation and comparison will be explored in \S \ref{s:n=1 numeric}
 
 \subsection{$S_1(c-1)<r<S_1c$} \label{s:short needle}
-Using the conditions \ref{eq:x cross cond} and \ref{eq:phi cross cond}, the limits of integration can be defined for the expression found
-in \ref{eq:n=1 int}.
-\begin{equation}
-	P_{N=1}(c) = \frac{2}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \int_0^{m_{\phi_1}(x_1)}\int_{m_{x_1}(\phi_1)}^{S_1}\sin^{D-2}\phi_1 dx_1 d\phi_1 
-\end{equation}
-Simplifying with \ref{eq:short needle condition} and the upper bound for $x_1$ yields the following.
-\begin{align}
-	P_{N=1}(c) &= \frac{2}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \int_0^{\arccos\frac{S_1(c-1)}{r}}\int_{S_1c-r\cos\phi_1}^{S_1}\sin^{D-2}\phi_1 dx_1 d\phi_1 \\
-	&= \frac{2}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \int_0^{\arccos\frac{S_1(c-1)}{r}} (S_1(1-c) + r\cos\phi_1)\sin^{D-2}\phi_1 d\phi_1
-\end{align}
+Lemmas \ref{prop:double fac beta} and \ref{prop:sin integral} will be used in the proof of Theorem \ref{t:short needle}
+which gives a derivation of the probability $P_{N=1}(c)$ for a short needle, $S_1(c-1)r<S_1c$.
 
-Substituting in $\gamma = \frac{S_1(c-1)}{r}$ yields the following
-\begin{align}
-	P_{N=1}(c) &= \frac{2r}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \int_0^{\arccos\gamma} (-\gamma + \cos\phi_1)\sin^{D-2}\phi_1 d\phi_1 \\
-	&= \frac{2r}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \left[-\gamma\int_0^{\arccos\gamma} \sin^{D-2}\phi_1d\phi_1 + \frac{1}{D-1}(1-\gamma^2)^{\frac{D-1}{2}} \right] \label{eq:n=1 last int}
-\end{align}
-
-To solve, we derive an expression for the remaining integral. Before doing so, it is convenient to derive an expression for the following
-ratio of double factorials.
-\begin{proposition} \label{prop:double fac beta}
+\begin{lemma} \label{prop:double fac beta}
 	When given the ratio $(k-1)!!/k!!$ where the double exclam represents the double factorial function, it is equivalent the following.
 	\begin{equation}
-		= \begin{cases}
+		\frac{(k-1)!!}{k!!}= \begin{cases}
 			\frac{1}{\pi}B(\frac{k+1}{2}, \frac{1}{2}) & k\bmod 2=0\\
 			\frac{1}{2}B(\frac{k+1}{2}, \frac{1}{2}) & k\bmod 2=1
 		\end{cases}
 	\end{equation}
-\end{proposition}
+\end{lemma}
 \begin{proof}
 	Every double factorial can be written in terms of single factorials depending on the parity of the natural number in question.
 	\begin{equation} \label{eq:single factorial}
@@ -365,19 +384,16 @@ ratio of double factorials.
 	\end{align}
 \end{proof}
 
-The solution for the remaining integral in \ref{eq:n=1 last int} can now be solved in general for any whole number exponential of the
-sin function.
-
-\begin{proposition} \label{prop:sin integral}
+\begin{lemma} \label{prop:sin integral}
 	Any integral of the form $\int_0^{\arccos(\gamma)} \sin^m \phi d\phi$ has two possible solutions depending on the parity of $m$.
 	\begin{align}
-		& = \frac{B(\frac{m+1}{2}, \frac{1}{2})}{2}\left(g(\gamma, m) - \gamma(1-\gamma^2)^{(m+1)/2} \sum_{i=1}^{\lfloor m/2 \rfloor}\frac{B(\frac{m+2-2i}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^i}\right) \\
+		\int_0^{\arccos{\gamma}}\sin^m\phi d\phi&= \frac{B(\frac{m+1}{2}, \frac{1}{2})}{2}\left(g(\gamma, m) - \gamma(1-\gamma^2)^{(m+1)/2} \sum_{i=1}^{\lfloor m/2 \rfloor}\frac{B(\frac{m+2-2i}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^i}\right) \\
 		& g(\gamma, m)=\begin{cases}
 			\frac{2}{\pi}\arccos \gamma & m \bmod 2=0 \\
 			1 - \gamma & m \bmod 2=1
 		\end{cases}
 	\end{align}
-\end{proposition}
+\end{lemma}
 \begin{proof}
 	We start with the following integration by reduction identity
 	\begin{align}
@@ -395,7 +411,7 @@ sin function.
 		\end{split} \\
 		&= \frac{(m-1)!!}{m!!}\left(\arccos\gamma-\gamma(1-\gamma^2)^{(m+1)/2}\sum_{i=1}^{m/2}\frac{(m-2i)!!}{(m+1-2i)!!}(1-\gamma^2)^{-i} \right)
 	\end{align}
-	Using \ref{prop:double fac beta} we can reduce to the following.
+	Using Lemma \ref{prop:double fac beta} we can reduce to the following.
 	\begin{align}
 		&= \frac{B(\frac{m+1}{2}, \frac{1}{2})}{\pi}\left(\arccos\gamma-\gamma(1-\gamma^2)^{(m+1)/2}\sum_{i=1}^{m/2}\frac{B(\frac{m+2-2i}{2}, \frac{1}{2})}{2}(1-\gamma^2)^{-i} \right) \\
 		&= \frac{B(\frac{m+1}{2}, \frac{1}{2})}{2}\left(\frac{2}{\pi}\arccos\gamma-\gamma(1-\gamma^2)^{(m+1)/2}\sum_{i=1}^{m/2}\frac{B(\frac{m+2-2i}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^{i}} \right)
@@ -412,24 +428,59 @@ sin function.
 	\end{align}
 \end{proof}
 
-Using the result of \ref{prop:sin integral} on \ref{eq:n=1 last int} yields the following
-\begin{align}
-	P_{N=1}(c) &= \frac{2r}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \left[-\gamma\frac{B(\frac{D-1}{2}, \frac{1}{2})}{2}\left(g(\gamma, D-2) - \gamma(1-\gamma^2)^{\frac{D-1}{2}} \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^i}\right) + \frac{1}{D-1}(1-\gamma^2)^\frac{D-1}{2} \right] \\
-	&= \frac{r}{S_1} \left[-\gamma\left(g(\gamma, D-2) - \gamma(1-\gamma^2)^{\frac{D-1}{2}} \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^i}\right) + \frac{B(\frac{D}{2}, \frac{1}{2})}{\pi}(1-\gamma^2)^\frac{D-1}{2} \right] \\
-	&= \frac{r}{S_1} \left[\frac{(1-\gamma^2)^{\frac{D-1}{2}}}{\pi} \left(B\left(\frac{D}{2}, \frac{1}{2} \right) + \gamma^2 \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{(1-\gamma^2)^i}\right) - \gamma g(\gamma, D-2) \right] \label{eq:n=1 final sol}
-\end{align}
+\begin{theorem} \label{t:short needle}
+	The probability that a short needle, $S_1(c-1)<r<S_1c$, crosses at least $c$ hyperplanes given that there is only
+	a single set of parallel hyperplanes ruling $D$ dimensional space is as follows.
+	\begin{gather}
+		P_{N=1}(c|S_1(c-1)<r<S_1c) = \frac{r}{S_1} \left[\frac{(1-\gamma^2)^{\frac{D-1}{2}}}{\pi} \left(B\left(\frac{D}{2}, \frac{1}{2} \right) + \gamma^2 \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{(1-\gamma^2)^i}\right) - \gamma g(\gamma, D-2) \right]
+	\end{gather}
+	where
+	\begin{gather}
+		\gamma = \frac{S_1(c-1)}{r} \\
+		g(n, m)=\begin{cases}
+			\frac{2}{\pi}\arccos n & m \bmod 2=0 \\
+			1 - n & m \bmod 2=1
+		\end{cases}
+	\end{gather}
+\end{theorem}
+\begin{proof}
+	Let $r_s$ be the condition that $S_1(c-1)<r<S_1c$. Using the conditions \ref{eq:x cross cond} and \ref{eq:phi cross cond}, 
+	the limits of integration can be defined for the expression found in \ref{eq:n=1 int}.
+	\begin{equation}
+		P_{N=1}(c|r_s) = \frac{2}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \int_0^{m_{\phi_1}(x_1)}\int_{m_{x_1}(\phi_1)}^{S_1}\sin^{D-2}\phi_1 dx_1 d\phi_1 
+	\end{equation}
+	Simplifying with \ref{eq:short needle condition} and the upper bound for $x_1$ yields the following.
+	\begin{align}
+		P_{N=1}(c|r_s) &= \frac{2}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \int_0^{\arccos\frac{S_1(c-1)}{r}}\int_{S_1c-r\cos\phi_1}^{S_1}\sin^{D-2}\phi_1 dx_1 d\phi_1 \\
+		&= \frac{2}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \int_0^{\arccos\frac{S_1(c-1)}{r}} (S_1(1-c) + r\cos\phi_1)\sin^{D-2}\phi_1 d\phi_1
+	\end{align}
 
-As an example, setting the parameters relevant for the classical 2 dimensional Buffon needle problem results in the expected probability.
-\begin{align}
-	c&=1, D=2, N=1, S=s \\
-	\gamma &= \frac{s(c-1)}{r} = 0 \\
-	P_{N=1}(c) &= \frac{r}{s} \left[ \frac{1}{\pi} \left( \frac{\Gamma(1)\Gamma(\frac{1}{2})}{\Gamma(\frac{3}{2})} + 0 \right) - 0\right] \\
-	&= \frac{2r}{\pi s}
-\end{align}
+	Substituting in $\gamma = \frac{S_1(c-1)}{r}$ yields the following
+	\begin{align}
+		P_{N=1}(c|r_s) &= \frac{2r}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \int_0^{\arccos\gamma} (-\gamma + \cos\phi_1)\sin^{D-2}\phi_1 d\phi_1 \\
+		&= \frac{2r}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \left[-\gamma\int_0^{\arccos\gamma} \sin^{D-2}\phi_1d\phi_1 + \frac{1}{D-1}(1-\gamma^2)^{\frac{D-1}{2}} \right] \label{eq:n=1 last int}
+	\end{align}
+
+	Using the result of Lemma \ref{prop:sin integral} on \ref{eq:n=1 last int} yields the following
+	\begin{align}
+		P_{N=1}(c|r_s) &= \frac{2r}{S_1B(\frac{D-1}{2}, \frac{1}{2})} \left[-\gamma\frac{B(\frac{D-1}{2}, \frac{1}{2})}{2}\left(g(\gamma, D-2)-\gamma(1-\gamma^2)^{\frac{D-1}{2}} \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^i}\right) \right.\nonumber\\ 
+			& \left. \quad \quad \quad \quad \quad \quad \quad \quad+ \frac{1}{D-1}(1-\gamma^2)^\frac{D-1}{2} \right] \\
+		&= \frac{r}{S_1} \left[-\gamma\left(g(\gamma, D-2) - \gamma(1-\gamma^2)^{\frac{D-1}{2}} \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{\pi(1-\gamma^2)^i}\right) + \frac{B(\frac{D}{2}, \frac{1}{2})}{\pi}(1-\gamma^2)^\frac{D-1}{2} \right] \\
+		&= \frac{r}{S_1} \left[\frac{(1-\gamma^2)^{\frac{D-1}{2}}}{\pi} \left(B\left(\frac{D}{2}, \frac{1}{2} \right) + \gamma^2 \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{(1-\gamma^2)^i}\right) - \gamma g(\gamma, D-2) \right] \label{eq:n=1 final sol}
+	\end{align}
+\end{proof}
+
+	As an example, setting the parameters relevant for the classical 2 dimensional Buffon needle problem results in the expected probability.
+	\begin{align}
+		c&=1, D=2, N=1, S=s \\
+		\gamma &= \frac{s(c-1)}{r} = 0 \\
+		P_{N=1}(c) &= \frac{r}{s} \left[ \frac{1}{\pi} \left( \frac{\Gamma(1)\Gamma(\frac{1}{2})}{\Gamma(\frac{3}{2})} + 0 \right) - 0\right] \\
+		&= \frac{2r}{\pi s}
+	\end{align}
 Additional validation and comparison to numeric simulation will be explored in \S \ref{s:n=1 numeric}
 
 \subsection{$r>S_1c$} \label{s:long needle}
-When $r>S_1c$, the value of $m_{x_1}(\phi_1)$ is no longer constant for all $\phi_1$. Below is a restatement
+When the needle is long, $r>S_1c$, the value of $m_{x_1}(\phi_1)$ is no longer constant for all $\phi_1$. Below is a restatement
 of the general equation for $P(C\ge c)$ when $N=1$, \ref{eq:n=1 int}, and the domain of the crossing conditions.
 \begin{gather*}
 	P_{N=1}(c) = \frac{2}{S_1 B(\frac{D-1}{2}, \frac{1}{2})} \iint_{\phi_1, x_1}\sin ^ {D-2}\phi_1 dx_1 d\phi_1 \\
@@ -437,131 +488,149 @@ of the general equation for $P(C\ge c)$ when $N=1$, \ref{eq:n=1 int}, and the do
 	0 < \phi_1 < \arccos\frac{S_1c-x_1}{r}
 \end{gather*}
 
-There are now two things to note. First, the integrand only varies with $\phi_1$, suggesting that the directional
-derivative of the PDF in the direction of $x_1$ is zero. Second, when $r>S_1c$, the domain of the crossing condition
-can be calculated as the integral spanning the domain $S_1c-r\cos\phi_1<x_1<0$ subtracted from the integral of
-the domain spanning $S_1c-r\cos\phi_1<x_1<S_1$ as seen in Figure \ref{fig:domains}. This difference is explicitly
-written as follows.
+\begin{theorem} \label{t:long needle}
+	The probability that a long needle, $S_1c<r$, crosses at least $c$ hyperplanes given that there is only
+	a single set of parallel hyperplanes ruling $D$ dimensional space is as follows.
+	\begin{equation}
+		P_{N=1}(c|r>S_1c) = A(c) - A(c+1)
+	\end{equation}
+	where $A$ is the function used to define $P_{N=1}(c|S_1(c-1)<r<S_1c)$. That is
+	\begin{gather}
+		A(k) = \frac{r}{S_1} \left[\frac{(1-\gamma^2)^{\frac{D-1}{2}}}{\pi} \left(B\left(\frac{D}{2}, \frac{1}{2} \right) + \gamma^2 \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{(1-\gamma^2)^i}\right) - \gamma g(\gamma, D-2) \right] \\
+		\gamma = \frac{S_1(k-1)}{r} \\
+		g(n, m) = \begin{cases}
+			\frac{2}{\pi}\arccos(n) & m\bmod 2 = 0 \\
+			1-n & m \bmod 2 = 1
+		\end{cases}
+	\end{gather}
+\end{theorem}
+\begin{proof}
+	There are now two things to note. First, the PDF only varies with $\phi_1$, indicating that the directional
+	derivative of the PDF in the direction of $x_1$ is zero. Second, when $r>S_1c$, the domain of the crossing condition
+	can be calculated as the integral spanning the domain $S_1c-r\cos\phi_1<x_1<0$ subtracted from the integral of
+	the domain spanning $S_1c-r\cos\phi_1<x_1<S_1$ as seen in Figure \ref{fig:domains}. This difference is explicitly
+	written as follows.
 
-\begin{gather}
-	\int_0^{\phi_{1,h}}\int_{m_{x_1}(\phi_1)}^{S_1}\sin^{D-2}\phi_1dx_1d\phi_1 = \int_0^{\phi_{1,h}}\int_{S_1c-r\cos\phi_1}^{S_1}\sin^{D-2}\phi_1dx_1d\phi_1 - \int_0^{\phi_{1,l}}\int_{S_1c-r\cos\phi_1}^0\sin^{D-2}\phi_1dx_1d\phi_1 \\
-	I_1 = I_2 - I_3 \\
-	\begin{align}
-		\phi_{1,h} &= \arccos\frac{S_1(c-1)}{r} \\
-		\phi_{1,l} &= \arccos\frac{S_1c}{r}
-	\end{align}
-\end{gather}
+	\begin{gather}
+		\int_0^{\phi_{1,h}}\int_{m_{x_1}(\phi_1)}^{S_1}\sin^{D-2}\phi_1dx_1d\phi_1 = \int_0^{\phi_{1,h}}\int_{S_1c-r\cos\phi_1}^{S_1}\sin^{D-2}\phi_1dx_1d\phi_1 - \int_0^{\phi_{1,l}}\int_{S_1c-r\cos\phi_1}^0\sin^{D-2}\phi_1dx_1d\phi_1 \\
+		I_1 = I_2 - I_3 \\
+		\begin{align}
+			\phi_{1,h} &= \arccos\frac{S_1(c-1)}{r} \\
+			\phi_{1,l} &= \arccos\frac{S_1c}{r}
+		\end{align}
+	\end{gather}
 
-\begin{figure}
-    \centering
-	\begin{subfigure}{0.45\textwidth}
+	\begin{figure}
 		\centering
-		\begin{tikzpicture}
-			\begin{axis}[
-				axis lines=middle,
-				xlabel={$\phi_1$},
-				ylabel={$x_1$},
-				xmin=0, xmax=pi/2+0.2, % Adjust the x-axis limits
-				ymin=-1.5, ymax=3.5, % Adjust the y-axis limits
-				xtick={0,pi/2}, % Adjust the x-axis tick positions
-				ytick={-1,0,1,2,3}, % Adjust the y-axis tick positions
-				xticklabels={0, $\frac{\pi}{2}$}, % Adjust the x-axis tick labels
-				yticklabels={$-S_1$, 0, $S_1$, $2S_1$, $3S_1$}
-			]
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\begin{tikzpicture}
+				\begin{axis}[
+					axis lines=middle,
+					xlabel={$\phi_1$},
+					ylabel={$x_1$},
+					xmin=0, xmax=pi/2+0.2, % Adjust the x-axis limits
+					ymin=-1.5, ymax=3.5, % Adjust the y-axis limits
+					xtick={0,pi/2}, % Adjust the x-axis tick positions
+					ytick={-1,0,1,2,3}, % Adjust the y-axis tick positions
+					xticklabels={0, $\frac{\pi}{2}$}, % Adjust the x-axis tick labels
+					yticklabels={$-S_1$, 0, $S_1$, $2S_1$, $3S_1$}
+				]
 
-				% Parameters
-				\def\S{1} % Replace with your desired value for S
-				\def\r{2.7} % Replace with your desired value for r
-				\def\c{2}
-				\pgfmathsetmacro\endshaded{acos(\S*(\c-1)/\r)}
+					% Parameters
+					\def\S{1} % Replace with your desired value for S
+					\def\r{2.7} % Replace with your desired value for r
+					\def\c{2}
+					\pgfmathsetmacro\endshaded{acos(\S*(\c-1)/\r)}
 
-				% Plot the function
-				\addplot[blue, domain=0:pi/2, samples=100, name path=curve] {\S*\c - \r*cos(deg(x))};
-				% \addplot[red, domain=0:pi/2, samples=100, name path=Hcurve] {\S*(\c+1) - \r*cos(deg(x))};
+					% Plot the function
+					\addplot[blue, domain=0:pi/2, samples=100, name path=curve] {\S*\c - \r*cos(deg(x))};
+					% \addplot[red, domain=0:pi/2, samples=100, name path=Hcurve] {\S*(\c+1) - \r*cos(deg(x))};
 
-				% Label the function
-				\node[blue] at (axis cs:1,-.5) {$2S_1 - r\cos(\phi_1)$};
-				\node at (axis cs:0.5,0.5) {$P_{N=1}(c)$};
-				% \node[red] at (axis cs:1,2.5) {$3S_1 - r\cos(\phi_1)$};
+					% Label the function
+					\node[blue] at (axis cs:1,-.5) {$2S_1 - r\cos(\phi_1)$};
+					\node at (axis cs:0.5,0.5) {$P_{N=1}(c)$};
+					% \node[red] at (axis cs:1,2.5) {$3S_1 - r\cos(\phi_1)$};
 
-				% Add dashed lines at -S, S, 2S, and 3S on the y-axis
-				\draw[dashed] (axis cs:0,-\S) -- (axis cs:pi/2+0.2,-\S);
-				\draw[dashed, name path = oline] (axis cs:0,0) -- (axis cs:pi/2+0.2,0);
-				\draw[dashed, name path = Sline] (axis cs:0,\S) -- (axis cs:pi/2+0.2,\S);
-				\draw[dashed] (axis cs:0,2*\S) -- (axis cs:pi/2+0.2,2*\S);
-				\draw[dashed] (axis cs:0,3*\S) -- (axis cs:pi/2+0.2,3*\S);
+					% Add dashed lines at -S, S, 2S, and 3S on the y-axis
+					\draw[dashed] (axis cs:0,-\S) -- (axis cs:pi/2+0.2,-\S);
+					\draw[dashed, name path = oline] (axis cs:0,0) -- (axis cs:pi/2+0.2,0);
+					\draw[dashed, name path = Sline] (axis cs:0,\S) -- (axis cs:pi/2+0.2,\S);
+					\draw[dashed] (axis cs:0,2*\S) -- (axis cs:pi/2+0.2,2*\S);
+					\draw[dashed] (axis cs:0,3*\S) -- (axis cs:pi/2+0.2,3*\S);
 
-				\addplot[blue!20, fill opacity=0.5] fill between[of=curve and Sline, soft clip={domain=0:1.191}];
-				% \addplot[red!20, pattern=north west lines, pattern color=red] fill between[of=Hcurve and Sline, soft clip={domain=0:0.736}];
-				\addplot[red!20, pattern=north west lines, pattern color=red] fill between[of=curve and oline, soft clip={domain=0:0.736}];
+					\addplot[blue!20, fill opacity=0.5] fill between[of=curve and Sline, soft clip={domain=0:1.191}];
+					% \addplot[red!20, pattern=north west lines, pattern color=red] fill between[of=Hcurve and Sline, soft clip={domain=0:0.736}];
+					\addplot[red!20, pattern=north west lines, pattern color=red] fill between[of=curve and oline, soft clip={domain=0:0.736}];
 
-			\end{axis}
-		\end{tikzpicture}
-		\caption{The integral spanning the domain of the crossing condition can be found as a difference
-		between two regions.}\label{fig:domains}
-	\end{subfigure}
-	\hspace{0.5cm}
-	\begin{subfigure}{0.45\textwidth}
-		\centering
-		\begin{tikzpicture}
-			\begin{axis}[
-				axis lines=middle,
-				xlabel={$\phi_1$},
-				ylabel={$x_1$},
-				xmin=0, xmax=pi/2+0.2, % Adjust the x-axis limits
-				ymin=-1.5, ymax=3.5, % Adjust the y-axis limits
-				xtick={0,pi/2}, % Adjust the x-axis tick positions
-				ytick={-1,0,1,2,3}, % Adjust the y-axis tick positions
-				xticklabels={0, $\frac{\pi}{2}$}, % Adjust the x-axis tick labels
-				yticklabels={$-S_1$, 0, $S_1$, $2S_1$, $3S_1$}
-			]
+				\end{axis}
+			\end{tikzpicture}
+			\caption{The integral spanning the domain of the crossing condition can be found as a difference
+			between two regions.}\label{fig:domains}
+		\end{subfigure}
+		\hspace{0.5cm}
+		\begin{subfigure}{0.45\textwidth}
+			\centering
+			\begin{tikzpicture}
+				\begin{axis}[
+					axis lines=middle,
+					xlabel={$\phi_1$},
+					ylabel={$x_1$},
+					xmin=0, xmax=pi/2+0.2, % Adjust the x-axis limits
+					ymin=-1.5, ymax=3.5, % Adjust the y-axis limits
+					xtick={0,pi/2}, % Adjust the x-axis tick positions
+					ytick={-1,0,1,2,3}, % Adjust the y-axis tick positions
+					xticklabels={0, $\frac{\pi}{2}$}, % Adjust the x-axis tick labels
+					yticklabels={$-S_1$, 0, $S_1$, $2S_1$, $3S_1$}
+				]
 
-				% Parameters
-				\def\S{1} % Replace with your desired value for S
-				\def\r{2.7} % Replace with your desired value for r
-				\def\c{2}
-				\pgfmathsetmacro\endshaded{acos(\S*(\c-1)/\r)}
+					% Parameters
+					\def\S{1} % Replace with your desired value for S
+					\def\r{2.7} % Replace with your desired value for r
+					\def\c{2}
+					\pgfmathsetmacro\endshaded{acos(\S*(\c-1)/\r)}
 
-				% Plot the function
-				\addplot[blue, domain=0:pi/2, samples=100, name path=curve] {\S*\c - \r*cos(deg(x))};
-				\addplot[red, domain=0:pi/2, samples=100, name path=Hcurve] {\S*(\c+1) - \r*cos(deg(x))};
+					% Plot the function
+					\addplot[blue, domain=0:pi/2, samples=100, name path=curve] {\S*\c - \r*cos(deg(x))};
+					\addplot[red, domain=0:pi/2, samples=100, name path=Hcurve] {\S*(\c+1) - \r*cos(deg(x))};
 
-				% Label the function
-				\node[blue] at (axis cs:1,-.5) {$2S_1 - r\cos(\phi_1)$};
-				\node[red] at (axis cs:1,2.5) {$3S_1 - r\cos(\phi_1)$};
+					% Label the function
+					\node[blue] at (axis cs:1,-.5) {$2S_1 - r\cos(\phi_1)$};
+					\node[red] at (axis cs:1,2.5) {$3S_1 - r\cos(\phi_1)$};
 
-				% Add dashed lines at -S, S, 2S, and 3S on the y-axis
-				\draw[dashed] (axis cs:0,-\S) -- (axis cs:pi/2+0.2,-\S);
-				\draw[dashed, name path = oline] (axis cs:0,0) -- (axis cs:pi/2+0.2,0);
-				\draw[dashed, name path = Sline] (axis cs:0,\S) -- (axis cs:pi/2+0.2,\S);
-				\draw[dashed] (axis cs:0,2*\S) -- (axis cs:pi/2+0.2,2*\S);
-				\draw[dashed] (axis cs:0,3*\S) -- (axis cs:pi/2+0.2,3*\S);
+					% Add dashed lines at -S, S, 2S, and 3S on the y-axis
+					\draw[dashed] (axis cs:0,-\S) -- (axis cs:pi/2+0.2,-\S);
+					\draw[dashed, name path = oline] (axis cs:0,0) -- (axis cs:pi/2+0.2,0);
+					\draw[dashed, name path = Sline] (axis cs:0,\S) -- (axis cs:pi/2+0.2,\S);
+					\draw[dashed] (axis cs:0,2*\S) -- (axis cs:pi/2+0.2,2*\S);
+					\draw[dashed] (axis cs:0,3*\S) -- (axis cs:pi/2+0.2,3*\S);
 
-				\addplot[blue!20, fill opacity=0.5] fill between[of=curve and Sline, soft clip={domain=0:1.191}];
-				\addplot[red!20, pattern=north west lines, pattern color=red] fill between[of=Hcurve and Sline, soft clip={domain=0:0.736}];
-				\addplot[red!20, pattern=north west lines, pattern color=red] fill between[of=curve and oline, soft clip={domain=0:0.736}];
+					\addplot[blue!20, fill opacity=0.5] fill between[of=curve and Sline, soft clip={domain=0:1.191}];
+					\addplot[red!20, pattern=north west lines, pattern color=red] fill between[of=Hcurve and Sline, soft clip={domain=0:0.736}];
+					\addplot[red!20, pattern=north west lines, pattern color=red] fill between[of=curve and oline, soft clip={domain=0:0.736}];
 
-			\end{axis}
-		\end{tikzpicture}
-		\caption{Translational symmetry guarantees that the subtrahend is equivalent to the "short needle"
-		probability of crossing an additional hyperplane.}\label{fig:long r int}
-	\end{subfigure}
-	\caption{}
-\end{figure}
+				\end{axis}
+			\end{tikzpicture}
+			\caption{Translational symmetry guarantees that the subtrahend is equivalent to the "short needle"
+			probability of crossing an additional hyperplane.}\label{fig:long r int}
+		\end{subfigure}
+		\caption{}
+	\end{figure}
 
-The integral $I_2$ is of the same form as the short needle case and can therefore be substituted with the
-solution \ref{eq:n=1 final sol}. Using symmetry of the PDF in the $x_1$ direction, $I_3$ can be rewritten
-with the limits of integration spanning $S_1(c+1)-r\cos\phi_1 < x_1 < S_1$. This is, again, exactly the problem of
-the short needle case but with $c+1$ instead of $c$. This is visualized in Figure \ref{fig:long r int} As such, the result is
-\begin{gather}
-	P_{N=1}(c | r>S_1c) = A(c) - A(c+1) \\
-	A(k) = \frac{r}{S_1} \left[\frac{(1-\gamma^2)^{\frac{D-1}{2}}}{\pi} \left(B\left(\frac{D}{2}, \frac{1}{2} \right) + \gamma^2 \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{(1-\gamma^2)^i}\right) - \gamma g(\gamma, D-2) \right] \\
-	\gamma = \frac{S_1(k-1)}{r} \\
-	g(n, m) = \begin{cases}
-		\frac{2}{\pi}\arccos(n) & m\bmod 2 = 0 \\
-		1-n & m \bmod 2 = 1
-	\end{cases}
-\end{gather}
+	The integral $I_2$ is of the same form as the short needle case and can therefore be substituted with the
+	solution \ref{eq:n=1 final sol}. Using symmetry of the PDF in the $x_1$ direction, $I_3$ can be rewritten
+	with the limits of integration spanning $S_1(c+1)-r\cos\phi_1 < x_1 < S_1$. This is, again, exactly the problem of
+	the short needle case but with $c+1$ instead of $c$. This is visualized in Figure \ref{fig:long r int} As such, the result is
+	\begin{gather}
+		P_{N=1}(c | r>S_1c) = A(c) - A(c+1) \\
+		A(k) = \frac{r}{S_1} \left[\frac{(1-\gamma^2)^{\frac{D-1}{2}}}{\pi} \left(B\left(\frac{D}{2}, \frac{1}{2} \right) + \gamma^2 \sum_{i=1}^{\lfloor \frac{D-2}{2} \rfloor}\frac{B(\frac{D-2i}{2}, \frac{1}{2})}{(1-\gamma^2)^i}\right) - \gamma g(\gamma, D-2) \right] \\
+		\gamma = \frac{S_1(k-1)}{r} \\
+		g(n, m) = \begin{cases}
+			\frac{2}{\pi}\arccos(n) & m\bmod 2 = 0 \\
+			1-n & m \bmod 2 = 1
+		\end{cases}
+	\end{gather}
+\end{proof}
 
 
 \section{Probability of crossing $N\ge 1$}
@@ -574,17 +643,13 @@ For instance, if $N=2$ and we want to know when $C=2$, then a valid number of cr
 needle crosses 2 hyperplanes in $x_1$ and 0 in $x_2$, or 1 hyperplane in each direction, or 0 hyperplanes
 in $x_1$ and 2 in $x_2$.
 
-For simplicity, we begin with the assumption that $r<\min(S)$ to ensure that the needle can never cross
-more than 1 hyperplane in any given direction.
-
-\subsection{$N\ge 1, r<\min(S)$}
 Let $P(C_i\ge c_i|r,D,N,S)=P(C_i\ge c_i)$ be the probability that a needle crosses at least $c_i$ hyperplanes in the direction of
 $x_i$. This is representable with a hypervolume where the relevant crossing condition is satisfied.
 Let $P(C_1\ge c_1 , \hdots , C_N\ge c_N|r,D,N,S)=P(\vec{C}\ge \vec{c})$ be the probability that the needle crosses at
-least $c_i$ hyperplanes in the direction $x_i$ for all whole number values of $i$ up to $N$. This is equivalent
+least $c_i$ hyperplanes in the direction $x_i$ for all positive integer values of $i$ up to $N$. This is equivalent
 to the intersection of each individual hypervolume associated with each $P(C_i\ge c_i)$. Additionally,
 let $P(C_1\ge c_1 \cup \hdots \cup C_N\ge c_N|r,D,N,S)=P(\cup\vec{c})$ be the probability that any of the
-crossing conditions are satisfied. This is equivalent to the union of each hypervolume. Finally, let $\hat e_i$
+inequalities are satisfied. This is equivalent to the union of each hypervolume. Finally, let $\hat e_i$
 be a vector where the $i$th entry is $1$ and all other entries are zero.
 
 Using this notation, the probability $P(C\ge 1|r, D, N, S)$ is equivalent to the probability $P(\cup\vec{c})$
@@ -595,61 +660,95 @@ the inclusion-exclusion principle.
 	P(C\ge 1|r, D, N, S) = P(\cup\vec{1}_N) = \sum_{k=1}^N (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le N}P(\hat{e}_{i_1}, \hdots, \hat{e}_{i_k})\right)
 \end{equation}
 
-Similarly, for $C\ge c$, we can define the set of events $E_c^N$ which consists of each of the
-$N \choose c$ hyperplane crossing combinations that a short needle, $r<\min(S)$ can make. For example, 
-$E_2^3=\{[1,1,0], [1,0,1], [0,1,1]\}$. Assuming the elements of $E_c^N$ are arbitrarily ordered into a list,
-we notate the $i$th element as $E_c^N[i]$. If the needle crosses hyperplanes in all of the directions listed
-in any element of $E_c^N$, then the crossing condition for the criteria $C \ge c$ has been met. Let
-$P(\cup E_c^N)$ be the probability that any element of $E_c^N$ has satisfied its crossing conditions.
-Explicitly, this can be written as follows.
-\begin{equation}
-	P(C\ge c|r<\min(S), D, N, S) = P(\cup E_c^N) = P((\vec{C} \ge E_c^N[1]) \cup \hdots \cup (\vec{C} \ge E_c^N[N]))
-\end{equation}
+Similarly, for $C\ge c$, we can define the set of events $E_c^N$ which consists of each of the hyperplane
+crossings combinations that a needle can make to satisfy the inequality. The size of this set is equivalent
+to the number of combinations with replacement that can be made of hyperplane directions, ${c+N-1} \choose c$.
+For example, $E_2^3=\{[2,0,0], [0,2,0], [0,0,2], [1,1,0], [1,0,1], [0,1,1]\}$. When the elements of $E_c^N$
+are arbitrarily ordered into a list, we notate the $i$th element as $E_c^N[i]$. If the needle crosses
+hyperplanes listed in any element of $E_c^N$, then the crossing conditions for the criteria $C \ge c$ have
+been met.
 
-Again, using the inclusion-exclusion principle, this can be expressed strictly with intersections as follows.
+\begin{proposition} \label{p:inclusive-exclusive needle crossing}
+	The probability that a needle of any length $r$ crosses $c$ hyperplanes is as follows.
+	\begin{equation}
+		P(C\ge c|r,D,N,S) = \sum_{k=1}^{c+N-1\choose c} (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le {c+N-1\choose c}}P(\vec{C}\ge\bar{c}) \right)
+	\end{equation}
+	with
+	\begin{align}
+		\bar{c}&=[\bar{c}_1, \bar{c}_2, \hdots, \bar{c}_N] \\
+		\bar{c}_j &= \max(E_c^N[i_1][j], E_c^N[i_2][j], \hdots, E_c^N[i_k][j])
+	\end{align}
+\end{proposition}
+\begin{proof}
+	Let $P(\cup E_c^N)$ be the probability that any element of $E_c^N$ has satisfied its crossing conditions.
+	Explicitly, this can be written as follows.
+	\begin{equation}
+		P(C\ge c|r, D, N, S) = P(\cup E_c^N) = P\left(\vec{C} \ge E_c^N[1] \cup \hdots \cup \vec{C} \ge E_c^N\left[{c+N-1 \choose c}\right]\right)
+	\end{equation}
 
-\begin{equation}
-	P(\cup E_c^N) = \sum_{k=1}^{N\choose c} (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le {N\choose c}}P(\vec{C}\ge E_c^N[i_1] , \hdots , \vec{C}\ge E_c^N[i_k]) \right)
-\end{equation}
+	Again, using the inclusion-exclusion principle, this can be expressed strictly with intersections as follows.
 
-The condition $\vec{C}\ge E_c^N[i_1], \hdots , \vec{C}\ge E_c^N[i_k]$ can be condensed by rewriting in the
-following way due to the fact that a short needle can never cross more than one hyperplane per direction.
+	\begin{equation}
+		P(\cup E_c^N) = \sum_{k=1}^{c+N-1\choose c} (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le {c+N-1\choose c}}P(\vec{C}\ge E_c^N[i_1] , \hdots , \vec{C}\ge E_c^N[i_k]) \right)
+	\end{equation}
 
-\begin{align}
-	P(\vec{C}\ge E_c^N[i_1], \hdots , \vec{C}\ge E_c^N[i_k]) &= P\begin{pmatrix}
-		C_1 \ge \max(E_c^N[i_1][1], \hdots, E_c^N[i_k][1]), \\
-		\vdots \\
-		C_N \ge \max(E_c^N[i_1][N], \hdots, E_c^N[i_k][N])
-	\end{pmatrix} \\
-	&= P(\vec{C}\ge E_c^N[i_1]\cup \hdots \cup E_c^N[i_k])
-\end{align}
+	The condition $\vec{C}\ge E_c^N[i_1], \hdots , \vec{C}\ge E_c^N[i_k]$ can be rewritten to have a single
+	condition for each direction by taking the maximum number of required crossings across all elements of $E_c^N$
+	for each direction.
 
-For example, following the elements of $E_2^3$ for a short needle, the following holds.
-\begin{equation}
-	P(\vec{C}\ge[1,1,0], \vec{C}\ge[1,0,1], \vec{C}\ge [0,1,1]) = P(\vec{C} \ge [1,1,1])
-\end{equation}
+	\begin{align}
+		P(\vec{C}\ge E_c^N[i_1], \hdots , \vec{C}\ge E_c^N[i_k]) = P\bigg(C_1 &\ge \max(E_c^N[i_1][1], \hdots, E_c^N[i_k][1]), \nonumber \\
+			&\vdots \nonumber \\
+			C_N &\ge \max(E_c^N[i_1][N], \hdots, E_c^N[i_k][N])\bigg)
+	\end{align}
 
-The probability that a short needle crossing at least $c$ hyperplanes can therefore be written as the following.
-\begin{equation}
-	P(C\ge c|r<\min(S), D, N, S) = \sum_{k=1}^{N\choose c} (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le {N\choose c}}P(\vec{C}\ge E_c^N[i_1]\cup \hdots \cup E_c^N[i_k]) \right) \label{eq:combo probs}
-\end{equation}
+	These maximum required crossings will be notated as $\bar{c} = [\bar{c}_1,\hdots,\bar{c}_N]$, resulting in
+	the following expression.
 
-To evaluate this, an expression must be derived for the probability that a short needle crosses some subset
-of hyperplanes exactly once each.
+	\begin{equation}
+		P(C\ge c|r,D,N,S) = \sum_{k=1}^{c+N-1\choose c} (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le {c+N-1\choose c}}P(\vec{C}\ge\bar{c}) \right) \label{eq:combo probs}
+	\end{equation}
+\end{proof}
+
+An expression is therefore needed to determine the probability $P(\vec{C}\ge \vec{c})$ for any selection of
+$\vec{c}$. In \S\ref{s:general short needle} this probability will be derived for short needles where
+$r<\min(S)$.
+% In \S\ref{s:general slightly long needle} this probability will be derived for a needle which
+% is slightly longer and $r$ is greater than the smallest $S$ but less than all other $S$. In \S\ref{s:general
+% longer needles} a proof will be given showing that the volume integral necessary to calculate the crossing
+% probability is nonelementary. \todo{or maybe just an explanation why my current approach doesn't work}
+
+\subsection{Short Needle Crossing Probability $N\ge 1, r<\min(S)$}\label{s:general short needle}
+Short needles, where $r<\min(S)$, cannot cross more than one hyperplane in any direction as even if they were
+orthogonal to the hyperplanes and $x_i$ was maximized, $x_i + r < 2S_i$. As a result, any probability where
+$\bar{c}$ has an entry greater than one will be zero. If $\bar{c}$ has all entries as zero, then the probability 
+of satisfying the crossing conditions is trivially one. In other words
+\begin{gather}
+	P(\vec{C}\ge \bar{c}|r<\min(S),D,N,S) = \begin{cases}
+		1 & ||\bar{c}||_\infty = 0 \\
+		P(\vec{C}\ge \bar{c}) & ||\bar{c}||_\infty = 1 \\
+		0 & ||\bar{c}||_\infty \ge 2
+	\end{cases} \label{eq:short needle cbar conditions}
+\end{gather}
 
 \begin{proposition}
-	For any given list of hyperplane directions, $H$, the probability that a short needle would cross
-	at least 1 hyperplane in each of the specified directions can be represented as follows.
+	For any $\vec{c}$ where
+	$||\vec{c}||_{\infty} = 1$, the probability that a short needle would
+	satisfy the crossing conditions can be represented as follows.
 	\begin{equation}
-		P_{H_1 \cap \hdots \cap H_h} = \frac{r^h }{ \pi^{h/2} (\prod_{i=1}^h S_{H[i]}) }\frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+h}{2})}
+		P(\vec{C}\ge \vec{c}) = \frac{r^h }{ \pi^{h/2} (\prod_{i=1}^N S_i^{\vec{c}_i}) }\frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+h}{2})}
+	\end{equation}
+	with
+	\begin{equation}
+		h = ||\vec{c}||_0
 	\end{equation}
 \end{proposition}
 
 \begin{proof}
-	The list of hyperplane directions, $H$, with spacings $S_H$ is a subset of all the 
-	hyperplanes that grid the space. Without loss of generalization, the axes can be relabeled to
-	align $H_1$ with $x_1$, $H_2$ with $x_2$ and so on. All other hyperplanes that are not included
-	in the set $H$ can be ignored as any intersections with them are irrelevant.
+	Let $H$ be the list of indices of non-zero elements of $\vec{c}$. 
+	Without loss of generalization, the coordinate system can be realigned such that
+	$H_1$ aligns with $x_1$, $H_2$ aligns with $x_2$ and so on. All other hyperplanes that are not included
+	in $H$ can be arbitrarily asigned directions as any intersections with them are irrelevant.
 
 	The necessary conditions for crossings to occur in each direction specified in $H$ is as follows
 	\begin{align}
@@ -682,62 +781,190 @@ of hyperplanes exactly once each.
 	spatial dimensions greater than $h$ are reduced to a coefficient.
 
 	\begin{align}
-		P_{H_1\cap\hdots\cap H_h} &= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^D S_i} \idotsint_V \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dV \\
-		&= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^h S_i} \idotsint_{\phi}  \int_{m_h(\phi_h)}^{S_h} \hdots \int_{m_1(\phi_1)}^{S_1} \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dx_1\hdots dx_h d\phi_1 \hdots d\phi_{D-1}
-		% &= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^h S_i} \prod_{k=h+1}^{D-1}\frac{B(\frac{D-k}{2}, \frac{1}{2})}{2} \idotsint_{\phi_1\hdots \phi_h x_1 \hdots x_h} \prod_{j=1}^{h}\sin^{D-1-j}\phi_j dx_1\hdots dx_h d\phi_1 \hdots d\phi_{h} \\
-		% &= \frac{2^h}{\pi^{h/2}\prod_{i=1}^h S_i} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D-h}{2})} \idotsint_{\phi_1\hdots \phi_h x_1 \hdots x_h} \prod_{j=1}^{h}\sin^{D-1-j}\phi_j dx_1\hdots dx_h d\phi_1 \hdots d\phi_{h}
+		P(\vec{C}\ge \vec{c}) &= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^D S_i} \idotsint_V \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dV \\
+		&= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^N S_i^{\vec{c}_i}} \idotsint_{\phi}  \int_{m_h(\phi_h)}^{S_h} \hdots \int_{m_1(\phi_1)}^{S_1} \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dx_1\hdots dx_h d\phi_1 \hdots d\phi_{D-1}
 	\end{align}
-
-		% &= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D\2}\prod_{i=1}^h S_i} \prod_{k=h+1}^{D-1}\frac{B(\frac{D-k}{2}, \frac{1}{2})}{2} \idotsint_{\phi_1\hdots \phi_h x_1 \hdots x_h}  \int_{m_h(\phi_h)}^{S_h} \hdots \int_{m_1(\phi_1)}^{S_1} \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dx_1\hdots dx_h d\phi_1 \hdots d\phi_{D-1}
 
 	Given that $r$ is less than every spacing $S_i$, every function $m_i(\phi_i)$ is guaranteed
 	to be greater than zero. Every spatial integral will reduce to the polar representation of
 	the corresponding $x_i$. This simplifies to the following.
 
 	\begin{align}
-		P_{H_1\cap\hdots\cap H_h} &= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^h S_i} \idotsint_\phi r^h \left( \prod_{k=1}^{\min(D-1, h)} \cos\phi_k\sin^{h-k}\phi_k\right) \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 \hdots d\phi_{D-1} \\
-		&= \frac{2^{D-1}r^h\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^h S_i} \idotsint_\phi \left( \prod_{k=1}^{\min(D-1, h)} \cos\phi_k\sin^{D+h-2k-1}\phi_k\right) \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 \hdots d\phi_{D-1}
+		P(\vec{C}\ge \vec{c}) &= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^N S_i^{\vec{c}_i}} \idotsint_\phi r^h \left( \prod_{k=1}^{\min(D-1, h)} \cos\phi_k\sin^{h-k}\phi_k\right) \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 \hdots d\phi_{D-1} \\
+		&= \frac{2^{D-1}r^h\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^N S_i^{\vec{c}_i}} \idotsint_\phi \left( \prod_{k=1}^{\min(D-1, h)} \cos\phi_k\sin^{D+h-2k-1}\phi_k\right) \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 \hdots d\phi_{D-1}
 	\end{align}
 
 	The product from $k=1$ to $\min(D-1,h)$ can be reduced by using u-substitution where 
 	$u=\sin\phi_k$. Assuming that $h\le D-1$, this results as follows
 
 	\begin{align}
-		P_{H_1\cap\hdots\cap H_h} &= \frac{2^{D-1}r^h\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^h S_i} \idotsint_0^{\pi/2} \frac{1}{(D+h-2)(D+h-4)\hdots(D-h)} \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_{h+1} \hdots d\phi_{D-1} \\
-		&= \frac{2^{D-1}r^h\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^h S_i} \frac{(D-h-2)!!}{(D+h-2)!!} \idotsint_0^{\pi/2} \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_{h+1} \hdots d\phi_{D-1} \\
-		&= \frac{2^{D-1}r^h\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^h S_i} \frac{\Gamma(\frac{D-h}{2})}{2^h \Gamma(\frac{D+h}{2})} \prod_{j=h+1}^{D-1}\frac{B(\frac{D-j}{2}, \frac{1}{2})}{2} \\
-		&= \frac{r^{h}}{\pi^{h/2}\prod_{i=1}^h S_i} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+h}{2})} \\
+		P(\vec{C}\ge \vec{c}) &= \frac{2^{D-1}r^h\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}N S_i^{\vec{c}_i}} \idotsint_0^{\pi/2} \frac{1}{(D+h-2)(D+h-4)\hdots(D-h)} \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_{h+1} \hdots d\phi_{D-1} \\
+		&= \frac{2^{D-1}r^h\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^N S_i^{\vec{c}_i}} \frac{(D-h-2)!!}{(D+h-2)!!} \idotsint_0^{\pi/2} \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_{h+1} \hdots d\phi_{D-1} \\
+		&= \frac{2^{D-1}r^h\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^N S_i^{\vec{c}_i}} \frac{\Gamma(\frac{D-h}{2})}{2^h \Gamma(\frac{D+h}{2})} \prod_{j=h+1}^{D-1}\frac{B(\frac{D-j}{2}, \frac{1}{2})}{2} \\
+		&= \frac{r^{h}}{\pi^{h/2}\prod_{i=1}^N S_i^{\vec{c}_i}} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+h}{2})} \\
 	\end{align}
 
 	If $h$ is greater than $D-1$ (ie. $h=D$), the result remains the same.
 	\begin{align}
-		P_{H_1\cap\hdots\cap H_h} &= \frac{2^Dr^{D+h-1}}{A_{D-1}\prod_{i=1}^h S_i}  \frac{1}{(D+h-2)(D+h-4)\hdots(4)(2)}  \\
-		&= \frac{2^Dr^{h} \Gamma(\frac{D}{2})}{2 \pi^{D/2} \prod_{i=1}^h S_i} \frac{1}{(D+h-2)!!} \\
-		&= \frac{2^Dr^{h} \Gamma(\frac{D}{2})}{2 \pi^{D/2} \prod_{i=1}^h S_i} \frac{1}{2^{(D+h-2)/2} \Gamma(\frac{D+h}{2})} \\
-		&= \frac{r^{h}}{\pi^{h/2} \prod_{i=1}^h S_i} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+h}{2})} \label{eq:h crossings short}
+		P(\vec{C}\ge \vec{c}) &= \frac{2^Dr^{D+h-1}}{A_{D-1}\prod_{i=1}^N S_i^{\vec{c}_i}}  \frac{1}{(D+h-2)(D+h-4)\hdots(4)(2)}  \\
+		&= \frac{2^Dr^{h} \Gamma(\frac{D}{2})}{2 \pi^{D/2} \prod_{i=1}^N S_i^{\vec{c}_i}} \frac{1}{(D+h-2)!!} \\
+		&= \frac{2^Dr^{h} \Gamma(\frac{D}{2})}{2 \pi^{D/2} \prod_{i=1}^N S_i^{\vec{c}_i}} \frac{1}{2^{(D+h-2)/2} \Gamma(\frac{D+h}{2})} \\
+		&= \frac{r^{h}}{\pi^{h/2} \prod_{i=1}^N S_i^{\vec{c}_i}} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+h}{2})} \label{eq:h crossings short}
 	\end{align}
 \end{proof}
 
-\todo{this can be simplified by pulling out the stuff that's not dependent on the $i_js$}
-Substituting \ref{eq:h crossings short} into \ref{eq:combo probs} yields the following.
-\begin{gather}
-	% P(C\ge c|r<\min(S), D, N, S) = \sum_{k=1}^{N\choose c} (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le {N\choose c}}P(\vec{C}\ge E_c^N[i_1]\cup \hdots \cup E_c^N[i_k]) \right) \label{eq:combo probs}
-	P(C\ge c|r<\min(S), D, N, S) = \sum_{k=1}^{N\choose c} (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le {N\choose c}}\frac{r^k}{\pi^{k/2} \prod_{j=1}^N S^r_j}\frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+k}{2})} \right) \\
-	S^r = \text{diag}(E_c^N[i_1]\cup\hdots\cup E_c^N[i_k]) S
-\end{gather}
+\begin{theorem}
+	The probability that a short needle, $r<\min(S)$, crosses at least $c$ hyperplanes given that there are 
+	multiple orthogonal sets of parallel hyperplanes ruling $D$ dimensional space is as follows.
+
+	\begin{gather}
+		P(C\ge c|r<\min(S), D, N, S) = \sum_{k=1}^{N\choose c} (-1)^{k+1} \frac{r^k\Gamma(\frac{D}{2})}{\pi^{k/2}\Gamma(\frac{D+k}{2})} \left(\sum_{1\le i_1 < \hdots < i_k \le {N\choose c}}\frac{1}{\prod_{j=1}^N S_j^{\hat{\bar{c}}_j}} \right)
+	\end{gather}
+\end{theorem}
+\begin{proof}
+	From \ref{eq:short needle cbar conditions}, if any element of $\bar{c}$ is greater than 1, then the associated
+	probability is zero. The result of Proposition \ref{p:inclusive-exclusive needle crossing} can be rewritten 
+	with this stipulation as follows.
+
+	\begin{equation}
+		P(C\ge c|r,D,N,S) = \sum_{k=1}^{c+N-1\choose c} (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le {c+N-1\choose c}}P(\vec{C}\ge\bar{c})(||\bar{c}||_\infty\bmod 2) \right)
+	\end{equation}
+
+	Recall that $\bar{c}$ is defined as follows.
+	\begin{equation}
+		\bar{c}_j = \max(E_c^N[i_1][j], E_c^N[i_2][j], \hdots, E_c^N[i_k][j])
+	\end{equation}
+	 
+	This means that any element of $E_c^N$ that contains a value greater than 1 will ultimately 
+	result in an addend being zero. These elements with values greater than 1 result from $E_c^N$
+	being generated by listing all combinations of $c$ hyperplanes with replacement. To prevent this, it is sufficient to instead
+	generate a set of lists which consist of the combinations of $c$ hyperplanes without replacement.
+	This guarantees that every hyperplane direction is selected a maximum of once.
+	
+	Let $\hat{E}_c^N$ be such a list of combinations without replacement. Similar to before, let $\hat{\bar{c}}$
+	be the list of maximum crossing requirements for each direction such that
+	\begin{equation}
+		\hat{\bar{c}}_j = \max(\hat{E}_c^N[i_1][j], \hdots, E_c^N[i_k][j])
+	\end{equation}
+
+	The result of Proposition \ref{p:inclusive-exclusive needle crossing} can then be reindexed as follows.
+	\begin{gather}
+		P(C\ge c|r,D,N,S) = \sum_{k=1}^{N\choose c} (-1)^{k+1}\left(\sum_{1\le i_1 < \hdots < i_k \le {N\choose c}}P(\vec{C}\ge\hat{\bar{c}}) \right) \label{eq:combo probs short needle} \\
+		\hat{\bar{c}}_j = \max(\hat{E}_c^N[i_1][j], \hat{E}_c^N[i_2][j], \hdots, \hat{E}_c^N[i_k][j])
+	\end{gather}
+
+	Substituting \ref{eq:h crossings short} into \ref{eq:combo probs short needle} yields the following.
+	\begin{gather}
+		P(C\ge c|r<\min(S), D, N, S) = \sum_{k=1}^{N\choose c} (-1)^{k+1} \frac{r^k\Gamma(\frac{D}{2})}{\pi^{k/2}\Gamma(\frac{D+k}{2})} \left(\sum_{1\le i_1 < \hdots < i_k \le {N\choose c}}\frac{1}{\prod_{j=1}^N S_j^{\hat{\bar{c}}_j}} \right)
+	\end{gather}
+\end{proof}
 
 As an example, Laplace's extension of the short needle problem can be evaluated as follows.
 \begin{align}
-	P(C \ge 1|r<\min(S), 2, 2, S) &= \frac{r\Gamma(1)}{\sqrt{\pi}\Gamma(\frac{3}{2})}\left( \frac{1}{S_1}+\frac{1}{S_2}\right) - \frac{r^2\Gamma(1)}{\pi S_1S_2 \Gamma(2)} \\
+	P(C \ge 1|r<\min(S), 2, 2, S) &= \frac{r\Gamma(1)}{\sqrt{\pi}\Gamma(\frac{3}{2})}\left( \frac{1}{S_1}+\frac{1}{S_2}\right) - \frac{r^2\Gamma(1)}{\pi \Gamma(2)} \frac{1}{S_1S_2}\\
 	&= \frac{2r(S_1+S_2)-r^2}{\pi S_1S_2}
 \end{align}
-Additional validation for a variety of parameters is provided in Section \S\ref{s:n=1 numeric}.
+Additional numeric validation for a variety of parameters is provided in Section \S\ref{s:n=1 numeric}.
+
+% \subsection{Slightly Longer Needle}\label{s:general slightly long needle}
+% A slightly longer needle is defined as a needle that is longer than the smallest 
+% element of $S$ times some positive integer number, but shorter than all other values
+% of $S$.
+% \begin{proposition}
+% 	For any $\vec{c}$ where only a single element is , the probability that a short needle would
+% 	satisfy the crossing conditions can be represented as follows.
+% 	\begin{equation}
+% 		P(\vec{C}\ge \vec{c}) = 
+% 	\end{equation}
+% 	with
+% 	\begin{equation}
+% 		h = ||\vec{c}||_0
+% 	\end{equation}
+% \end{proposition}
+
+% \begin{proof}
+% 	Let $H$ be the list of indices of non-zero elements of $\vec{c}$. 
+% 	Without loss of generalization, the elements of $H$ will be ordered by the size
+% 	of the corresponding element of $S$. By the problem definition, it is assumed
+% 	that $r$ is greater than this minimum value $S_m$ scaled by some positive
+% 	integer $c_m$. 
+	
+% 	the coordinate system can be realigned such that
+% 	$H_1$ aligns with $x_1$, $H_2$ aligns with $x_2$ and so on. This means $S_m=S_1$
+% 	and $c_m=c_1$. All other hyperplanes that are not included
+% 	in $H$ can be arbitrarily asigned directions as any intersections with them are irrelevant.
+
+% 	The necessary conditions for crossings to occur in each direction specified in $H$ is as follows
+% 	\begin{align}
+% 		S_1c_1 &\le x_1 + r\cos\phi_1\\
+% 		S_2 &\le x_2 + r\sin\phi_1\cos\phi_2\\
+% 		&\vdots \\
+% 		S_{h-1} &\le x_{h-1} + r\sin\phi_1\sin\phi_2\hdots\sin\phi_{h-2}\cos\phi_{h-1}\\
+% 		S_{h} &\le x_h + \begin{cases}
+% 			r\sin\phi_1\hdots\sin\phi_{h-1}\cos\phi_{h} & h < D \\
+% 			r\sin\phi_1\hdots\sin\phi_{h-2}\sin\phi_{h-1} & h = D
+% 		\end{cases}
+% 	\end{align}
+
+% 	These conditions, along with the domain of $x_i \forall i\in {1,\hdots,h}$, define the bounds of the
+% 	volume where the needle crosses a hyperplane in each direction $H$.
+	
+% 	\begin{align}
+% 		S_1 \ge x_1 \ge m_1(\phi_1) &= \max\{0, S_1-r\cos\phi_1\}\\
+% 		S_2 \ge x_2 \ge m_2(\phi_2) &= \max\{0, S_2-r\sin\phi_1\cos\phi_2\}\\
+% 		&\vdots \\
+% 		S_{h-1} \ge x_{h-1} \ge m_{h-1}(\phi_{h-1}) &= \max\{0, S_{h-1}-r\sin\phi_1\hdots\sin\phi_{h-2}\cos\phi_{h-1}\}\\
+% 		S_h \ge x_h \ge m_{h}(\phi_{h}) &= \max\left\{0, S_h - \begin{cases}
+% 			r\sin\phi_1\hdots\sin\phi_{h-1}\cos\phi_{h} & h < D\\
+% 			r\sin\phi_1\hdots\sin\phi_{h-2}\sin\phi_{h-1} & h = D
+% 		\end{cases} \right\}
+% 	\end{align}
+% 	Starting with \ref{eq:volume integral}, the crossing conditions above are encoded into
+% 	the bounds of integration. As in the $N=1$ case, the order of integration is arbitrary
+% 	so long as the limits of integration are not variable. Therefore the integrals with respect to the
+% 	spatial dimensions greater than $h$ are reduced to a coefficient.
+
+% 	\begin{align}
+% 		P(\vec{C}\ge \vec{c}) &= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^D S_i} \idotsint_V \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dV \\
+% 		&= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^N S_i^{\vec{c}_i}} \idotsint_{\phi}  \int_{m_h(\phi_h)}^{S_h} \hdots \int_{m_1(\phi_1)}^{S_1} \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j dx_1\hdots dx_h d\phi_1 \hdots d\phi_{D-1}
+% 	\end{align}
+
+% 	Given that $r$ is less than every spacing $S_i$, every function $m_i(\phi_i)$ is guaranteed
+% 	to be greater than zero. Every spatial integral will reduce to the polar representation of
+% 	the corresponding $x_i$. This simplifies to the following.
+
+% 	\begin{align}
+% 		P(\vec{C}\ge \vec{c}) &= \frac{2^{D-1}\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^N S_i^{\vec{c}_i}} \idotsint_\phi r^h \left( \prod_{k=1}^{\min(D-1, h)} \cos\phi_k\sin^{h-k}\phi_k\right) \prod_{j=1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 \hdots d\phi_{D-1} \\
+% 		&= \frac{2^{D-1}r^h\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^N S_i^{\vec{c}_i}} \idotsint_\phi \left( \prod_{k=1}^{\min(D-1, h)} \cos\phi_k\sin^{D+h-2k-1}\phi_k\right) \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_1 \hdots d\phi_{D-1}
+% 	\end{align}
+
+% 	The product from $k=1$ to $\min(D-1,h)$ can be reduced by using u-substitution where 
+% 	$u=\sin\phi_k$. Assuming that $h\le D-1$, this results as follows
+
+% 	\begin{align}
+% 		P(\vec{C}\ge \vec{c}) &= \frac{2^{D-1}r^h\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}N S_i^{\vec{c}_i}} \idotsint_0^{\pi/2} \frac{1}{(D+h-2)(D+h-4)\hdots(D-h)} \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_{h+1} \hdots d\phi_{D-1} \\
+% 		&= \frac{2^{D-1}r^h\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^N S_i^{\vec{c}_i}} \frac{(D-h-2)!!}{(D+h-2)!!} \idotsint_0^{\pi/2} \prod_{j=h+1}^{D-1}\sin^{D-1-j}\phi_j d\phi_{h+1} \hdots d\phi_{D-1} \\
+% 		&= \frac{2^{D-1}r^h\Gamma(\frac{D}{2})}{\pi^{D/2}\prod_{i=1}^N S_i^{\vec{c}_i}} \frac{\Gamma(\frac{D-h}{2})}{2^h \Gamma(\frac{D+h}{2})} \prod_{j=h+1}^{D-1}\frac{B(\frac{D-j}{2}, \frac{1}{2})}{2} \\
+% 		&= \frac{r^{h}}{\pi^{h/2}\prod_{i=1}^N S_i^{\vec{c}_i}} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+h}{2})} \\
+% 	\end{align}
+
+% 	If $h$ is greater than $D-1$ (ie. $h=D$), the result remains the same.
+% 	\begin{align}
+% 		P(\vec{C}\ge \vec{c}) &= \frac{2^Dr^{D+h-1}}{A_{D-1}\prod_{i=1}^N S_i^{\vec{c}_i}}  \frac{1}{(D+h-2)(D+h-4)\hdots(4)(2)}  \\
+% 		&= \frac{2^Dr^{h} \Gamma(\frac{D}{2})}{2 \pi^{D/2} \prod_{i=1}^N S_i^{\vec{c}_i}} \frac{1}{(D+h-2)!!} \\
+% 		&= \frac{2^Dr^{h} \Gamma(\frac{D}{2})}{2 \pi^{D/2} \prod_{i=1}^N S_i^{\vec{c}_i}} \frac{1}{2^{(D+h-2)/2} \Gamma(\frac{D+h}{2})} \\
+% 		&= \frac{r^{h}}{\pi^{h/2} \prod_{i=1}^N S_i^{\vec{c}_i}} \frac{\Gamma(\frac{D}{2})}{\Gamma(\frac{D+h}{2})} \label{eq:h crossings short}
+% 	\end{align}
+% \end{proof}
+
+% \subsection{Longer Needles $N\ge 1, r>\min(S\textbackslash \min(S))$}\label{s:general longer needles}
+% aoeu
 
 \section{Numeric Simulation of Crossing and Other Conditions} \label{s:n=1 numeric}
 To summarize, the probability that a randomly placed line segment will cross at least $c$
 hyperplanes given that there is 1 set of parallel hyperplanes with spacing $S_1$ is as follows
 
-\begin{gather*}
+\begin{gather}
 	P(C\ge c | r, D, N=1, S) = \begin{cases}
 		0 & r < S(c-1) \\ 
 		A(c)  & S_1 (c-1) < r < S_1 c \\
@@ -748,13 +975,14 @@ hyperplanes given that there is 1 set of parallel hyperplanes with spacing $S_1$
 		\frac{2}{\pi}\arccos(n) & m\bmod 2 = 0 \\
 		1-n & m \bmod 2 = 1
 	\end{cases}
-\end{gather*}
+\end{gather}
 
-To compare this against numeric simulation, many samples of a randomly placed needle must be generated.
+To compare this against numeric simulation, many samples of a randomly placed needle can be generated and checked to
+see if they satisfy the inequality $C\ge c$.
 The initial point of the needle, $P_0$, is simulated using a uniformly distributed random variable in 
 the domain $(\vec 0, S)$ and has coordinates $\vec x \in \mathbb{R}^D$. For the other point of the needle, $P_1$, samples 
 with uniform spherical distribution must be generated for higher dimensional space. We use the method
-proposed by Marsaglia \todo{ref} of normalizing a rotationally symmetric distribution 
+proposed by Marsaglia \todo{cite} of normalizing a rotationally symmetric distribution 
 (such as a D-dimensional gaussian variable) and label these coordinates as $\vec y \in \mathbb{R}^D$. For a needle of
 length $r$, the point $P_1$ is then at the point $\vec x + r \vec y$.
 
@@ -777,11 +1005,13 @@ spacing $S_1=1$.
 	\label{fig:numeric sim N1}
 \end{figure}
 
-Similarly, the count of intersections can be compared to an exact number of crossings as well. The modeled
-probability can be calculated as follows.
+Similarly, the count of intersections can be compared to an exact number of crossings and an upper
+bound as well. The modeled probability for both can be calculated as follows. The simulated and modeled
+probabilities can be found in Figure \ref{fig:numeric sim N1 e} and Figure \ref{fig:numeric sim N1 le} respectively.
 
 \begin{gather}
-	P(C=c|r, D, N=1, S) = P(C\ge c|r, D, N=1, S) - P(C\ge c+1|r, D, N=1, S)
+	P(C=c) = P(C\ge c) - P(C\ge c+1) \\
+	P(C\le c) = 1 - P(C\ge c+1)
 \end{gather}
 
 \begin{figure}
@@ -790,69 +1020,73 @@ probability can be calculated as follows.
 	\label{fig:numeric sim N1 e}
 \end{figure}
 
-The simulated and modeled probabilities can be found in Figure \ref{fig:numeric sim N1 e}. In the exact
-crossing condition, there is a needle length that maximizes the probability that a certain number of crossings
-occur. This can be calculated by taking the derivative of the expression for $P(C=c)$ with respect to $r$
-and setting it equal to zero.
+\begin{figure}
+	\centerline{\includegraphics[width=5in]{numeric_sim_N1_le.png}}
+	\caption{Numeric and modeled probability for at most $c$ needle crossings.}
+	\label{fig:numeric sim N1 le}
+\end{figure}
 
-\begin{gather}
-	\frac{d}{dr}\gamma(k) = -\frac{S_1(k-1)}{r^2} \\
-	\frac{d}{dr}A(k) = \frac{A(k)}{r}+\frac{r}{S_1}\left( \frac{}{} \right) \\
-	\frac{d}{dr}P(C=c|r,D,N=1,S) = 0 = \begin{cases}
-		0 & r<S_1(c-1) \\
-		\frac{d}{dr}A(c) - 0 & S_1(c-1) < r < S_1 \\
-		\frac{d}{dr}A(c) - \frac{d}{dr}(2A(c+1)) & S_1c<r<S_1(c+1) \\
-		\frac{d}{dr}A(c) - \frac{d}{dr}(2A(c+1)) + \frac{d}{dr}A(c+2) & r>S_1(c+1)
-	\end{cases}
-\end{gather}
+The same simulation and comparison can be made with the case $N\ge 1$. The short needle probabilities
+for $C\ge c$, $C=c$, and $C\le c$ can be seen in Figures \ref{fig:numeric sim N ge}, \ref{fig:numeric sim N e},
+and \ref{fig:numeric sim N le} respectively.
 
-% template stuff
-\section{Examples of citations, figures, tables, references}
-\label{sec:others}
+\begin{figure}
+	\centerline{\includegraphics[width=5in]{numeric_sim_N_ge.png}}
+	\caption{Numeric and modeled probability for at least $c$ needle crossings for various values of $N$.
+	The left column uses $c=1$ while the right column shows $c=2$. The top row uses $N=2$ while the
+	bottom row uses $N=3$. The hyperplane spacings, $S$, were set to have values of $1, 2, \hdots, D$.}
+	\label{fig:numeric sim N ge}
+\end{figure}
 
-\subsection{Citations}
-Citations use \verb+natbib+. The documentation may be found at
-\begin{center}
-	\url{http://mirrors.ctan.org/macros/latex/contrib/natbib/natnotes.pdf}
-\end{center}
+\begin{figure}
+	\centerline{\includegraphics[width=5in]{numeric_sim_N_e.png}}
+	\caption{Numeric and modeled probability for exactly $c$ needle crossings for various values of $N$.
+	The left column uses $c=1$ while the right column shows $c=2$. The top row uses $N=2$ while the
+	bottom row uses $N=3$. The hyperplane spacings, $S$, were set to have values of $1, 2, \hdots, D$.}
+	\label{fig:numeric sim N e}
+\end{figure}
 
-Here is an example usage of the two main commands (\verb+citet+ and \verb+citep+): Some people thought a
-thing \citep{kour2014real, hadash2018estimate} but other people thought something else \citep{kour2014fast}. 
-Many people have speculated that if we knew exactly why \citet{kour2014fast} thought this\dots
+\begin{figure}
+	\centerline{\includegraphics[width=5in]{numeric_sim_N_le.png}}
+	\caption{Numeric and modeled probability for at most $c$ needle crossings for various values of $N$.
+	The left column uses $c=0$ while the right column shows $c=1$. The top row uses $N=2$ while the
+	bottom row uses $N=3$. The hyperplane spacings, $S$, were set to have values of $1, 2, \hdots, D$.}
+	\label{fig:numeric sim N le}
+\end{figure}
+
+% In the exact
+% crossing condition, there is a needle length that maximizes the probability that a certain number of crossings
+% occur. This can be calculated by taking the derivative of the expression for $P(C=c)$ with respect to $r$
+% and setting it equal to zero.
+
+% \begin{gather}
+% 	\frac{d}{dr}\gamma(k) = -\frac{S_1(k-1)}{r^2} \\
+% 	\frac{d}{dr}A(k) = \frac{A(k)}{r}+\frac{r}{S_1}\left( \frac{}{} \right) \\
+% 	\frac{d}{dr}P(C=c|r,D,N=1,S) = 0 = \begin{cases}
+% 		0 & r<S_1(c-1) \\
+% 		\frac{d}{dr}A(c) - 0 & S_1(c-1) < r < S_1 \\
+% 		\frac{d}{dr}A(c) - \frac{d}{dr}(2A(c+1)) & S_1c<r<S_1(c+1) \\
+% 		\frac{d}{dr}A(c) - \frac{d}{dr}(2A(c+1)) + \frac{d}{dr}A(c+2) & r>S_1(c+1)
+% 	\end{cases}
+% \end{gather}
+
+% % template stuff
+% \section{Examples of citations, figures, tables, references}
+% \label{sec:others}
+
+% \subsection{Citations}
+% Citations use \verb+natbib+. The documentation may be found at
+% \begin{center}
+% 	\url{http://mirrors.ctan.org/macros/latex/contrib/natbib/natnotes.pdf}
+% \end{center}
+
+% Here is an example usage of the two main commands (\verb+citet+ and \verb+citep+): Some people thought a
+% thing \citep{kour2014real, hadash2018estimate} but other people thought something else \citep{kour2014fast}. 
+% Many people have speculated that if we knew exactly why \citet{kour2014fast} thought this\dots
 
 
-The documentation for \verb+booktabs+ (`Publication quality tables in LaTeX') is available from:
-\begin{center}
-	\url{https://www.ctan.org/pkg/booktabs}
-\end{center}
-
-\bibliographystyle{unsrtnat}
-\bibliography{references}  %%% Uncomment this line and comment out the ``thebibliography'' section below to use the external .bib file (using bibtex) .
-
-
-%%% Uncomment this section and comment out the \bibliography{references} line above to use inline references.
-% \begin{thebibliography}{1}
-
-% 	\bibitem{kour2014real}
-% 	George Kour and Raid Saabne.
-% 	\newblock Real-time segmentation of on-line handwritten arabic script.
-% 	\newblock In {\em Frontiers in Handwriting Recognition (ICFHR), 2014 14th
-% 			International Conference on}, pages 417--422. IEEE, 2014.
-
-% 	\bibitem{kour2014fast}
-% 	George Kour and Raid Saabne.
-% 	\newblock Fast classification of handwritten on-line arabic characters.
-% 	\newblock In {\em Soft Computing and Pattern Recognition (SoCPaR), 2014 6th
-% 			International Conference of}, pages 312--318. IEEE, 2014.
-
-% 	\bibitem{hadash2018estimate}
-% 	Guy Hadash, Einat Kermany, Boaz Carmeli, Ofer Lavi, George Kour, and Alon
-% 	Jacovi.
-% 	\newblock Estimate and replace: A novel approach to integrating deep neural
-% 	networks with existing applications.
-% 	\newblock {\em arXiv preprint arXiv:1804.09028}, 2018.
-
-% \end{thebibliography}
+% \bibliographystyle{unsrtnat}
+% \bibliography{references}  %%% Uncomment this line and comment out the ``thebibliography'' section below to use the external .bib file (using bibtex) .
 
 
 \end{document}
