@@ -321,6 +321,8 @@ INPUT c:/texlive/2023/texmf-dist/tex/latex/caption/subcaption.sty
 INPUT c:/texlive/2023/texmf-dist/tex/latex/caption/subcaption.sty
 INPUT c:/texlive/2023/texmf-dist/tex/latex/float/float.sty
 INPUT c:/texlive/2023/texmf-dist/tex/latex/float/float.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/cite/cite.sty
+INPUT c:/texlive/2023/texmf-dist/tex/latex/cite/cite.sty
 INPUT c:/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypatterns.code.tex
 INPUT c:/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypatterns.code.tex
 INPUT c:/texlive/2023/texmf-dist/tex/generic/pgf/libraries/pgflibrarypatterns.code.tex
@@ -482,8 +484,16 @@ INPUT ./numeric_sim_N_le.png
 INPUT ./numeric_sim_N_le.png
 INPUT ./numeric_sim_N_le.png
 INPUT ./numeric_sim_N_le.png
+INPUT ./buffon_extension.bbl
+INPUT ./buffon_extension.bbl
+INPUT buffon_extension.bbl
+INPUT c:/texlive/2023/texmf-dist/tex/latex/base/t1cmtt.fd
+INPUT c:/texlive/2023/texmf-dist/tex/latex/base/t1cmtt.fd
+INPUT c:/texlive/2023/texmf-dist/tex/latex/base/t1cmtt.fd
+INPUT c:/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/ectt1000.tfm
 INPUT c:/texlive/2023/texmf-dist/fonts/vf/adobe/times/ptmr8t.vf
 INPUT c:/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
+INPUT c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc
 INPUT c:/texlive/2023/texmf-dist/fonts/vf/adobe/times/ptmr8t.vf
 INPUT c:/texlive/2023/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT buffon_extension.aux
@@ -505,6 +515,7 @@ INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb
+INPUT c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb
 INPUT c:/texlive/2023/texmf-dist/fonts/type1/urw/times/utmr8a.pfb

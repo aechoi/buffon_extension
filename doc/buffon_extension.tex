@@ -24,6 +24,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{float}
+\usepackage{cite}
 \usetikzlibrary{patterns}
 \usepgfplotslibrary{fillbetween}
 \pgfplotsset{compat=1.17}
@@ -76,17 +77,17 @@ pdfkeywords={Buffon's needle problem, Geometric probability},
 Buffon's needle problem was originally posed in the 18th century with the following premise. Given a line segment, or "needle", of length $r$ randomly dropped on a two-dimensional plane
 ruled with a set of parallel lines regularly spaced $s$ units apart, what is the probability that the needle crosses at least 1 of the lines? The solution, it turns out, is
 $\frac{2r}{s\pi}$ when the needle is short, $r<s$. Variations and extensions of this problem have been investigated as well, including
+\todo{cite all below}
 \begin{itemize}
 	\item Laplace's Extension - Investigating when the plane is gridded with 2 orthogonal sets of parallel lines with spacings $s_1$ and $s_2$.
 	\item Buffon's Noodle - Instead of being rigidly straight, the needle is permitted to bend (a "noodle").
-	\item Pivot Needle - The needle is constructed of two line segments that hinge together. Each crossing is considered.
 \end{itemize}
 
 In this paper, we investigate a particular extension that allows the needle to be dropped into a space with dimension greater than 2. In these higher dimensions, we will rule the space
 with parallel hyperplanes rather than lines. Additionally, we will look at gridding the space with orthogonal sets of hyperplanes, thereby extending Laplace's extension into higher dimensions.
 
 Given $D\in\mathbb{N}_{>0}$, consider a grid on $\mathbb{R}^D$ formed by $D$ orthogonal sets of regularly spaced hyperplanes. Each set of hyperplanes
-has a potentially unique spacing of $S_i$. We may only be interested in intersections that the needle makes 
+has a potentially unique spacing of $S_i$. Consider the intersections that the needle may make
 with the first $N$ sets of hyperplanes where $N\in[1,2,\dots,D]$. For example, if $D=2, N=1, S_1=2$, the
 grid would match the original Buffon Needle problem and would have only a single set of relevant parallel lines 2
 units apart as seen in \ref{fig:buffon example}. If $D=2, N=2, S=[2, 1]$, needle intersections with either
@@ -982,7 +983,7 @@ see if they satisfy the inequality $C\ge c$.
 The initial point of the needle, $P_0$, is simulated using a uniformly distributed random variable in 
 the domain $(\vec 0, S)$ and has coordinates $\vec x \in \mathbb{R}^D$. For the other point of the needle, $P_1$, samples 
 with uniform spherical distribution must be generated for higher dimensional space. We use the method
-proposed by Marsaglia \todo{cite} of normalizing a rotationally symmetric distribution 
+proposed by \citet{marsaglia72} of normalizing a rotationally symmetric distribution 
 (such as a D-dimensional gaussian variable) and label these coordinates as $\vec y \in \mathbb{R}^D$. For a needle of
 length $r$, the point $P_1$ is then at the point $\vec x + r \vec y$.
 
@@ -1070,23 +1071,7 @@ and \ref{fig:numeric sim N le} respectively.
 % 	\end{cases}
 % \end{gather}
 
-% % template stuff
-% \section{Examples of citations, figures, tables, references}
-% \label{sec:others}
-
-% \subsection{Citations}
-% Citations use \verb+natbib+. The documentation may be found at
-% \begin{center}
-% 	\url{http://mirrors.ctan.org/macros/latex/contrib/natbib/natnotes.pdf}
-% \end{center}
-
-% Here is an example usage of the two main commands (\verb+citet+ and \verb+citep+): Some people thought a
-% thing \citep{kour2014real, hadash2018estimate} but other people thought something else \citep{kour2014fast}. 
-% Many people have speculated that if we knew exactly why \citet{kour2014fast} thought this\dots
-
-
-% \bibliographystyle{unsrtnat}
-% \bibliography{references}  %%% Uncomment this line and comment out the ``thebibliography'' section below to use the external .bib file (using bibtex) .
-
+\bibliographystyle{unsrtnat}
+\bibliography{references}
 
 \end{document}
