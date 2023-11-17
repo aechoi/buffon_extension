@@ -3,44 +3,44 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: buffon_extension.aux
 The style file: unsrtnat.bst
 Database file #1: references.bib
-You've used 1 entry,
+You've used 3 entries,
             2481 wiz_defined-function locations,
-            561 strings with 4671 characters,
-and the built_in function-call counts, 431 in all, are:
-= -- 42
-> -- 7
-< -- 1
-+ -- 4
-- -- 2
-* -- 33
-:= -- 72
-add.period$ -- 5
-call.type$ -- 1
-change.case$ -- 2
-chr.to.int$ -- 1
-cite$ -- 1
-duplicate$ -- 19
-empty$ -- 41
-format.name$ -- 3
-if$ -- 86
+            579 strings with 4990 characters,
+and the built_in function-call counts, 1169 in all, are:
+= -- 120
+> -- 21
+< -- 3
++ -- 12
+- -- 6
+* -- 87
+:= -- 188
+add.period$ -- 15
+call.type$ -- 3
+change.case$ -- 6
+chr.to.int$ -- 3
+cite$ -- 3
+duplicate$ -- 57
+empty$ -- 115
+format.name$ -- 9
+if$ -- 244
 int.to.chr$ -- 1
-int.to.str$ -- 2
-missing$ -- 1
-newline$ -- 15
-num.names$ -- 3
-pop$ -- 5
+int.to.str$ -- 4
+missing$ -- 3
+newline$ -- 29
+num.names$ -- 9
+pop$ -- 15
 preamble$ -- 1
-purify$ -- 1
+purify$ -- 3
 quote$ -- 0
-skip$ -- 12
+skip$ -- 34
 stack$ -- 0
-substring$ -- 33
-swap$ -- 2
+substring$ -- 81
+swap$ -- 6
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 7
+type$ -- 21
 warning$ -- 0
-while$ -- 4
+while$ -- 12
 width$ -- 0
-write$ -- 24
+write$ -- 58

@@ -1,18 +1,18 @@
 # Fdb version 4
-["bibtex buffon_extension"] 1697513433 "buffon_extension.aux" "buffon_extension.bbl" "buffon_extension" 1697513433 0
-  "./references.bib" 1697513432 361 e877381af8e7d3c3fb43d1d4d6368a89 ""
-  "buffon_extension.aux" 1697513421 10676 d8e961b03d20346b5e48b39914de7bfc "pdflatex"
+["bibtex buffon_extension"] 1699211769 "buffon_extension.aux" "buffon_extension.bbl" "buffon_extension" 1699211774 0
+  "./references.bib" 1699211719 1115 bd3b2e7afc769399c5f4c62a72e0904b ""
+  "buffon_extension.aux" 1699211772 10844 915b72f04cde45b6a3e554ba8149547d "pdflatex"
   "c:/texlive/2023/texmf-dist/bibtex/bst/natbib/unsrtnat.bst" 1693249707 24550 a41a6405f4de768c43e871d9fbce2bc8 ""
   (generated)
   "buffon_extension.bbl"
   "buffon_extension.blg"
   (rewritten before read)
-["pdflatex"] 1697513419 "c:/Users/Alex/Documents/_projTech/20 Buffon Extension/buffon_extension/doc/buffon_extension.tex" "buffon_extension.pdf" "buffon_extension" 1697513433 0
+["pdflatex"] 1699211770 "c:/Users/Alex/Documents/_projTech/20 Buffon Extension/buffon_extension/doc/buffon_extension.tex" "buffon_extension.pdf" "buffon_extension" 1699211774 0
   "arxiv.sty" 1693459923 7641 73d629a9ecdf79da8148f7f0df8c6662 ""
-  "buffon_extension.aux" 1697513421 10676 d8e961b03d20346b5e48b39914de7bfc "pdflatex"
-  "buffon_extension.bbl" 1697513433 594 97c654de468fe236749d39bbaf815776 "bibtex buffon_extension"
-  "buffon_extension.out" 1697513421 1776 098f17489389564de2b55bef550ff46a "pdflatex"
-  "c:/Users/Alex/Documents/_projTech/20 Buffon Extension/buffon_extension/doc/buffon_extension.tex" 1697513414 61691 6b8c3e01176bc690fc454d8b4ccf9ce4 ""
+  "buffon_extension.aux" 1699211772 10844 915b72f04cde45b6a3e554ba8149547d "pdflatex"
+  "buffon_extension.bbl" 1699211770 1184 040e13e171930f34dceaefd0ad14d261 "bibtex buffon_extension"
+  "buffon_extension.out" 1699211772 1776 098f17489389564de2b55bef550ff46a "pdflatex"
+  "c:/Users/Alex/Documents/_projTech/20 Buffon Extension/buffon_extension/doc/buffon_extension.tex" 1699211761 61626 b6237d426b390fcbb247283f26ab1daa ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc" 1693244953 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1693243799 2971 def0b6c1f0b107b3b936def894055589 ""
   "c:/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1693246040 3524 cb3e574dea2d1052e39280babc910dc8 ""

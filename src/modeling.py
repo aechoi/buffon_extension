@@ -159,6 +159,26 @@ def prob_of_crossing_small_r_ge(
     return probability
 
 
+def prob_upper_bound_of_crossing_big_r_ge(
+    lengths: np.array, dim: int, c: int, N: int, S: np.array
+):
+    """Returns an upper bound on the probability of crossing ge c hyperplanes.
+
+    Args:
+        - lengths: lengths of the line segment to calculate the prob of.
+            For now must be <= all S
+        - dim: the dimension of the space the needle is embedded in
+        - c: the number of hyperplanes
+        - N: the number of sets of parallel D-1 dimensional hyperplanes
+        - S: the spacing for each of the N hyperplanes. Must have length N.
+
+    Returns:
+        The upper bound probability that the line segment has at least 1 crossing in all
+        sets of hyperplanes."""
+    probability = 0
+    raise NotImplementedError
+
+
 def prob_of_crossing_vs_dim(
     length: int, dims: np.array, C: int = 0, N: int = 1, S=None
 ):

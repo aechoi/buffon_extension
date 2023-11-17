@@ -230,3 +230,21 @@ def get_sim_prob_le(
     ) * 1
     probabilities = np.sum(intersections, axis=1) / n_samples
     return probabilities
+
+
+def get_sim_prob_specific(
+    n_samples: int, lengths: np.array, crossings: np.array, spacing: np.array
+):
+    """Get the simulated probability that the number of crossings in specific
+    directions is greater than or equal to some value."""
+    dim = len(spacing)
+
+    xs = np.random.random((n_samples, dim)) * spacing[None, :]
+    hypersphere = get_samples_gaussian(n_samples, dim)
+    ys = xs[None, :] + lengths[:, None, None] * hypersphere[None, :]
+    ys = xs[None, :] + lengths[:, None, None] * np.array(hypersphere)
+    intersections = (
+        np.all(np.abs(ys // spacing[None, None, :]) >= crossings, axis=2)
+    ) * 1
+    probabilities = np.sum(intersections, axis=1) / n_samples
+    return probabilities

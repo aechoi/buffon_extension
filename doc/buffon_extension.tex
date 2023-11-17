@@ -80,9 +80,8 @@ $\frac{2r}{s\pi}$ when the needle is short, $r<s$. Variations and extensions of 
 \todo{cite all below}
 \begin{itemize}
 	\item Laplace's Extension - Investigating when the plane is gridded with 2 orthogonal sets of parallel lines with spacings $s_1$ and $s_2$.
-	\item Buffon's Noodle - Instead of being rigidly straight, the needle is permitted to bend (a "noodle").
+	\item Buffon's Noodle - Instead of being rigidly straight, the needle is permitted to bend (a "noodle") \citep{buffon_noodle}.
 \end{itemize}
-
 In this paper, we investigate a particular extension that allows the needle to be dropped into a space with dimension greater than 2. In these higher dimensions, we will rule the space
 with parallel hyperplanes rather than lines. Additionally, we will look at gridding the space with orthogonal sets of hyperplanes, thereby extending Laplace's extension into higher dimensions.
 
@@ -138,7 +137,7 @@ be derived.
 	\caption{Examples of different parameter sets}
 \end{figure}
 
-We will define the coordinates of line segment using $\vec{x}\in\mathbb{R}^D$ for the location of $P_0$ and spherical coordinates for the location of $P_1$ with respect to $P_0$.
+We will define the coordinates of line segment using $\vec{x}\in\mathbb{R}^D$ for the location of $P_0$ and spherical coordinates \citep{spherical_coordinates} for the location of $P_1$ with respect to $P_0$.
 
 \begin{align*}
     y_1 &= r\cos{\phi_1}\\
@@ -759,7 +758,7 @@ of satisfying the crossing conditions is trivially one. In other words
 		S_{h-1} &\le x_{h-1} + r\sin\phi_1\sin\phi_2\hdots\sin\phi_{h-2}\cos\phi_{h-1}\\
 		S_{h} &\le x_h + \begin{cases}
 			r\sin\phi_1\hdots\sin\phi_{h-1}\cos\phi_{h} & h < D \\
-			r\sin\phi_1\hdots\sin\phi_{h-2}\sin\phi_{h-1} & h = D
+			r\sin\phi_1\hdots\sin\phi_{h-1}\sin\phi_{h} & h = D
 		\end{cases}
 	\end{align}
 
@@ -958,8 +957,6 @@ Additional numeric validation for a variety of parameters is provided in Section
 % 	\end{align}
 % \end{proof}
 
-% \subsection{Longer Needles $N\ge 1, r>\min(S\textbackslash \min(S))$}\label{s:general longer needles}
-% aoeu
 
 \section{Numeric Simulation of Crossing and Other Conditions} \label{s:n=1 numeric}
 To summarize, the probability that a randomly placed line segment will cross at least $c$
